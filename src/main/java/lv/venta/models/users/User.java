@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -45,6 +46,10 @@ public class User {
 	@Email
 	private String email;
 
+	
+	@OneToOne(mappedBy = "user")
+	private Person person;
+	
 	public User(@NotNull String password, @NotNull @Email String email) {
 		super();
 		this.password = password;
