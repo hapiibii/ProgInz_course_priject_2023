@@ -3,6 +3,7 @@ package lv.venta.models.users;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lv.venta.models.Comment;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
 import lv.venta.models.Thesis;
@@ -37,6 +39,9 @@ public class AcademicPersonel extends Person {
 	@ManyToMany(mappedBy = "reviewers")
 	private Collection<Thesis> thesisForReview = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "supervisor")
+	private Collection<Comment> comments;
+	
 	public void addThesisForReviews(Thesis thesis) {
 		if(!thesisForReview.contains(thesis)) {
 			thesisForReview.add(thesis);
@@ -51,6 +56,7 @@ public class AcademicPersonel extends Person {
 		super(name, surname, personcode, user);
 		this.degree = degree;
 	}
+	
 	
 	
 }

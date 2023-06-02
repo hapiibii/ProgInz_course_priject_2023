@@ -21,7 +21,7 @@ import lombok.Setter;
 
 @Table(name = "person_table")
 @Entity
-@MappedSuperclass
+//@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor

@@ -42,7 +42,7 @@ public class Student extends Person {
 	private boolean financialDebt;
 
 	@ManyToMany
-	@JoinTable(name = "student_debt_courses_table", joinColumns = @JoinColumn(name = "Idcourse"), inverseJoinColumns = @JoinColumn(name = "Idstudent"))
+	@JoinTable(name = "student_debt_courses_table", joinColumns = @JoinColumn(name = "Idstudent"), inverseJoinColumns = @JoinColumn(name = "Idcourse"))
 	private Collection<Course> debtCourses = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "student")
