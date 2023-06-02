@@ -8,12 +8,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lv.venta.models.users.Student;
 
 //parlikt uz citu tabulu, ,urai nav saites
 
@@ -61,5 +64,9 @@ public class Thesis {
 	
 	@Column(name = "AccDateTime")
 	private LocalDateTime accDateTime;
+	
+	@ManyToOne
+	@JoinColumn(name = "Idstudent")
+	private Student student;
 
 }
