@@ -1,10 +1,12 @@
 package lv.venta.models.users;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -28,4 +30,13 @@ public class AcademicPersonel extends Person {
 	
 	@OneToMany(mappedBy = "supervisor")
 	private Collection<Thesis> thesis;
+	
+	@ManyToMany(mappedBy = "reviewers")
+	private Collection<Thesis> thesisForReview = new ArrayList<>();
+	
+	public void addThesisForReviews(Thesis thesis) {
+		if(!thesisForReview.contains(thesis)) {
+			thesisForReview.add(thesis);
+		}
+	}
 }

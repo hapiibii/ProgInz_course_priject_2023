@@ -1,6 +1,7 @@
 package lv.venta.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jakarta.persistence.Column;
@@ -9,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -74,5 +77,16 @@ public class Thesis {
 	@JoinColumn(name = "Idap")
 	private AcademicPersonel supervisor;
 	//TODO izveidot saiti ar konsultantu, vertetaju utt. ja nepieciesams
+	
+	@ManyToMany
+	@JoinTable(name = "thesis_reviewers", joinColumns = @JoinColumn(name = "Idthesis"), inverseJoinColumns = @JoinColumn(name = "Idap"))
+	private Collection<AcademicPersonel>  reviewers = new ArrayList<>();
+	
+	//TODO lidzigu funckiju uztaisit AcademicPOersonel klase
+	public void addReviewer(AcademicPersonel reviewer) {
+		if(!reviewers.contains(reviewer)) {
+			reviewers.add(reviewer);
+		}
+	}
 
 }
