@@ -43,7 +43,7 @@ public class Student extends Person {
 
 	@ManyToMany
 	@JoinTable(name = "student_debt_courses_table", joinColumns = @JoinColumn(name = "Idcourse"), inverseJoinColumns = @JoinColumn(name = "Idstudent"))
-	private Collection<Course> debtStudents = new ArrayList<>();
+	private Collection<Course> debtCourses = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "student")
 	private Collection<Thesis> thesis;
@@ -58,7 +58,11 @@ public class Student extends Person {
 		this.financialDebt = financialDebt;
 	}
 	
-	
+	public void addDebtCourse(Course course) {
+		if(!debtCourses.contains(course)) {
+			debtCourses.add(course);
+		}
+	}
 	
 	
 }

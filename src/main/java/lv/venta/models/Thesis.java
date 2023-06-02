@@ -89,4 +89,19 @@ public class Thesis {
 		}
 	}
 
+	public Thesis(String titleEn, String titleLv, String goal, String tasks, Student student,
+			AcademicPersonel supervisor) {
+		super();
+		this.titleEn = titleEn;
+		this.titleLv = titleLv;
+		this.goal = goal;
+		this.tasks = tasks;
+		this.student = student;
+		this.supervisor = supervisor;
+		this.submitDateTime = LocalDateTime.now();
+		this.accStatus = AcceptanceStatus.submited;
+	}
+	
+	
+
 }

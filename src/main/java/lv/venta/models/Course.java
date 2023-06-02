@@ -49,7 +49,7 @@ public class Course {
 	private int creditPoints;
 
 	@ManyToMany(mappedBy = "debtCourses")
-	private Collection<Student> debtCourses = new ArrayList<>();
+	private Collection<Student> debtStudents = new ArrayList<>();
 	
 	
 	public Course(
@@ -59,6 +59,13 @@ public class Course {
 		this.creditPoints = creditPoints;
 	}
 	
+	public void addStudent(Student student) {
+		if(!debtStudents.contains(student)) {
+			debtStudents.add(student);
+		}
+	}
+	
+	//TODO izveidot removeStudent
 	
 	
 }
