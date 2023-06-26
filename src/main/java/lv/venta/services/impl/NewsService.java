@@ -26,8 +26,26 @@ public class NewsService implements INewsService {
     }
 
     @Override
-    public void updateNews(News news) {
-        newsRepo.save(news);
+    public void updateNews(long newsId, String title, String description, LocalDate startDate, LocalDate endDate) {
+        News existingNews = newsRepo.findById(newsId).orElse(null);
+
+        if (existingNews != null) {
+            // Iestatām jaunās vērtības, ja tās ir norādītas
+            if (title != null) {
+                existingNews.setTitle(title);
+            }
+            if (description != null) {
+                existingNews.setDescription(description);
+            }
+            if (startDate != null) {
+                existingNews.setStartDate(startDate);
+            }
+            if (endDate != null) {
+                existingNews.setEndDate(endDate);
+            }
+
+            newsRepo.save(existingNews);
+        }
     }
 
     @Override
