@@ -9,6 +9,6 @@ import lv.venta.models.News;
 
 public interface INewsRepo extends CrudRepository<News, Long> {
 
-	List<News> findByEndDateGreaterThan(LocalDate currentDate);
+	List<News> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(LocalDate currentDate, LocalDate currentDate2);
 
 }

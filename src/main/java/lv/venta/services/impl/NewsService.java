@@ -66,6 +66,7 @@ public class NewsService implements INewsService {
 
     @Override
     public List<News> getActiveNews(LocalDate currentDate) {
-    	return newsRepo.findByEndDateGreaterThan(currentDate);
+    	//startDate ir mazāks vai vienāds ar currentDate un endDate ir lielāks vai vienāds ar currentDate
+        return newsRepo.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(currentDate, currentDate);
     }
 }
