@@ -15,6 +15,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,32 +42,49 @@ public class Thesis {
 	@Setter(value = AccessLevel.NONE)
 	private long idthesis;
 	
-	//TODO nepieciesamas validacijas
+	
 	@Column(name = "TitleEn")
+	@NotNull
+	@Size(min = 3, max = 150)
+	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "First character must be upper case")
 	private String titleEn;
 	
-	//TODO nepieciesamas validacijas
+	
 	@Column(name = "TitleLv")
+	@NotNull
+	@Size(min = 3, max = 150)
+	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
 	private String titleLv;
 		
-	//TODO nepieciesamas validacijas
+	
 	@Column(name = "Goal")
+	@NotNull
+	@Size(min = 3, max = 500)
+	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
 	private String goal;
 	
-	//TODO nepieciesamas validacijas
+	
 	@Column(name = "Tasks")
+	@NotNull
+	@Size(min = 3, max = 500)
+	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
 	private String tasks;
 	
-	//TODO servica vai konstruktora pie jauna objekta izveides jaizmanto LocalDateTime.now()
+	//TODO servisa vai konstruktora pie jauna objekta izveides jaizmanto LocalDateTime.now()
 	@Column(name = "SubmitDateTime")
+	@NotNull
+	//@Pattern("yyyy-mm-dd'T'hh:mm:ss")
 	private LocalDateTime submitDateTime;
 	
 	//TODO nepieciesamas validacijas
 	@Column(name = "StatusFromSupervisor")
+	@NotNull
+	//ko pievienot booleanam?
 	private boolean statusFromSupervisor;
 	
-	//TODO servica vai konstruktora uzlikt submited pec noklusejuma
+	
 	@Column(name = "AcceptanceStatus")
+	@NotNull
 	private AcceptanceStatus accStatus;
 	
 	@Column(name = "AccDateTime")
@@ -86,7 +106,7 @@ public class Thesis {
 	@OneToMany(mappedBy = "thesis")
 	private Collection<Comment> comments;
 	
-	//TODO lidzigu funckiju uztaisit AcademicPOersonel klase
+	//TODO lidzigu funckiju uztaisit AcademicPersonel klase
 	public void addReviewer(AcademicPersonel reviewer) {
 		if(!reviewers.contains(reviewer)) {
 			reviewers.add(reviewer);
