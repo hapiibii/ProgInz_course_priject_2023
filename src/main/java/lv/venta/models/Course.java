@@ -65,7 +65,7 @@ public class Course {
 		}
 	}
 	
-	//TODO izveidot removeStudent
+	//izveidot removeStudent
 	public void removeStudent(String matriculaNo) throws Exception {
 		boolean foundStudent = false;
 		for(Student temp : debtStudents) {
