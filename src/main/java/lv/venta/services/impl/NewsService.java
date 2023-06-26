@@ -6,6 +6,7 @@ import lv.venta.services.INewsService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +69,11 @@ public class NewsService implements INewsService {
     public List<News> getActiveNews(LocalDate currentDate) {
     	//startDate ir mazāks vai vienāds ar currentDate un endDate ir lielāks vai vienāds ar currentDate
         return newsRepo.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(currentDate, currentDate);
+    }
+
+    @Override
+    public News getNewsById(long newsId) {
+        Optional<News> newsOptional = newsRepo.findById(newsId);
+        return newsOptional.orElse(null);
     }
 }

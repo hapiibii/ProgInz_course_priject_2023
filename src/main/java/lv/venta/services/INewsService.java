@@ -11,5 +11,6 @@ public interface INewsService {
     void deleteNews(long newsId)throws Exception;
     List<News> getAllNews();
     List<News> getActiveNews(LocalDate currentDate);
+	News getNewsById(long newsId);
 	
 }

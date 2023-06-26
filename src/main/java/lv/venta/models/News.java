@@ -30,7 +30,7 @@ public class News {
 
     @Column(name = "Title")
     @NotNull
-    @Size(min = 5, max = 35)
+    @Size(min = 3, max = 35)
     private String title;
 
     @Column(name = "Description")
