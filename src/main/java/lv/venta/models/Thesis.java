@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +29,7 @@ import lombok.ToString;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Student;
 
-//parlikt uz citu tabulu, ,urai nav saites
+//pārlikt uz citu tabulu, kurai nav saites
 
 @Table(name = "thesis_table")
 @Entity
@@ -70,16 +73,15 @@ public class Thesis {
 	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
 	private String tasks;
 	
-	//TODO servisa vai konstruktora pie jauna objekta izveides jaizmanto LocalDateTime.now()
+	
 	@Column(name = "SubmitDateTime")
 	@NotNull
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	//@Pattern("yyyy-mm-dd'T'hh:mm:ss")
 	private LocalDateTime submitDateTime;
 	
-	//TODO nepieciesamas validacijas
+
 	@Column(name = "StatusFromSupervisor")
-	@NotNull
-	//ko pievienot booleanam?
 	private boolean statusFromSupervisor;
 	
 	
@@ -97,7 +99,7 @@ public class Thesis {
 	@ManyToOne
 	@JoinColumn(name = "Idap")
 	private AcademicPersonel supervisor;
-	//TODO izveidot saiti ar konsultantu, vertetaju utt. ja nepieciesams
+	
 	
 	@ManyToMany
 	@JoinTable(name = "thesis_reviewers", joinColumns = @JoinColumn(name = "Idthesis"), inverseJoinColumns = @JoinColumn(name = "Idap"))
@@ -106,7 +108,7 @@ public class Thesis {
 	@OneToMany(mappedBy = "thesis")
 	private Collection<Comment> comments;
 	
-	//TODO lidzigu funckiju uztaisit AcademicPersonel klase
+	
 	public void addReviewer(AcademicPersonel reviewer) {
 		if(!reviewers.contains(reviewer)) {
 			reviewers.add(reviewer);
