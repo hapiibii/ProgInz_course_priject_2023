@@ -66,6 +66,19 @@ public class Course {
 	}
 	
 	//TODO izveidot removeStudent
+	public void removeStudent(String matriculaNo) throws Exception {
+		boolean foundStudent = false;
+		for(Student temp : debtStudents) {
+			if(temp.getMatriculaNo().equals(matriculaNo)) {
+				debtStudents.remove(temp);
+				foundStudent = true;
+				break;
+			}
+		}
+		if (!foundStudent) {
+			throw new Exception("Wrong Matricula Number!");
+		}
+	}
 	
 	
 }
