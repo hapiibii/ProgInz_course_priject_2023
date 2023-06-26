@@ -1,5 +1,9 @@
 package lv.venta.repos;
 
-public interface ISubmissionRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import lv.venta.models.Submission;
+
+public interface ISubmissionRepo extends CrudRepository<Submission, Long>{
 
 }
