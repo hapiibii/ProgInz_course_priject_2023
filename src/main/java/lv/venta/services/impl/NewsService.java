@@ -26,7 +26,7 @@ public class NewsService implements INewsService {
     }
 
     @Override
-    public void updateNews(long newsId, String title, String description, LocalDate startDate, LocalDate endDate) {
+    public void updateNews(long newsId, String title, String description, LocalDate startDate, LocalDate endDate) throws Exception {
         News existingNews = newsRepo.findById(newsId).orElse(null);
 
         if (existingNews != null) {
@@ -45,12 +45,18 @@ public class NewsService implements INewsService {
             }
 
             newsRepo.save(existingNews);
+        } else {
+            throw new Exception("Jaunums netika atrasts");
         }
     }
 
     @Override
-    public void deleteNews(long newsId) {
-        newsRepo.deleteById(newsId);
+    public void deleteNews(long newsId) throws Exception {
+        try {
+            newsRepo.deleteById(newsId);
+        } catch (Exception e) {
+            throw new Exception("Neizdevās dzēst jaunumu ar ID: " + newsId, e);
+        }
     }
 
     @Override
