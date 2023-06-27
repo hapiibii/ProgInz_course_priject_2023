@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Confirmation</title>
+</head>
+<body>
+    <h1>Delete Confirmation</h1>
+    <p>Vai tiešām vēlies izdzēst jaunumu ar nosaukumu: <span th:text="${news.title}"></span>?</p>
+    <form method="post" th:action="@{/home-page/delete/{newsId}(newsId=${news.idNews})}">
+        <input type="hidden" id="newsId" name="newsId" th:value="${news.idNews}">
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>

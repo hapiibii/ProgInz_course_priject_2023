@@ -1,11 +1,14 @@
 package lv.venta;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import lv.venta.models.Comment;
+import lv.venta.models.News;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
 import lv.venta.models.Thesis;
@@ -82,6 +85,10 @@ public class ProgInzCourseProjectApplication {
 				Comment com2 = new Comment("Viss cotka", ac1, th2);
 				commentRepo.save(com1);
 				commentRepo.save(com2);
+				
+				LocalDate today = LocalDate.now();
+				LocalDate tomorrow = LocalDate.now().plusDays(1);
+				News new1 = new News ("Parbaude", "Seit ir parbaude vai var pievienot jaunumu", today, tomorrow);
 			}
 		};
 	}
