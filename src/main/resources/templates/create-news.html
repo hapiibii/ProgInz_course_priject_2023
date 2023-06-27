@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create News</title>
+</head>
+<body>
+    <h1>Create News</h1>
+    <form method="post" th:action="@{/home-page/create}">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required><br>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required><br>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required><br>
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>
