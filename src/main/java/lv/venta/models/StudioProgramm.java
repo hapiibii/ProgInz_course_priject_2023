@@ -58,27 +58,5 @@ public class StudioProgramm {
 		this.title = title;
 	}
 	
-	//add activity
-	public void addActivity(CalendarSchedule activity) {
-		if(!activities.contains(activity)) {
-			activities.add(activity);
-		}
-	}
-	
-	//remove activity
-	public void removeActivity(long idactivity) throws Exception {
-		boolean foundAct = false;
-		for(CalendarSchedule temp : activities) {
-			if(temp.getIdactivity == idactivity) {
-				activities.remove(temp);
-				foundAct = true;
-				break;
-			}
-		}
-		if(!foundAct) {
-			throw new Exception("Wrong activity ID!");
-		}
-	}
-	
 
 }
