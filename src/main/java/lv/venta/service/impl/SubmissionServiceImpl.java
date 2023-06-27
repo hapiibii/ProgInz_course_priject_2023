@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.springframework.cglib.core.Local;
 
+import lv.venta.models.Documents;
 import lv.venta.models.Submission;
 import lv.venta.service.ISubmissionService;
 
@@ -71,6 +72,18 @@ public class SubmissionServiceImpl implements ISubmissionService{
 		throw new Exception("Submission with this ID don`t exist!");
 	}
 	
-	
+	// ievietošana
+	@Override
+	public Submission insertSubmission (LocalDateTime submissionDate, File file) {
+		for (Submission temp : allSubmissions) {
+			if (temp.getSubmissionDate().equals(submissionDate)) {
+				temp.setFile(file);
+				return temp;
+			}
+		}
+		Submission newSubmission = new Submission(submissionDate, file);
+		allSubmissions.add(newSubmission);
+		return newSubmission;
+	}
 	
 }

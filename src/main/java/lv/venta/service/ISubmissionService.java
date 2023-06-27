@@ -18,4 +18,6 @@ public interface ISubmissionService {
 
 	Submission updateSubmission(long idsubmission, LocalDateTime submissionDate, File file) throws Exception;
 
+	Submission insertSubmission(LocalDateTime submissionDate, File file);
+
 }
