@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lv.venta.models.Course;
+import lv.venta.models.Submission;
 import lv.venta.models.Thesis;
 
 @Table(name = "student_table")
@@ -48,6 +49,9 @@ public class Student extends Person {
 	@OneToMany(mappedBy = "student")
 	private Collection<Thesis> thesis;
 	
+	@ManyToMany(mappedBy = "submissions")
+	private Collection<Submission> studentSubmission = new ArrayList<>();
+	
 	public Student(
 			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
 			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
@@ -64,5 +68,10 @@ public class Student extends Person {
 		}
 	}
 	
+	public void addStudentSubmission(Submission submission) {
+		if(!studentSubmission.contains(submission)) {
+			studentSubmission.add(submission);
+		}
+	}
 	
 }
