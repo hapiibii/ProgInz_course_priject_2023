@@ -90,6 +90,8 @@ public class Thesis {
 	private AcceptanceStatus accStatus;
 	
 	@Column(name = "AccDateTime")
+	@NotNull
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime accDateTime;
 	
 	@ManyToOne
