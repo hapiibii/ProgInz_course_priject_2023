@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>One Submission</title>
+</head>
+
+	<body>
+		<h1>Information about one submission</h1>
+		
+		<table>
+			<tr>
+				<th>ID<th>
+				<th>Date<th>
+				<th>File<th>
+			</tr>
+			
+			<tr th:if="${myAllSubmissions != null}">
+				<td th:text="${submission.idsubmission}"></td>
+				<td th:text="${submission.submissionDate}"></td>
+				<td th:text="${submission.file}"></td>
+			</tr>
+		</table>
+	</body>
+</html>

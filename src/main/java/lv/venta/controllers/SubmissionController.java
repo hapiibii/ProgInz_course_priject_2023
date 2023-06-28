@@ -88,7 +88,7 @@ public class SubmissionController {
 			}
 		}
 		else {
-			return "update-page";
+			return "submission-update-page";
 		}
 	}
 	

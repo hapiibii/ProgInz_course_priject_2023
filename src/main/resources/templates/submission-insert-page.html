@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<form action="#"  th:action="@{/insert}"  th:object="${submission}"   method="post">
+		<table>
+			<tr>
+				<td>Submission date:</td>
+				<td><input type="text" th:field="*{submissionDate}"   />  </td>
+				<td th:if="${#fields.hasErrors('submissionDate')}" th:errors="*{submissionDate}"> Invalid date </td>
+			</tr>
+			
+			<tr>
+				<td>Submission file:</td>
+				<td><input type="text" th:field="*{file}"   />  </td>
+				<td th:if="${#fields.hasErrors('file')}" th:errors="*{file}"> Invalid file </td>
+			</tr>
+			
+			<tr>
+				<td> <button type="submit"> Save submission </button> </td>
+			</tr>	
+		</table>
+		
+		
+	</form>
+	
+	
+</html>
