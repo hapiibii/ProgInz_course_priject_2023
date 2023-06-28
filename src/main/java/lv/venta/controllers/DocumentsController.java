@@ -1,5 +1,6 @@
 package lv.venta.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import lv.venta.models.Documents;
@@ -100,10 +103,24 @@ public class DocumentsController {
 	}
 	
 	@PostMapping("/insert")
-	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result) {
+	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
 		if (!result.hasErrors()) {
-			documentsService.insertDocument(document.getDocumentName(), document.getFile());
-			return "redirect:/showAll";
+			try {
+				if (!file.isEmpty()) {
+					//Iegūst faila nosaukumu un saglabāšanas ceļu
+					String fileName = file.getOriginalFilename();
+					String filePath = "/path/to/save/directory" + fileName;
+					//Saglabā failu vietējā failu sistēmā
+					file.transferTo(new File(filePath));
+					//Iesaista faila objektu ievades parametrā
+					document.setFile(new File(filePath));
+				}
+				documentsService.insertDocument(document.getDocumentName(), document.getFile());
+				return "redirect:/showAll";
+			}
+			catch (Exception e) {
+				return "error-page";
+			}
 		}
 		else {
 			return "document-insert-page";
