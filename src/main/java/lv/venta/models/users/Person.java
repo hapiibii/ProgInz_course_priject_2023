@@ -75,7 +75,7 @@ public class Person {
 		this.user = user;
 	}
 
-	//for foreign students without person code
+	//for foreigners without person code
 	public Person(
 			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
 			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
