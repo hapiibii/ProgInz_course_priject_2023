@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<form action="#"  th:action="@{/insert}"  th:object="${document}"   method="post">
+	<form action="#"  th:action="@{/insert}"  th:object="${document}"   method="post" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>Document name:</td>
@@ -8,9 +8,8 @@
 			</tr>
 			
 			<tr>
-				<td>Document file:</td>
-				<td><input type="text" th:field="*{file}"   />  </td>
-				<td th:if="${#fields.hasErrors('file')}" th:errors="*{file}"> Invalid file </td>
+				<td>Submission file:</td>
+				<td><input type="file" name="file" /></td>
 			</tr>
 			
 			<tr>
