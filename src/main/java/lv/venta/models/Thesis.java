@@ -1,8 +1,10 @@
+
 package lv.venta.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -29,97 +31,81 @@ import lombok.ToString;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Student;
 
-//pārlikt uz citu tabulu, kurai nav saites
-
-@Table(name = "thesis_table")
 @Entity
+@Table(name = "thesis_table")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class Thesis {
-	
-	@Column(name = "Idthesis")
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "idthesis")
 	@Setter(value = AccessLevel.NONE)
 	private long idthesis;
-	
-	
-	@Column(name = "TitleEn")
-	@NotNull
-	@Size(min = 3, max = 150)
-	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "First character must be upper case")
-	private String titleEn;
-	
-	
-	@Column(name = "TitleLv")
-	@NotNull
-	@Size(min = 3, max = 150)
-	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
-	private String titleLv;
-		
-	
-	@Column(name = "Goal")
-	@NotNull
-	@Size(min = 3, max = 500)
-	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
-	private String goal;
-	
-	
-	@Column(name = "Tasks")
-	@NotNull
-	@Size(min = 3, max = 500)
-	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
-	private String tasks;
-	
-	
-	@Column(name = "SubmitDateTime")
-	@NotNull
-	@DateTimeFormat(iso = ISO.DATE_TIME)
-	//@Pattern("yyyy-mm-dd'T'hh:mm:ss")
-	private LocalDateTime submitDateTime;
-	
 
-	@Column(name = "StatusFromSupervisor")
-	private boolean statusFromSupervisor;
-	
-	
-	@Column(name = "AcceptanceStatus")
 	@NotNull
-	private AcceptanceStatus accStatus;
-	
-	@Column(name = "AccDateTime")
+	@Size(min = 3, max = 150)
+	//@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "First character must be uppercase")
+	@Column(name = "title_en")
+	private String titleEn;
+
 	@NotNull
+	@Size(min = 3, max = 150)
+	//@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābūt lielajam")
+	@Column(name = "title_lv")
+	private String titleLv;
+
+	@NotNull
+	@Size(min = 3, max = 500)
+	//@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābūt lielajam")
+	@Column(name = "goal")
+	private String goal;
+
+	@NotNull
+	@Size(min = 3, max = 500)
+	//@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābūt lielajam")
+	@Column(name = "tasks")
+	private String tasks;
+
+	@NotNull
+	@Column(name = "submit_date_time")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime submitDateTime;
+
+	@Column(name = "status_from_supervisor")
+	private boolean statusFromSupervisor;
+
+	@NotNull
+	@Column(name = "acceptance_status")
+	private AcceptanceStatus accStatus;
+
 	private LocalDateTime accDateTime;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "Idstudent")
+	@JoinColumn(name = "idstudent")
 	private Student student;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "Idap")
+	@JoinColumn(name = "idap")
 	private AcademicPersonel supervisor;
-	
-	
+
 	@ManyToMany
-	@JoinTable(name = "thesis_reviewers", joinColumns = @JoinColumn(name = "Idthesis"), inverseJoinColumns = @JoinColumn(name = "Idap"))
-	private Collection<AcademicPersonel>  reviewers = new ArrayList<>();
-	
+	@JoinTable(name = "thesis_reviewers", joinColumns = @JoinColumn(name = "idthesis"), inverseJoinColumns = @JoinColumn(name = "idap"))
+	private Collection<AcademicPersonel> reviewers = new ArrayList<>();
+
 	@OneToMany(mappedBy = "thesis")
 	private Collection<Comment> comments;
-	
-	
+
 	public void addReviewer(AcademicPersonel reviewer) {
-		if(!reviewers.contains(reviewer)) {
+		if (!reviewers.contains(reviewer)) {
 			reviewers.add(reviewer);
 		}
 	}
 
 	public Thesis(String titleEn, String titleLv, String goal, String tasks, Student student,
 			AcademicPersonel supervisor) {
-		super();
 		this.titleEn = titleEn;
 		this.titleLv = titleLv;
 		this.goal = goal;
@@ -129,7 +115,4 @@ public class Thesis {
 		this.submitDateTime = LocalDateTime.now();
 		this.accStatus = AcceptanceStatus.submited;
 	}
-	
-	
-
 }

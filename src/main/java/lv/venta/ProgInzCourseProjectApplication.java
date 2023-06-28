@@ -71,19 +71,24 @@ public class ProgInzCourseProjectApplication {
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
-				Thesis th1 = new Thesis("Sistemas izstrade", "Developement of System", "Development", "1...2.3..4", s1, ac1);
-				Thesis th2 = new Thesis("Petijums", "Research", "Research", "1...2.3..4", s2, ac2);
-				th1.addReviewer(ac2);
-				th2.addReviewer(ac1);
-				thesisRepo.save(th1);
-				thesisRepo.save(th2);
-				ac1.addThesisForReviews(th2);
-				ac2.addThesisForReviews(th1);
+				
+				Thesis thesis1 = new Thesis("Title 1 EN", "Title 1 LV", "Goal 1", "Tasks 1", s1, ac1);
+				Thesis thesis2 = new Thesis("Title 2 EN", "Title 2 LV", "Goal 2", "Tasks 2", s2, ac2);
+				thesis1.addReviewer(ac2);
+				thesis2.addReviewer(ac1);
+				thesisRepo.save(thesis1);
+				thesisRepo.save(thesis2);
+				
+				
+
+		
+				ac1.addThesisForReviews(thesis2);
+				ac2.addThesisForReviews(thesis1);
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
-				Comment com1 = new Comment("Nepareizs nosaukums", ac2, th1);
-				Comment com2 = new Comment("Viss cotka", ac1, th2);
+				Comment com1 = new Comment("Nepareizs nosaukums", ac2, thesis1);
+				Comment com2 = new Comment("Viss cotka", ac1, thesis2);
 				commentRepo.save(com1);
 				commentRepo.save(com2);
 				

@@ -76,4 +76,6 @@ public class NewsService implements INewsService {
         Optional<News> newsOptional = newsRepo.findById(newsId);
         return newsOptional.orElse(null);
     }
+    
+    
 }

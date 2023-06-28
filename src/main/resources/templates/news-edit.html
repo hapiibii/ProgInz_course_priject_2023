@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jaunuma rediģēšana</title>
+</head>
+<body>
+    <h1>Jaunuma rediģēšana</h1>
+
+    <form method="post" th:action="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">
+        <input type="hidden" id="newsId" name="newsId" th:value="${news.idNews}">
+        
+        <label for="title">Virsraksts:</label><br>
+        <input type="text" id="title" name="title" th:value="${news.title}" required><br><br>
+
+        <label for="description">Apraksts:</label><br>
+         <textarea id="description" name="description" required th:text="${news.description}"></textarea><br><br>
+
+        <label for="startDate">Sākuma datums:</label><br>
+        <input type="date" id="startDate" name="startDate" th:value="${news.startDate}" required><br><br>
+
+        <label for="endDate">Beigu datums:</label><br>
+        <input type="date" id="endDate" name="endDate" th:value="${news.endDate}" required><br><br>
+
+        <input type="submit" value="Saglabāt">
+    </form>
+</body>
+</html>
