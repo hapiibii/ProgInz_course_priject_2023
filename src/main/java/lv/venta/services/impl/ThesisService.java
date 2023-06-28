@@ -82,7 +82,18 @@ public class ThesisService implements IThesisService {
 	public List<Thesis> getAllThesises() {
 		return (List<Thesis>) thesisRepo.findAll();
 	}
+
+	@Override
+	public List<Thesis> getThesisesByAcceptanceStatus(AcceptanceStatus accStatus) {
+		
+		return thesisRepo.findByAcceptanceStatus(accStatus);
+	}
+
+	@Override
+	public List<Thesis> getThesisesBySupervisorStatus(boolean statusFromSupervisor) {
+		
+		return thesisRepo.findBySupervisorStatus(statusFromSupervisor);
+	}
 	
-	//TODO pievienot 2 funkcijas no Repozitorijas!!!
 
 }

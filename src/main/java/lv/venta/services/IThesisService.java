@@ -12,9 +12,12 @@ public interface IThesisService {
 	void createThesis(Thesis thesis);
 	void deleteThesis(long idthesis) throws Exception;
 	void updateThesis(long idthesis, String titleEn, String titleLv, String goal, String tasks, Student student,
-			AcademicPersonel supervisor, AcceptanceStatus status) throws Exception;
+			AcademicPersonel supervisor, AcceptanceStatus accStatus) throws Exception;
 	List<Thesis> getAllThesises();
 	
-	//TODO pievienot funkcijas prieks Repo funkcijam
+	
+	List<Thesis> getThesisesByAcceptanceStatus(AcceptanceStatus accStatus);
+	
+	List<Thesis> getThesisesBySupervisorStatus(boolean statusFromSupervisor);
 	
 }
