@@ -38,13 +38,13 @@ public class Person {
 	@Column(name = "Name")
 	@NotNull
 	@Size(min = 3, max = 15)
-	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam")
+	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam")
 	private String name;
 	
 	@Column(name = "Surname")
 	@NotNull
 	@Size(min = 3, max = 15)
-	@Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam")
+	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam")
 	private String surname;
 	
 	@Column(name = "Personcode")
