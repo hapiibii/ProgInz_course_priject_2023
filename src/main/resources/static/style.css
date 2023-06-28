@@ -1,0 +1,11 @@
+/* style.css */
+
+/* Augšpusēm gaiši žaļš fons */
+body {
+  background-color: lightgreen;
+}
+
+/* Galvenes tumši zaļa */
+h1 {
+  color: darkgreen;
+}

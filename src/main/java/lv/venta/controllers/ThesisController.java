@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lv.venta.models.Thesis;
-import lv.venta.services.IAcademicPersonelService;
-import lv.venta.services.IStudentService;
+import lv.venta.services.ICommentService;
 import lv.venta.services.IThesisService;
 
 @Controller
@@ -18,16 +17,11 @@ public class ThesisController {
 	
 	private final IThesisService thesisService;
 	private final ICommentService commentService;
-	private final IAcademicPersonelService academicPersonelService;
-	private final IStudentService studentService;
 	
 	@Autowired
-	public ThesisController (IThesisService thesisService, ICommentService commentService, 
-			IAcademicPersonelService academicPersonelService, IStudentService studentService) {
+	public ThesisController (IThesisService thesisService, ICommentService commentService) {
 		this.thesisService = thesisService;
 		this.commentService = commentService;
-		this.academicPersonelService = academicPersonelService;
-		this.studentService = studentService;
 	}
 	
 	//TODO all-thesises get
