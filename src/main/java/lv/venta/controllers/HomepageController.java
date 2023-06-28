@@ -22,6 +22,7 @@ public class HomepageController {
 
 	 private final INewsService newsService;
 	 private final ICalendarService calendarService;
+	 private final IStudioProgrammServic studioProgService;
 
 	 @Autowired
 	 public HomepageController(INewsService newsService, ICalendarService calendarService) {
@@ -117,14 +118,18 @@ public class HomepageController {
          return "redirect:/home-page";
      }
 
-    /* // Iegūt kālendāra grafikus pēc studiju programmas
-     @GetMapping("/schedules/{programId}")
-     public String showSchedulesByProgram(@PathVariable("programId") long programId, Model model) {
-         StudioProgramm program = calendarService.getStudioProgrammById(programId);
-         List<CalendarSchedule> scheduleList = calendarService.getCalendarSchedulesByProgram(program);
+     
+     //TODO japarbauda kad Albina pabeigs savu
+  // Iegūt kālendāra grafikus pēc gada un programmas
+     @GetMapping("/schedules/{year}/{programId}")
+     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
+                                                 @PathVariable("programId") long programId,
+                                                 Model model) {
+         StudioProgramm program = studioProgService.getStudioProgrammById(programId);
+         List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
          model.addAttribute("program", program);
          model.addAttribute("scheduleList", scheduleList);
          return "schedules-by-program";
      }
-  */
+
 }

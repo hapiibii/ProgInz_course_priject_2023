@@ -33,7 +33,6 @@ public class CalendarService implements ICalendarService {
 		    }
 	}
 
-
 	 @Override
 	 public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
 		 LocalDate currentDate = LocalDate.now();
@@ -72,6 +71,19 @@ public class CalendarService implements ICalendarService {
 	            }
 	        }
 	        return null;
+	    }  
+	    
+	    @Override
+	    public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
+	        List<CalendarActivity> matchingActivities = new ArrayList<>();
+
+	        for (StudioProgramm program : getAllStudioProgramms()) {
+	            if (program.getTitle().equals(title)) {
+	                matchingActivities.addAll(program.getActivities());
+	            }
+	        }
+
+	        return matchingActivities;
 	    }
-	}
+}
 
