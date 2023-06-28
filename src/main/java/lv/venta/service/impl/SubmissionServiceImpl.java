@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Service;
 
 import lv.venta.models.Documents;
 import lv.venta.models.Submission;
 import lv.venta.service.ISubmissionService;
 
+@Service
 public class SubmissionServiceImpl implements ISubmissionService{
 	
 	private ArrayList<Submission> allSubmissions = new ArrayList<>();
