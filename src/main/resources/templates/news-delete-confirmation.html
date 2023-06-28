@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Izdēst janumu</title>
+</head>
+<body>
+    <h1>Izdēst janumu</h1>
+
+    <p>Vai tiešām vēlies dzēst šo jaunumu?</p>
+    <h2>Nsakums: <span th:text="${news.title}"></span></h2>
+    <p>Apraksts: <span th:text="${news.description}"></span></p>
+    <p>Sākuma datums: <span th:text="${news.startDate}"></span></p>
+    <p>Beigu datums: <span th:text="${news.endDate}"></span></p>
+
+    <form th:action="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" method="POST">
+        <button type="submit">Dzēst</button>
+    </form>
+    
+    <a href="/home-page">Uz sākumlapu</a>
+</body>
+</html>
+

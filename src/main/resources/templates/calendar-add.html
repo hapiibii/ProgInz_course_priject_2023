@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pievienot kalendāra grafiku</title>
+</head>
+<body>
+    <h1>Pievienot kalendāra grafiku</h1>
+    
+    <form action="/home-page/add-activity" method="post">
+        <label for="gads">Gads:</label>
+        <input type="text" name="gads" id="gads" required><br><br>
+        
+        <label for="studioProgrammId">Studiju programma ID:</label>
+        <input type="text" name="studioProgrammId" id="studioProgrammId" required><br><br>
+        
+        <label for="activity">Aktivitāte:</label>
+        <input type="text" name="activity" id="activity" required><br><br>
+        
+        <label for="activityEndDate">Beigu datums:</label>
+        <input type="date" name="activityEndDate" id="activityEndDate" required><br><br>
+        
+        <label for="activityImplementation">Realizācija:</label>
+        <textarea name="activityImplementation" id="activityImplementation" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Pievienot">
+    </form>
+</body>
+</html>

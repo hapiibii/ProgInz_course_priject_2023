@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sākumlapa</title>
+</head>
+<body>
+    <h1>Sākumlapa</h1>
+
+    <h2>Jaunimi</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <!-- Iterēt caur newsList un attēlot jaunumus -->
+        <tr th:each="news : ${activeNewsList}">
+            <td th:text="${news.title}"></td>
+            <td th:text="${news.description}"></td>
+            <td><a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">Labot</a></td>
+            <td><a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a></td>
+        </tr>
+    </table>
+
+    <!-- Izveidot pogu, kas noved uz jaunu jaunumu pievienošanas formu -->
+    <a href="/home-page/create-news">Izveidot jaunumu</a>
+    
+    <!-- Visi jaunumi -->
+    <a href="/home-page/all-news">Visi jaunumi</a>
+    
+    <h2>Kalendārais grafiks</h2>
+    <table>
+        <tr>
+            <th>Activity</th>
+            <th>Implementation</th>
+            <th>End Date</th>
+        </tr>
+        <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
+        <tr th:each="activity : ${scheduleList}">
+            <td th:text="${activity.activity}"></td>
+            <td th:text="${activity.activityImplementation}"></td>
+            <td th:text="${activity.activityEndDate}"></td>
+        </tr>
+    </table>
+    
+    <!-- Pievienot kalendāra grafiku poga -->
+<a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
+
+</body>
+</html>
