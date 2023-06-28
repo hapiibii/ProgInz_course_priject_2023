@@ -1,10 +1,10 @@
-package lv.venta.service.impl;
+package lv.venta.services.impl;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import lv.venta.models.Documents;
-import lv.venta.service.IDocumentsService;
+import lv.venta.services.IDocumentsService;
 
 public class DocumentsServiceImpl implements IDocumentsService{
 

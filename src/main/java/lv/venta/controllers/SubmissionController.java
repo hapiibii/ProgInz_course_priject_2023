@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import lv.venta.models.Submission;
-import lv.venta.service.impl.SubmissionServiceImpl;
+import lv.venta.services.impl.SubmissionServiceImpl;
 
 @Controller
 @RequestMapping("/submission")

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import lv.venta.models.Documents;
-import lv.venta.service.impl.DocumentsServiceImpl;
+import lv.venta.services.impl.DocumentsServiceImpl;
 
 @Controller
 @RequestMapping("/document")

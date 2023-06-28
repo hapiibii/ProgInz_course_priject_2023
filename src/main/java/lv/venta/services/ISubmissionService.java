@@ -1,4 +1,4 @@
-package lv.venta.service;
+package lv.venta.services;
 
 import java.io.File;
 import java.time.LocalDateTime;

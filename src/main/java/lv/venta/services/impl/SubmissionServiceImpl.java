@@ -1,4 +1,4 @@
-package lv.venta.service.impl;
+package lv.venta.services.impl;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -9,7 +9,7 @@ import org.springframework.cglib.core.Local;
 
 import lv.venta.models.Documents;
 import lv.venta.models.Submission;
-import lv.venta.service.ISubmissionService;
+import lv.venta.services.ISubmissionService;
 
 public class SubmissionServiceImpl implements ISubmissionService{
 	
