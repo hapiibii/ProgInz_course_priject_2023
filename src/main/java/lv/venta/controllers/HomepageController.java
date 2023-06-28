@@ -3,6 +3,7 @@ package lv.venta.controllers;
 import lv.venta.models.News;
 import lv.venta.models.StudioProgramm;
 import lv.venta.services.INewsService;
+import lv.venta.services.IStudioProgrammService;
 import lv.venta.services.impl.NewsService;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
@@ -22,12 +23,13 @@ public class HomepageController {
 
 	 private final INewsService newsService;
 	 private final ICalendarService calendarService;
-	 private final IStudioProgrammServic studioProgService;
+	 private final IStudioProgrammService studioProgService;
 
 	 @Autowired
-	 public HomepageController(INewsService newsService, ICalendarService calendarService) {
+	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService) {
 		 this.newsService = newsService;
 	     this.calendarService = calendarService;
+	     this.studioProgService = studioProgService;
 	 }
  
 	 @GetMapping
@@ -119,8 +121,7 @@ public class HomepageController {
      }
 
      
-     //TODO japarbauda kad Albina pabeigs savu
-  // Iegūt kālendāra grafikus pēc gada un programmas
+     // Iegūt kālendāra grafikus pēc gada un programmas
      @GetMapping("/schedules/{year}/{programId}")
      public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
                                                  @PathVariable("programId") long programId,

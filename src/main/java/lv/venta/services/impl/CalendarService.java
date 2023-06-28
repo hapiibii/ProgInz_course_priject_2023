@@ -3,21 +3,34 @@ package lv.venta.services.impl;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
+import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.ICalendarService;
+import lv.venta.services.IStudioProgrammService;
 
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CalendarService implements ICalendarService {
 	private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
+	
+	private ICalendarRepo calendarRepo;
+	private IStudioProgrammService studioProgrammService;
 
+	@Autowired
+    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService) {
+        this.calendarRepo = calendarRepo;
+		this.studioProgrammService = studioProgrammService;
+    }
+	
 	@Override
 	public void addActivity(StudioProgramm studioProgramm, int gads, String activity, LocalDate activityEndDate, String activityImplementation) {
 	    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(gads, studioProgramm);
@@ -73,17 +86,24 @@ public class CalendarService implements ICalendarService {
 	        return null;
 	    }  
 	    
+	    
 	    @Override
 	    public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
 	        List<CalendarActivity> matchingActivities = new ArrayList<>();
 
-	        for (StudioProgramm program : getAllStudioProgramms()) {
+	        for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) {
 	            if (program.getTitle().equals(title)) {
-	                matchingActivities.addAll(program.getActivities());
+	                Collection<CalendarSchedule> schedules = program.getActivities();
+	                for (CalendarSchedule schedule : schedules) {
+	                    List<CalendarActivity> activities = schedule.getActivities();
+	                    matchingActivities.addAll(activities);
+	                }
 	            }
 	        }
 
 	        return matchingActivities;
 	    }
+
+
 }
 
