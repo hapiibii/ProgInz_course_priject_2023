@@ -53,8 +53,8 @@ public class Student extends Person {
 	private Collection<Submission> studentSubmission = new ArrayList<>();
 	
 	public Student(
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
 			@NotNull @Size(min = 12, max = 12) @Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Pirmajam burtam jabut lielajam") String personcode, @NotNull Role role,
 			User user, @NotNull @Pattern(regexp = "[0-9]{8,20}") String matriculaNo, boolean financialDebt) {
 		super(name, surname, personcode, role, user);
@@ -64,8 +64,8 @@ public class Student extends Person {
 	
 	//for foreign students
 	public Student(
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
 			@NotNull Role role,
 			User user, @NotNull @Pattern(regexp = "[0-9]{8,20}") String matriculaNo, boolean financialDebt) {
 		super(name, surname, role, user);
