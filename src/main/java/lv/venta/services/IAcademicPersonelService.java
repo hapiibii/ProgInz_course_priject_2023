@@ -10,4 +10,5 @@ public interface IAcademicPersonelService {
 	void updateAcademicPersonelWithPersoncode(long idperson, String name, String surname, String personcode, Role role, User user, Degree degree) throws Exception;
 	void updateAcademicPersonelWithoutPersoncode(long idperson, String name, String surname, Role role, User user, Degree degree) throws Exception;
 	void deleteAcademicPersonel(long idperson) throws Exception;
+	AcademicPersonel getAcademicPersonelById(long personelId);
 }

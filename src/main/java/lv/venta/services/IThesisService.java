@@ -20,4 +20,6 @@ public interface IThesisService {
 	
 	List<Thesis> getThesisesBySupervisorStatus(boolean statusFromSupervisor);
 	
+	Thesis getThesisById(long thesisId);
+	
 }

@@ -49,8 +49,5 @@ public class Comment {
 		this.supervisor = personel;
 		this.thesis = thesis;
 		this.date = LocalDateTime.now();
-	}
-
-	
-	
+	}	
 }

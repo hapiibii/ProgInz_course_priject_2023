@@ -94,6 +94,11 @@ public class ThesisService implements IThesisService {
 		
 		return thesisRepo.findByStatusFromSupervisor(statusFromSupervisor);
 	}
+
+	@Override
+	public Thesis getThesisById(long thesisId) {
+		 return thesisRepo.findById(thesisId).orElse(null);
+	}
 	
 
 }

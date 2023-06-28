@@ -104,4 +104,9 @@ public class AcademicPersonelService implements IAcademicPersonelService {
 		
 	}
 
+	@Override
+	public AcademicPersonel getAcademicPersonelById(long personelId) {
+		 return academicPersonelRepo.findById(personelId).orElse(null);
+	}
+
 }
