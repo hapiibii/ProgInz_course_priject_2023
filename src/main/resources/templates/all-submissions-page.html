@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All Submissions</title>
+</head>
+
+<body>
+    <h1>All Submissions</h1>
+	<table>
+	<tr th:each="submission : ${myAllSubmissions}">
+		<td th:text="${submission.getIdsubmission()}"></td>
+		<td th:text="${submission.getSubmissionDate()}"></td>
+		<td th:text="${submission.getFile()}"></td>
+	</tr>
+	
+	
+</table>	
+</body>
+</html>

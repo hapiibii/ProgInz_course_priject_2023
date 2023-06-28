@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>All Documents</title>
+</head>
+
+<body>
+    <h1>All documents</h1>
+	<table>
+	<tr th:each="document : ${myAllDocuments}">
+		<td th:text="${document.getIddocument()}"></td>
+		<td th:text="${document.getDocumentName()}"></td>
+		<td th:text="${document.getFile()}"></td>
+	</tr>
+	
+	
+</table>	
+</body>
+</html>
