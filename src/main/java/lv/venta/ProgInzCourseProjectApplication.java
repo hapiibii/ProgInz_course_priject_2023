@@ -13,6 +13,7 @@ import lv.venta.models.Course;
 import lv.venta.models.Degree;
 import lv.venta.models.Thesis;
 import lv.venta.models.users.AcademicPersonel;
+import lv.venta.models.users.Role;
 import lv.venta.models.users.Student;
 import lv.venta.models.users.User;
 import lv.venta.repos.IAcademicPersonelRepo;
@@ -49,13 +50,13 @@ public class ProgInzCourseProjectApplication {
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
-				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", us1, Degree.mg);
-				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", us2, Degree.mg);
+				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, us1, Degree.mg);
+				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, us2, Degree.mg);
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
-				Student s1 = new Student("Baiba", "Egle", "123123-12312", us3, "22000043", false);
-				Student s2 = new Student("Marina", "Satura", "123153-12322", us4, "22000089", true);
+				Student s1 = new Student("Baiba", "Egle", "123123-12312", Role.Students, us3, "22000043", false);
+				Student s2 = new Student("Marina", "Satura", "123153-12322", Role.Students, us4, "22000089", true);
 				
 				
 				s2.addDebtCourse(c1);
