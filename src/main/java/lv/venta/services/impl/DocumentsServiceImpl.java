@@ -3,9 +3,12 @@ package lv.venta.services.impl;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Service;
+
 import lv.venta.models.Documents;
 import lv.venta.services.IDocumentsService;
 
+@Service
 public class DocumentsServiceImpl implements IDocumentsService{
 
 	ArrayList<Documents> allDocuments = new ArrayList<>();
