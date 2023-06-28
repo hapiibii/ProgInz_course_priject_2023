@@ -10,9 +10,9 @@ import lv.venta.models.Thesis;
 public interface IThesisRepo extends CrudRepository<Thesis, Long> {
 
 	//findByAcceptanceStatus
-	ArrayList<Thesis> findByAcceptanceStatus(AcceptanceStatus accStatus);
+	ArrayList<Thesis> findByAccStatus(AcceptanceStatus accStatus);
 	
 	//findBySupervisorStatus
-	ArrayList<Thesis> findBySupervisorStatus(boolean statusFromSupervisor);
+	ArrayList<Thesis> findByStatusFromSupervisor(boolean statusFromSupervisor);
 	
 }

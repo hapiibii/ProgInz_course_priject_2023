@@ -86,13 +86,13 @@ public class ThesisService implements IThesisService {
 	@Override
 	public List<Thesis> getThesisesByAcceptanceStatus(AcceptanceStatus accStatus) {
 		
-		return thesisRepo.findByAcceptanceStatus(accStatus);
+		return thesisRepo.findByAccStatus(accStatus);
 	}
 
 	@Override
 	public List<Thesis> getThesisesBySupervisorStatus(boolean statusFromSupervisor) {
 		
-		return thesisRepo.findBySupervisorStatus(statusFromSupervisor);
+		return thesisRepo.findByStatusFromSupervisor(statusFromSupervisor);
 	}
 	
 
