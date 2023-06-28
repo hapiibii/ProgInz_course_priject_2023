@@ -64,8 +64,8 @@ public class Person {
 
 
 	public Person(
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
 			@NotNull @Size(min = 12, max = 12) @Pattern(regexp = "[0-9]{6}-[0-9]{5}", message = "Pirmajam burtam jabut lielajam") String personcode, 
 			@NotNull Role role, User user) {
 		this.name = name;
@@ -77,8 +77,8 @@ public class Person {
 
 	//for foreign students without person code
 	public Person(
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
-			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String name,
+			@NotNull @Size(min = 3, max = 15) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jabut lielajam") String surname,
 			@NotNull Role role, User user) {
 		super();
 		this.name = name;
