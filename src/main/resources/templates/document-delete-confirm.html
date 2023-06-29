@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Izdēst dokumentu</title>
+</head>
+<body>
+    <h1>Izdēst dokumentu</h1>
+
+    <p>Vai tiešām vēlies dzēst šo dokumentu?</p>
+    <h2>Nsakums: <span th:text="${document.documentName}"></span></h2>
+    <p>Apraksts: <span th:text="${document.file}"></span></p>
+
+    <form th:action="@{/document-page/delete-document/{iddocument}(iddocument=${document.iddocument})}" method="POST">
+        <button type="submit">Dzēst</button>
+    </form>
+    
+    <a href="/home-page">Uz sākumlapu</a>
+</body>
+</html>
