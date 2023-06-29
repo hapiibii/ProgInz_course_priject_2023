@@ -183,6 +183,8 @@ a {
   border-radius: 20px;
   display: inline-block;
   vertical-align: top;
+  border: 1px solid #d8e3e0; /* Pievienotā līnija apkārt blokam */
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
 }
 
 .calendar-block h1 {
@@ -198,6 +200,7 @@ a {
 .calendar-block table {
   margin-top: 20px;
   width: 100%;
+  
 }
 
 /* Atstarpes starp blokiem */
