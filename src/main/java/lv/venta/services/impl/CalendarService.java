@@ -1,5 +1,6 @@
 package lv.venta.services.impl;
 
+import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
@@ -9,6 +10,7 @@ import lv.venta.services.IStudioProgrammService;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,6 +32,8 @@ public class CalendarService implements ICalendarService {
         this.calendarRepo = calendarRepo;
 		this.studioProgrammService = studioProgrammService;
     }
+	
+	
 	
 	@Override
 	public void addActivity(StudioProgramm studioProgramm, int gads, String activity, LocalDate activityEndDate, String activityImplementation) {
@@ -103,7 +107,23 @@ public class CalendarService implements ICalendarService {
 
 	        return matchingActivities;
 	    }
+	    
+	    public List<CalendarActivity> getEndDates() {
+	        List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 
+	        // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
+	        List<CalendarActivity> allActivities = calendarRepo.findAll();
+
+	        // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
+	        for (CalendarActivity activity : allActivities) {
+	            LocalDate endDate = activity.getActivityEndDate();
+	            if (endDate != null) {
+	                activitiesWithEndDates.add(activity);
+	            }
+	        }
+
+	        return activitiesWithEndDates;
+	    }
 
 }
 

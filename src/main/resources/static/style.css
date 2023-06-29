@@ -173,7 +173,7 @@ a {
   margin-top: 20px;
 }
 
-/* Kalendarārā bloka stili */
+/* Kalendarārā acrivas dienas bloka stili */
 .calendar-block {
   background-color: #ffffff;
   padding: 30px;
@@ -183,6 +183,8 @@ a {
   border-radius: 20px;
   display: inline-block;
   vertical-align: top;
+  border: 1px solid #d8e3e0; /* Pievienotā līnija apkārt blokam */
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
 }
 
 .calendar-block h1 {
@@ -198,6 +200,7 @@ a {
 .calendar-block table {
   margin-top: 20px;
   width: 100%;
+  
 }
 
 /* Atstarpes starp blokiem */
@@ -206,6 +209,20 @@ a {
   margin-right: 20px;
 }
 
+<<<<<<< HEAD
+/*KALENDARAIS GRAFIKS*/
+.calendar-schedule-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 0 auto 50px;
+  width: calc(80% - 10px); /* 2/3 no lapas platuma */
+  text-align: left;
+  border-radius: 20px;
+  display: block;
+  vertical-align: top;
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
+}
+=======
 /* Iesniegumu bloks */
 .submission-title {
   text-align: left;
@@ -219,3 +236,4 @@ a {
 }
 
 
+>>>>>>> fd20e32daaeed3a06c026125892ef0bb2584ce52

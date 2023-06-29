@@ -5,9 +5,11 @@ import lv.venta.models.StudioProgramm;
 import lv.venta.services.INewsService;
 import lv.venta.services.IStudioProgrammService;
 import lv.venta.services.impl.NewsService;
+import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.Documents;
+import lv.venta.services.IActivitiesService;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IDocumentsService;
 
@@ -29,13 +31,15 @@ public class HomepageController {
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final IDocumentsService documentService;
+	 private final IActivitiesService activitiesService;
 
 	 @Autowired
-	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService, IDocumentsService documentService) {
+	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService, IDocumentsService documentService,  IActivitiesService activitiesService) {
 		 this.newsService = newsService;
 	     this.calendarService = calendarService;
 	     this.studioProgService = studioProgService;
 	     this.documentService = documentService;
+	     this.activitiesService = activitiesService;
 	 }
  
 	 @GetMapping
@@ -44,19 +48,17 @@ public class HomepageController {
 	        List<News> activeNews = newsService.getActiveNews(currentDate);
 	        model.addAttribute("activeNewsList", activeNews);
 	        
-	        List<News> allNews = newsService.getAllNews();
-	        model.addAttribute("allNews", allNews);
-	        
-	        // Iegūstam kalendāra grafiku
-	        List<CalendarActivity> scheduleList = calendarService.getActivitiesEndingWithinTwoWeeks();
-	        model.addAttribute("scheduleList", scheduleList);
+	        List<Activities> activities = activitiesService.getDatesWithActivities();
+	        model.addAttribute("activeDatesList", activities);
 	        
 	        List<Documents> allDocuments = documentService.retrieveAllDocuments();
 	        model.addAttribute("documentsList", allDocuments);
 	        
 	        return "homepage";
 	  }
-	  
+	 
+	 //News --> 
+	 
 	 @GetMapping("/all-news")
 	 public String showAllNews(Model model) {
 	     List<News> allNews = newsService.getAllNews();
@@ -102,45 +104,6 @@ public class HomepageController {
         return "redirect:/home-page";
      }
      
-    //<-----Kalendārais grafiks------->
-
-     // Pievienot jaunu aktivitāti konkrētam gadam un studiju programmai
-     
-     @GetMapping("/calendar-add")
-     public String showCalendarAddForm() {
-         return "calendar-add";
-     }
-     
-     @PostMapping("/add-activity")
-     public String addActivity(@RequestParam("gads") int gads,
-                               @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                               @ModelAttribute("activity") CalendarActivity activity) {
-         calendarService.addActivity(studioProgrammId, gads, activity.getActivity(), activity.getActivityEndDate(), activity.getActivityImplementation());
-         return "redirect:/home-page";
-     }
-
-     // Dzēst aktivitāti konkrētam gadam un studiju programmai
-     @PostMapping("/remove-activity")
-     public String removeActivity(@RequestParam("gads") int gads,
-                                  @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                                  @RequestParam("activityId") long activityId) {
-         calendarService.removeActivity(studioProgrammId, gads, activityId);
-         return "redirect:/home-page";
-     }
-
-     
-     // Iegūt kālendāra grafikus pēc gada un programmas
-     @GetMapping("/schedules/{year}/{programId}")
-     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
-                                                 @PathVariable("programId") long programId,
-                                                 Model model) {
-         StudioProgramm program = studioProgService.getStudioProgrammById(programId);
-         List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
-         model.addAttribute("program", program);
-         model.addAttribute("scheduleList", scheduleList);
-         return "schedules-by-program";
-     }
-
      // Documents 
      
      @GetMapping("/all-documents")

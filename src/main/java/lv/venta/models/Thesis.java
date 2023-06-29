@@ -1,4 +1,3 @@
-
 package lv.venta.models;
 
 import java.time.LocalDateTime;
