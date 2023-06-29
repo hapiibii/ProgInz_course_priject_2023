@@ -108,7 +108,7 @@ public class DocumentsController {
 	
 	@PostMapping("/insert")
 	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
-		if (!result.hasErrors()) {
+		//if (!result.hasErrors()) {
 			try {
 				if (!file.isEmpty() && file != null) {
 					//Iegūst faila nosaukumu un saglabāšanas ceļu
@@ -123,12 +123,13 @@ public class DocumentsController {
 				return "redirect:/document/showAll";
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				return "error-page";
 			}
-		}
-		else {
-			return "document-insert-page";
-		}
+		//}
+		//else {
+		//	return "document-insert-page";
+		//}
 	}
 	
 	
