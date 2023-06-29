@@ -36,6 +36,7 @@ public class CalendarScheduleController {
 	 
 	 @GetMapping("/calendar-add")
      public String showCalendarAddForm() {
+		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
          return "calendar-add";
      }
      

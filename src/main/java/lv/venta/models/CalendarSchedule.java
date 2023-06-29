@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -37,6 +38,7 @@ public class CalendarSchedule {
 	private List<CalendarActivity> activities = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "idstprog")
     private StudioProgramm studioProgramm;
 
     public CalendarSchedule(Year gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
