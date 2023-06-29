@@ -32,13 +32,13 @@
     
     <div class="news-block">
     <h1>Iesniegumi</h1>
-    <div class="submission">
-        <h2 class="submission-title"> Noslēgumi darbs PDF formātā </h2>
-        <button class="submission-button">Pievienot</button>
-    </div>
-    <div class="submission">
-        <h2 class="submission-title">Noslēgumu darba tēma</h2>
-        <button class="submission-button">Pievienot</button>
+    <div class="submission" style="display: flex; justify-content: space-between; align-items: center;">
+    	<h2 class="submission-title" style="text-align: left;"> Noslēgumi darbs PDF formātā </h2>
+    	<a href="/submission/update" class="submission-button">Pievienot</a>
+	</div>
+    <div class="submission" style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="submission-title" style="text-align: left;">Noslēgumu darba tēma</h2>
+        <a href="/submission/update" class="submission-button">Pievienot</a>
     </div>
 </div>
     
@@ -56,8 +56,6 @@
                     <td th:text="${activity.activity}"></td>
                 </tr>
             </table>
-            <!-- Pievienot kalendāra grafiku poga -->
-            <a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
         </div>
     
     
