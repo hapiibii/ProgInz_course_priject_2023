@@ -205,3 +205,17 @@ a {
 .calendar-block:not(:last-child) {
   margin-right: 20px;
 }
+
+/* Iesniegumu bloks */
+.submission-title {
+  text-align: left;
+  margin-right: 10px;
+}
+
+.submission-button {
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+
