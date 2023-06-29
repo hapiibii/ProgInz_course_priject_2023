@@ -31,7 +31,7 @@ public class ActivitiesService implements IActivitiesService {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-        int numDays = 7;
+        int numDays = 14;
         for (int i = 0; i < numDays; i++) {
             String formattedDate = currentDate.format(formatter); 
             Activities activities = new Activities(" ", LocalDate.parse(formattedDate, formatter)); 
