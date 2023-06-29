@@ -11,7 +11,9 @@ import lv.venta.models.Comment;
 import lv.venta.models.News;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
+import lv.venta.models.Faculty;
 import lv.venta.models.Thesis;
+import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Role;
 import lv.venta.models.users.Student;
@@ -95,6 +97,10 @@ public class ProgInzCourseProjectApplication {
 				LocalDate today = LocalDate.now();
 				LocalDate tomorrow = LocalDate.now().plusDays(1);
 				News new1 = new News ("Parbaude", "Seit ir parbaude vai var pievienot jaunumu", today, tomorrow);
+				
+				StudioProgramm prog1 = new StudioProgramm(Faculty.ITF, Degree.bsc, "Program 1 Title");
+				StudioProgramm prog2 = new StudioProgramm(Faculty.EPK, Degree.phd, "Program 2 Title");
+
 			}
 		};
 	}
