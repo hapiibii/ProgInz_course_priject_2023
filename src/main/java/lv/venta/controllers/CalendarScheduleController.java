@@ -29,6 +29,11 @@ public class CalendarScheduleController {
 		 this.studioProgService = studioProgService;
 	 }
 	 
+	 @GetMapping
+	 public String showAll(Model model) {
+		 return "calendar-schedule";
+	 }
+	 
 	 @GetMapping("/calendar-add")
      public String showCalendarAddForm() {
          return "calendar-add";
@@ -39,7 +44,7 @@ public class CalendarScheduleController {
                                @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
                                @ModelAttribute("activity") CalendarActivity activity) {
          calendarService.addActivity(studioProgrammId, gads, activity.getActivity(), activity.getActivityEndDate(), activity.getActivityImplementation());
-         return "redirect:/home-page";
+         return "redirect:/Calendar-schedule";
      }
 
      // Dzēst aktivitāti konkrētam gadam un studiju programmai
@@ -48,7 +53,7 @@ public class CalendarScheduleController {
                                   @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
                                   @RequestParam("activityId") long activityId) {
          calendarService.removeActivity(studioProgrammId, gads, activityId);
-         return "redirect:/home-page";
+         return "redirect:/Calendar-schedule";
      }
 
      

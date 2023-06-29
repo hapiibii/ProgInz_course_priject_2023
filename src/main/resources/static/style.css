@@ -173,7 +173,7 @@ a {
   margin-top: 20px;
 }
 
-/* Kalendarārā bloka stili */
+/* Kalendarārā acrivas dienas bloka stili */
 .calendar-block {
   background-color: #ffffff;
   padding: 30px;
@@ -207,4 +207,17 @@ a {
 .news-block:not(:last-child),
 .calendar-block:not(:last-child) {
   margin-right: 20px;
+}
+
+/*KALENDARAIS GRAFIKS*/
+.calendar-schedule-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 0 auto 50px;
+  width: calc(80% - 10px); /* 2/3 no lapas platuma */
+  text-align: left;
+  border-radius: 20px;
+  display: block;
+  vertical-align: top;
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
 }
