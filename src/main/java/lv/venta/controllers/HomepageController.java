@@ -7,7 +7,9 @@ import lv.venta.services.IStudioProgrammService;
 import lv.venta.services.impl.NewsService;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
+import lv.venta.models.Documents;
 import lv.venta.services.ICalendarService;
+import lv.venta.services.IDocumentsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.print.Doc;
+
 @Controller
 @RequestMapping("/home-page")
 public class HomepageController {
@@ -24,12 +28,14 @@ public class HomepageController {
 	 private final INewsService newsService;
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
+	 private final IDocumentsService documentService;
 
 	 @Autowired
-	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService) {
+	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService, IDocumentsService documentService) {
 		 this.newsService = newsService;
 	     this.calendarService = calendarService;
 	     this.studioProgService = studioProgService;
+	     this.documentService = documentService;
 	 }
  
 	 @GetMapping
@@ -45,6 +51,8 @@ public class HomepageController {
 	        List<CalendarActivity> scheduleList = calendarService.getActivitiesEndingWithinTwoWeeks();
 	        model.addAttribute("scheduleList", scheduleList);
 	        
+	        List<Documents> allDocuments = documentService.retrieveAllDocuments();
+	        model.addAttribute("documentsList", allDocuments);
 	        
 	        return "homepage";
 	  }
@@ -133,4 +141,38 @@ public class HomepageController {
          return "schedules-by-program";
      }
 
+     // Documents 
+     
+     @GetMapping("/all-documents")
+     public String showAllDocuments (Model model) {
+    	 List<Documents> allDocuments = documentService.retrieveAllDocuments();
+    	 model.addAttribute("documentsList", allDocuments);
+    	 return "all-documents-page";
+     }
+     
+     @GetMapping("/create-document")
+     public String showDocumentCreate (Model model) {
+    	 model.addAttribute("document", new Documents());
+    	 return "document-insert-page";
+     }
+     
+     @PostMapping("/create-document")
+     public String createDocument (@ModelAttribute("document") Documents document) {
+    	 documentService.insertDocument(document.getDocumentName(), document.getFile());
+    	 return "redirect:/home-page";
+     }
+     
+     @GetMapping("/delete-document/{iddocument}")
+     public String showDeleteFunction (@PathVariable("iddocument") long iddocument, Model model) throws Exception {
+    	 Documents doc = documentService.retrieveDocumentById(iddocument);
+    	 model.addAttribute("document", doc);
+    	 return "document-delete-page";
+     }
+     
+     @PostMapping("/delete-document/{iddocument}")
+     public String deleteDocument (@PathVariable("iddocument") long iddocument) throws Exception {
+    	 documentService.deleteDocumentByDocumetId(iddocument);
+    	 return "redirect:/home-page";
+     }
+     
 }
