@@ -82,14 +82,14 @@ public class ThesisController {
 	}
 	
 	//TODO add-comment get
-		@GetMapping("/itf-table/create")
+		@GetMapping("/itf-table/create-coments")
 		public String showCreateComment(Model model) {
 			model.addAttribute("comment", new Comment());
 			return "thesis-create-page";
 		}
 		
 	//TODO add-comment post
-		@PostMapping("/itf-table/create")
+		@PostMapping("/itf-table/create-coments")
 		public String сreateComment(@ModelAttribute("comment") Comment comment) {
 			commentService.createComment(null, 0, 0); //TODO ???? kā te rīkoties??
 			return "redirect:/thesis-review-page";
@@ -98,7 +98,7 @@ public class ThesisController {
 	//TODO edit-comment get
 	//TODO edit-comment post
 	//TODO delete-comment get
-		@GetMapping("/itf-table/delete/{idthesis}")
+		@GetMapping("/itf-table/delete-coments/{idthesis}")
 		public String showDeleteComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -106,7 +106,7 @@ public class ThesisController {
 		}
 		
 	//TODO delete-comment post
-		@PostMapping("/itf-table/delete/{idthesis}")
+		@PostMapping("/itf-table/delete-coments/{idthesis}")
 		public String deleteComment(@PathVariable("idcom") long idcom) throws Exception {
 			commentService.deleteComment(idcom);
 			return "redirect:/itf-table/review";
