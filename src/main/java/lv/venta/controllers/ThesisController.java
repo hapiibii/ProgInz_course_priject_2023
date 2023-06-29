@@ -30,7 +30,7 @@ public class ThesisController {
 	}
 	
 	//TODO all-thesises get
-	@GetMapping("itf-table/review")
+	@GetMapping("/review")
 	public String showAllThesises(Model model) {
 		List<Thesis> allThesises = thesisService.getAllThesises();
 		model.addAttribute("allThesises", allThesises);
@@ -38,21 +38,21 @@ public class ThesisController {
 	}
 	
 	//TODO create-thesis get
-	@GetMapping("/itf-table/create")
+	@GetMapping("/create")
 	public String showCreateThesis(Model model) {
 		model.addAttribute("thesis", new Thesis());
 		return "thesis-create-page";
 	}
 	
 	//TODO create-thesis post
-	@PostMapping("/itf-table/create")
+	@PostMapping("/create")
 	public String сreateThesis(@ModelAttribute("thesis") Thesis thesis) {
 		thesisService.createThesis(thesis);
 		return "redirect:/itf-table/review";
 	}
 	
 	//TODO edit-thesis get
-	@GetMapping("/itf-table/edit/{idthesis}")
+	@GetMapping("/edit/{idthesis}")
 	public String showEditThesis(@PathVariable("idthesis") long idthesis, Model model) {
 		Thesis thesis = thesisService.getThesisById(idthesis);
 		model.addAttribute("thesis", thesis);
@@ -60,14 +60,14 @@ public class ThesisController {
 	}
 	
 	//TODO edit-thesis post
-	@PostMapping("/itf-table/edit/{idthesis}")
+	@PostMapping("/edit/{idthesis}")
 	public String editThesis(@PathVariable("idthesis") long idthesis, @ModelAttribute("thesis") Thesis thesis) throws Exception {
 		thesisService.updateThesis(idthesis, thesis.getTitleEn(), thesis.getTitleLv(), thesis.getGoal(), thesis.getTasks(), thesis.getStudent(), thesis.getSupervisor(), thesis.getAccStatus());
 		return "redirect:/itf-table/review";
 	}
 	
 	//TODO delete-thesis get
-	@GetMapping("/itf-table/delete/{idthesis}")
+	@GetMapping("/delete/{idthesis}")
 	public String showDeleteThesis(@PathVariable("idthesis") long idthesis, Model model) {
 		Thesis thesis = thesisService.getThesisById(idthesis);
 		model.addAttribute("thesis", thesis);
@@ -75,7 +75,7 @@ public class ThesisController {
 	}
 	
 	//TODO delete-thesis post
-	@PostMapping("/itf-table/delete/{idthesis}")
+	@PostMapping("/delete/{idthesis}")
 	public String deleteThesis(@PathVariable("idthesis") long idthesis) throws Exception {
 		thesisService.deleteThesis(idthesis);
 		return "redirect:/itf-table/review";
@@ -83,21 +83,21 @@ public class ThesisController {
 	
 	//
 	//TODO add-comment get
-		@GetMapping("/itf-table/create-coments")
+		@GetMapping("/create-coments")
 		public String showCreateComment(Model model) {
 			model.addAttribute("comment", new Comment());
 			return "thesis-edit-page";
 		}
 		
 	//TODO add-comment post
-		@PostMapping("/itf-table/create-coments/{personelId}/{thesisId}")
+		@PostMapping("/create-coments/{personelId}/{thesisId}")
 		public String сreateComment(Comment comment, @PathVariable("personelId") long personelId, @PathVariable("thesisId")long thesisId) {
 			commentService.createComment(comment.getDescription(), personelId, thesisId); //TODO ???? kā te rīkoties??
 			return "redirect:/itf-table/review";
 		}
 		
 	//TODO edit-comment get
-		@GetMapping("/itf-table/edit-coment/{idcom}")
+		@GetMapping("/edit-coment/{idcom}")
 		public String showEditComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -105,13 +105,13 @@ public class ThesisController {
 		}
 		
 	//TODO edit-comment post
-		@PostMapping("/itf-table/edit-coment/{idcom}")
+		@PostMapping("/edit-coment/{idcom}")
 		public String editComment(@PathVariable("idcom") long idcom, @ModelAttribute("comment") Comment comment) throws Exception {
 			commentService.updateComment(idcom, comment.getDescription());
 			return "redirect:/itf-table/review";
 		}
 	//TODO delete-comment get
-		@GetMapping("/itf-table/delete-coments/{idcom}")
+		@GetMapping("/delete-coments/{idcom}")
 		public String showDeleteComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -119,7 +119,7 @@ public class ThesisController {
 		}
 		
 	//TODO delete-comment post
-		@PostMapping("/itf-table/delete-coments/{idcom}")
+		@PostMapping("/delete-coments/{idcom}")
 		public String deleteComment(@PathVariable("idcom") long idcom) throws Exception {
 			commentService.deleteComment(idcom);
 			return "redirect:/itf-table/review";
