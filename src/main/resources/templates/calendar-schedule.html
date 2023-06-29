@@ -30,8 +30,9 @@
     <div class="container">
 	    <div class="calendar-schedule-block">
 	    <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
-            <h3>Pievienošanas forma</h3>
+            <h3>Pievienot aktivitāti</h3>
         </button>
+        
 	    	<h1>Kalendārais grafiks</h1>
 	    	<table>
 		        <tr>
@@ -44,6 +45,14 @@
 		        	<td th:text="${stat.count}"></td>
 		            <td th:text="${activity.activity}"></td>
 		            <td th:text="${activity.activityImplementation}"></td>
+		            
+		            <td><form action="/Calendar-schedule/remove-activity" method="post">
+				            <input type="hidden" name="gads" th:value="${year}">
+				            <input type="hidden" name="studioProgrammId" th:value="${programId}">
+				            <input type="hidden" name="activityId" th:value="${activity.activityId}">
+				            <button type="submit">Dzēst</button>
+				        </form>
+				    </td>
 		        </tr>
 	    	</table>
 	    </div>
