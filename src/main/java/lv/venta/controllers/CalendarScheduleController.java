@@ -39,7 +39,7 @@ public class CalendarScheduleController {
          return "calendar-add";
      }
      
-     @PostMapping("/add-activity")
+     @PostMapping("/calendar-add")
      public String addActivity(@RequestParam("gads") int gads,
                                @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
                                @ModelAttribute("activity") CalendarActivity activity) {
