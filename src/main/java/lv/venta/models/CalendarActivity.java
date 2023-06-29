@@ -2,6 +2,8 @@ package lv.venta.models;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class CalendarActivity {
     
     @Column(name = "activity_end_date")
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate activityEndDate;
     
     @Column(name = "activity_implementation")
@@ -47,5 +50,7 @@ public class CalendarActivity {
         this.activityImplementation = activityImplementation;
         this.calendarSchedule = calendarSchedule;
     }
+    
+
 }
 
