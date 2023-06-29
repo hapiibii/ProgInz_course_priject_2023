@@ -33,6 +33,8 @@ public class CalendarService implements ICalendarService {
 		this.studioProgrammService = studioProgrammService;
     }
 	
+	
+	
 	@Override
 	public void addActivity(StudioProgramm studioProgramm, int gads, String activity, LocalDate activityEndDate, String activityImplementation) {
 	    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(gads, studioProgramm);
@@ -106,12 +108,11 @@ public class CalendarService implements ICalendarService {
 	        return matchingActivities;
 	    }
 	    
-	    @Override
 	    public List<CalendarActivity> getEndDates() {
 	        List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 
-	        // Iegūstiet visus CalendarActivity objektus no datu avota (piemēram, datu bāzes)
-	        List<CalendarActivity> allActivities = calendarRepo.getAllActivities();
+	        // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
+	        List<CalendarActivity> allActivities = calendarRepo.findAll();
 
 	        // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
 	        for (CalendarActivity activity : allActivities) {
@@ -123,36 +124,6 @@ public class CalendarService implements ICalendarService {
 
 	        return activitiesWithEndDates;
 	    }
-
-	    @Override
-	    public List<Activities> getDatesWithActivities() {
-	        List<Activities> dates = new ArrayList<>();
-	        LocalDate currentDate = LocalDate.now();
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-	        int numDays = 7;
-	        for (int i = 0; i < numDays; i++) {
-	            String formattedDate = currentDate.format(formatter); 
-	            Activities activities = new Activities(" ", LocalDate.parse(formattedDate, formatter)); 
-
-	            List<CalendarActivity> activitiesWithEndDates = getEndDates();
-	            for (CalendarActivity activityWithEndDate : activitiesWithEndDates) {
-	                LocalDate endDate = activityWithEndDate.getActivityEndDate();
-	                if (endDate != null && formattedDate.equals(endDate.format(formatter))) {
-	                	String activity = activityWithEndDate.getActivity(); // Iegūstam aktivitātes vērtību no CalendarActivity objekta
-	                    activities.setActiviti(activity); // Iestatām aktivitātes vērtību Activities objektā
-	                    break; // Pārtraucam ciklu, ja datums sakrīt
-	                }
-	            }
-
-	            dates.add(activities);
-	            currentDate = currentDate.plusDays(1);
-	        }
-
-	        return dates;
-	    }
-
-
 
 }
 

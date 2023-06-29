@@ -8,8 +8,7 @@ import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 
 
-public interface ICalendarRepo extends CrudRepository<CalendarSchedule, Long> {
-
-	List<CalendarActivity> getAllActivities();
+public interface ICalendarRepo extends CrudRepository<CalendarActivity, Long> {
+	List<CalendarActivity> findAll();
 
 }

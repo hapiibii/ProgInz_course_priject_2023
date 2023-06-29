@@ -47,10 +47,6 @@ public class HomepageController {
 	        List<News> allNews = newsService.getAllNews();
 	        model.addAttribute("allNews", allNews);
 	        
-	        // Iegūstam kalendāra grafiku
-	        List<CalendarActivity> scheduleList = calendarService.getActivitiesEndingWithinTwoWeeks();
-	        model.addAttribute("scheduleList", scheduleList);
-	        
 	        List<Documents> allDocuments = documentService.retrieveAllDocuments();
 	        model.addAttribute("documentsList", allDocuments);
 	        
@@ -103,8 +99,6 @@ public class HomepageController {
      }
      
     //<-----Kalendārais grafiks------->
-
-     // Pievienot jaunu aktivitāti konkrētam gadam un studiju programmai
      
      @GetMapping("/calendar-add")
      public String showCalendarAddForm() {
@@ -140,6 +134,8 @@ public class HomepageController {
          model.addAttribute("scheduleList", scheduleList);
          return "schedules-by-program";
      }
+     
+     //TODO pievienot getDatesWithActivities
 
      // Documents 
      
