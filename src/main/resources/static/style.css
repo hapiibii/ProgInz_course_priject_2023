@@ -1,11 +1,93 @@
-/* style.css */
-
-/* Augšpusēm gaiši žaļš fons */
-body {
-  background-color: lightgreen;
+/* Jaunumu bloks */
+.news-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 50px auto; /* Horizontālais atstarpe starp bloku un malām */
+  max-width: 600px; /* Maksimālais bloka platums */
+  text-align: center;
+  border-radius: 20px; /* Noapaļot bloka malas */
 }
 
-/* Galvenes tumši zaļa */
+.news-block h1 {
+  color: #3b986d;
+  margin-bottom: 20px; /* Atstarpe starp virsrakstu un jaunumu sarakstu */
+  border-bottom: 1px solid #d8e3e0; /* Līnija zem virsraksta */
+  padding-bottom: 10px; /* Atstarpe zem līnijas */
+  text-align: left; /* Pielīdzināt kreisajai malai */
+  margin-left: 0; /* Noņemt automātisko kreiso atstarpi */
+  margin-top: 0px; /* Samazināt atstarpi starp bloka augšpusi un virsrakstu */
+}
+.news-title {
+  text-align: left; /* Pielīdzināt kreisai malai */
+  margin: 0; /* Noņemt automātiskās atstarpes */
+}
+
+.news-description {
+  text-align: left; /* Pielīdzināt kreisai malai */
+  margin: 0; /* Noņemt automātiskās atstarpes */
+}
+
+.action-buttons {
+  text-align: right; /* Pielīdzināt labajai malai */
+}
+
+.news-table {
+  margin-top: 20px; /* Atstarpe starp virsrakstu un jaunumu sarakstu */
+}
+
+
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+/* Hederis */
+header {
+  position: relative;
+  background: linear-gradient(to right, #155741, #278964);
+  color: #3b986d;
+  display: flex;
+  justify-content: center; /* Centrē elementus horizontāli */
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.header-logo {
+  background: none;
+  padding: 0;
+  margin: 0;
+  width: 100px; /* Mainiet atbilstoši vēlamajam izmēram */
+  height: auto; /* Automātiski pielāgos proporcijas */
+}
+
+/* Fona krāsa */
+body {
+    background-color: #ccdcd6;
+}
+
+/* Bloku krāsa */
+table, th, td {
+    background-color: #ffffff;
+}
+
+/* H1 krāsa */
 h1 {
-  color: darkgreen;
+    color: #3b986d;
+}
+
+/* Pārējā teksta krāsa */
+body, a, th, td {
+    color: #000000;
+}
+
+/* Svītru un tabulu rāmju krāsa */
+hr, table {
+    border-color: #d8e3e0;
+}
+
+/* Menu teksta krāsa */
+header h1, a {
+    color: #3b986d;
 }
