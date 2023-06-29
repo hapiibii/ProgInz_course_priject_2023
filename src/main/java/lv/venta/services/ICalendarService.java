@@ -1,5 +1,6 @@
 package lv.venta.services;
 
+import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
@@ -13,4 +14,6 @@ public interface ICalendarService {
     List<CalendarActivity> getActivitiesEndingWithinTwoWeeks();
     List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm);
     List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title);
+    List<CalendarActivity> getEndDates();
+    List<Activities>getDatesWithActivities();
 }
