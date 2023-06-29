@@ -102,6 +102,8 @@ public class DocumentsController {
 		return "document-insert-page";
 	}
 	
+	
+	
 	@PostMapping("/insert")
 	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
 		if (!result.hasErrors()) {

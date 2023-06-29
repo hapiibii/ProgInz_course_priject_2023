@@ -113,7 +113,7 @@ a {
   background-color: transparent;
   border: none;
   padding-bottom: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0 px;
   color: #3b986d;
 }
 
@@ -152,6 +152,9 @@ a {
   margin-top: 0px;
 }
 
+.news-table{
+ text-align:auto;
+}
 .news-title {
   text-align: left;
   margin: 0;

@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<form action="#"  th:action="@{/insert}"  th:object="${document}"   method="post" method="post" enctype="multipart/form-data">
+	<form action="#"  th:action="@{/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>Document name:</td>
-				<td><input type="text" th:field="*{documentName}"   />  </td>
+				<td><input type="text" th:field="*{documentName}"   />  </td>\
 				<td th:if="${#fields.hasErrors('documentName')}" th:errors="*{documentName}"> Invalid date </td>
 			</tr>
 			
