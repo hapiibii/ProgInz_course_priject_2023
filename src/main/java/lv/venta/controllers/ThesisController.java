@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lv.venta.models.Comment;
 import lv.venta.models.Thesis;
+import lv.venta.models.users.AcademicPersonel;
+import lv.venta.models.users.Student;
+import lv.venta.services.IAcademicPersonelService;
 import lv.venta.services.ICommentService;
+import lv.venta.services.IStudentService;
 import lv.venta.services.IThesisService;
+import lv.venta.services.IUserService;
 
 @Controller
 @RequestMapping("/itftable-page")
@@ -22,11 +27,15 @@ public class ThesisController {
 	
 	private final IThesisService thesisService;
 	private final ICommentService commentService;
+	private final IStudentService studentService;
+	private final IAcademicPersonelService personelService;
 	
 	@Autowired
-	public ThesisController (IThesisService thesisService, ICommentService commentService) {
+	public ThesisController (IThesisService thesisService, ICommentService commentService, IStudentService studentService, IAcademicPersonelService personelService) {
 		this.thesisService = thesisService;
 		this.commentService = commentService;
+		this.studentService = studentService;
+		this.personelService = personelService;
 	}
 	
 	//TODO all-thesises get
@@ -40,7 +49,13 @@ public class ThesisController {
 	//TODO create-thesis get
 	@GetMapping("/create")
 	public String showCreateThesis(Model model) {
+		List<Student> students = studentService.getAllStudent();
+        List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
+        List<AcademicPersonel> reviewers = personelService.getAllAcademicPersonel();
 		model.addAttribute("thesis", new Thesis());
+		model.addAttribute("students", students);
+        model.addAttribute("supervisors", supervisors);
+        model.addAttribute("reviewers", reviewers);
 		return "thesis-create-page";
 	}
 	
