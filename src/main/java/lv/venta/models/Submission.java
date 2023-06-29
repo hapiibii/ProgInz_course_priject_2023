@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +39,7 @@ public class Submission {
 	private long idsubmission;
 	
 	@Column(name = "SubmissionDate")
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime submissionDate;
 	
 	private File file;

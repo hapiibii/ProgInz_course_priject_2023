@@ -98,14 +98,14 @@ public class DocumentsController {
 	}
 	
 	@GetMapping("/insert")
-	public String insertDocumentGetFunction (Documents document) {
+	public String insertDocumentGetFunction (Documents documents) {
 		return "document-insert-page";
 	}
 	
 	
 	
 	@PostMapping("/insert")
-	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
+	public String insertDocumentPostFunction (@Valid Documents documents, BindingResult result, @RequestParam("file") MultipartFile file) {
 		if (!result.hasErrors()) {
 			try {
 				if (!file.isEmpty()) {
@@ -115,9 +115,9 @@ public class DocumentsController {
 					//Saglabā failu vietējā failu sistēmā
 					file.transferTo(new File(filePath));
 					//Iesaista faila objektu ievades parametrā
-					document.setFile(new File(filePath));
+					documents.setFile(new File(filePath));
 				}
-				documentsService.insertDocument(document.getDocumentName(), document.getFile());
+				documentsService.insertDocument(documents.getDocumentName(), documents.getFile());
 				return "redirect:/showAll";
 			}
 			catch (Exception e) {

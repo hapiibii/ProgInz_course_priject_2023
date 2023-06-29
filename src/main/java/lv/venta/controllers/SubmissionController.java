@@ -102,28 +102,31 @@ public class SubmissionController {
 	
 	@PostMapping("/insert")
 	public String insertSubmissionPostFunction (@Valid Submission submission, BindingResult result, @RequestParam("file") MultipartFile file) {
-		if (!result.hasErrors()) {
+		System.out.println(submission.getSubmissionDate());
+		System.out.println(result.getErrorCount());
+	//	if (!result.hasErrors()) {
 			try {
 				if (!file.isEmpty()) {
 					//Iegūst faila nosaukumu un saglabāšanas ceļu
 					String fileName = file.getOriginalFilename();
-					String filePath = "/path/to/save/directory" + fileName;
+					String filePath = "/" + fileName;
 					//Saglabā failu vietējā failu sistēmā
 					file.transferTo(new File(filePath));
 					//Iesaista faila objektu ievades parametrā
 					submission.setFile(new File(filePath));
 				}
 				submissionService.insertSubmission(submission.getSubmissionDate(), submission.getFile());
-				return "redirect:/showAll";
+				return "redirect:/submission/showAll";
 
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				return "error-page";
 			}
-		}
-		else {
-			return "submission-insert-page";
-		}
+	//	}
+	//	else {
+	//		return "submission-insert-page";
+	//	}
 		
 	}
 	
