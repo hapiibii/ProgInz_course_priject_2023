@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>ITF Domes Tabula</title>
+		<link rel="stylesheet" type="text/css" href="/style.css">
+	</head>
+	
+	<body>
+		<header>
+			<img src="/images/logo.png" alt="Logo" class="header-logo">
+		</header>
+		
+		<table>
+			<tr th:each="temp : ${allThesises}">
+				<td th:text="${temp.getIdthesis()}"> </td>
+				<td th:text="${temp.getStudent()}"> </td>
+				<td th:text="${temp.getTitleEn()}"> </td>
+				<td th:text="${temp.getTitleLv()}"> </td>
+				<td th:text="${temp.getSupervisor()}"> </td>
+				<td th:text="${temp.getReviewers()}"> </td>
+				<td th:text="${temp.getGoal()}"> </td>
+				<td th:text="${temp.getTasks()}"> </td>
+				<td th:text="${temp.getStatusFromSupervisor()}"> </td>
+				<td th:text="${temp.getAccStatus()}"> </td>
+				<td th:text="${temp.getTitleEn()}"> </td>
+				<td>
+					<ul>
+						<li th:each="comment : ${temp.getComments() }">
+							<span th:text="${comment.getSupervisor() }">Supervisor</span>
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+		<!-- Poga Atpakaļ -->
+		<a href="/home-page">Atpakaļ</a>
+	</body>
+</html>
