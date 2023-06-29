@@ -1,5 +1,7 @@
 package lv.venta.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -107,6 +109,11 @@ public class AcademicPersonelService implements IAcademicPersonelService {
 	@Override
 	public AcademicPersonel getAcademicPersonelById(long personelId) {
 		 return academicPersonelRepo.findById(personelId).orElse(null);
+	}
+
+	@Override
+	public List<AcademicPersonel> getAllAcademicPersonel() {
+		return (List<AcademicPersonel>) academicPersonelRepo.findAll();
 	}
 
 }

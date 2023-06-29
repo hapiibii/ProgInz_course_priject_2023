@@ -1,5 +1,7 @@
 package lv.venta.services;
 
+import java.util.List;
+
 import lv.venta.models.Degree;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Role;
@@ -11,4 +13,5 @@ public interface IAcademicPersonelService {
 	void updateAcademicPersonelWithoutPersoncode(long idperson, String name, String surname, Role role, User user, Degree degree) throws Exception;
 	void deleteAcademicPersonel(long idperson) throws Exception;
 	AcademicPersonel getAcademicPersonelById(long personelId);
+	List<AcademicPersonel> getAllAcademicPersonel();
 }
