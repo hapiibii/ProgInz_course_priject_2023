@@ -8,56 +8,71 @@
 
 <body>
 
-	<header>
-	 <img src="/images/logo.png" alt="Logo" class="header-logo">
+    <header>
+        <img src="/images/logo.png" alt="Logo" class="header-logo">
     </header>
-    
-    
-    <div class="news-block">
-  <h1>Jaunumi</h1>
-  <table class="news-table">
-    <!-- Iterēt caur newsList un attēlot jaunumus -->
-    <tr th:each="news : ${activeNewsList}">
-      <th>
-        <h3 class="news-title" th:text="${news.title}"></h3>
-      </th>
-      <td colspan="2">
-        <p class="news-description" th:text="${news.description}"></p>
-      </td>
-      <td class="action-buttons">
-        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">Labot</a>
-        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a>
-      </td>
-    </tr>
-  </table>
-  <!-- Izveidot pogu, kas noved uz jaunu jaunumu pievienošanas formu -->
-  <a href="/home-page/create-news">Izveidot jaunumu</a>
-  <br>
-  <!-- Visi jaunumi -->
-  <a href="/home-page/all-news">Visi jaunumi</a>
-</div>
 
-     
-  
-    <h2>Kalendārais grafiks</h2>
-    <table>
-        <tr>
-            <th>Activity</th>
-            <th>Implementation</th>
-            <th>End Date</th>
-        </tr>
-        <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
-        <tr th:each="activity : ${scheduleList}">
-            <td th:text="${activity.activity}"></td>
-            <td th:text="${activity.activityImplementation}"></td>
-            <td th:text="${activity.activityEndDate}"></td>
-        </tr>
-    </table>
-    
-    <!-- Pievienot kalendāra grafiku poga -->
-<a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
+    <div class="container">
+        <div class="saites-block">
+        	/*janorada buspectam saites kur pogas aizved*/
+             <button class="menu-button">Dokumenti</button>
+            <br>
+            <button class="menu-button">Iesniegšana</button>
+            <br>
+            <button class="menu-button">Aizstāvēšana</button>
+            <br>
+            <button class="menu-button">ITF Dome</button>
+            <br>
+            <button class="menu-button">Darbu izstrāde</button>
+            <br>
+            <button class="menu-button">Kalendārais grafiks</button>
+            <br>
+            <button class="menu-button">Arhīvs</button>
+        </div>
 
+        <div class="news-block">
+            <h1>Jaunumi</h1>
+            <table class="news-table">
+                <!-- Iterēt caur newsList un attēlot jaunumus -->
+                <tr th:each="news : ${activeNewsList}">
+                    <th>
+                        <h3 class="news-title" th:text="${news.title}"></h3>
+                    </th>
+                    <td colspan="2">
+                        <p class="news-description" th:text="${news.description}"></p>
+                    </td>
+                    <td class="action-buttons">
+                        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">Labot</a>
+                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a>
+                    </td>
+                </tr>
+            </table>
+            <!-- Izveidot pogu, kas noved uz jaunu jaunumu pievienošanas formu -->
+            <a href="/home-page/create-news">Izveidot jaunumu</a>
+            <br>
+            <!-- Visi jaunumi -->
+            <a href="/home-page/all-news">Visi jaunumi</a>
+        </div>
 
+        <div class="calendar-block">
+            <h1>Kalendārais grafiks</h1>
+            <hr>
+            <table>
+                <tr>
+                    <th>End Date</th>
+                    <th>Activity</th>
+                </tr>
+                <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
+                <tr th:each="activity : ${scheduleList}">
+                    <td th:text="${activity.activityEndDate}"></td>
+                    <td th:text="${activity.activity}"></td>
+                </tr>
+            </table>
+            <!-- Pievienot kalendāra grafiku poga -->
+            <a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
+        </div>
+    </div>
 
 </body>
+
 </html>
