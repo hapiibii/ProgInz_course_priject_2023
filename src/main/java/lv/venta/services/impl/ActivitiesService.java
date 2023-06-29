@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
@@ -13,6 +14,7 @@ import lv.venta.repos.IActivitiesRepo;
 import lv.venta.services.IActivitiesService;
 import lv.venta.services.ICalendarService;
 
+@Service
 public class ActivitiesService implements IActivitiesService {
 	private IActivitiesRepo activitiesRepo;
 	private ICalendarService calendarService;

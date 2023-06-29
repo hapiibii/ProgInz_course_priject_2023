@@ -63,14 +63,13 @@
                     <th>End Date</th>
                     <th>Activity</th>
                 </tr>
-                <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
-                <tr th:each="activity : ${scheduleList}">
-                    <td th:text="${activity.activityEndDate}"></td>
-                    <td th:text="${activity.activity}"></td>
+                <!-- Iterēt caur activeDates un attēlot aktivitātes -->
+                <tr th:each="activities : ${activeDatesList}">
+                    <td th:text="${activities.activityDate}"></td>
+                    <td th:text="${activities.activiti}"></td>
                 </tr>
             </table>
-            <!-- Pievienot kalendāra grafiku poga -->
-            <a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
+           
         </div>
     </div>
 
