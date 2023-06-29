@@ -1,5 +1,7 @@
 package lv.venta.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +104,11 @@ public class StudentService implements IStudentService {
 			throw new Exception("Can not delete student with this ID! ", e);
 		}
 		
+	}
+
+	@Override
+	public List<Student> getAllStudent() {
+		return (List<Student>) studentRepo.findAll();
 	}
 
 }

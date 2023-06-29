@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jauns Ieraksts ITF Domes Tabulā</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<header>
+		<img src="/images/logo.png" alt="Logo" class="header-logo">
+	</header>
+	
+	<div class="thesis-table">
+    	<h1>Jauns ieraksts ITF Domes Tabulā</h1>
+    	<div class="btn-right">
+				<a href="/itftable-page/review" ><input  class="btn-bck"
+    			type="button" value="Atpakaļ"/></a>
+    		</div>
+    
+    	<form method="post" th:action="@{/itftable-page/create}">
+        	<label for="titleEn">Nosaukums angliski:</label>
+        	<input type="text" id="titleEn" name="titleEn" required><br><br>
+        	<label for="titleLv">Nosaukums latviski:</label>
+        	<input type="text" id="titleLv" name="titleLv" required><br><br>
+        	<label for="goal">Mērķis:</label>
+        	<textarea name="goal" id="goal" rows="8" cols="80" required></textarea><br><br>
+        	<label for="tasks">Uzdevumi:</label>
+        	<textarea name="tasks" id="tasks" rows="8" cols="80" required></textarea><br><br>
+        	<label for="student">Students:</label>
+        	<select id="student" name="student" required>
+        		<option th:each="student : ${students}" th:value="${student.getIdperson()}" th:text="${student.getName()} + ' ' + ${student.getSurname()}"></option>
+    		</select><br><br>
+        	<label for="supervisor">Darba vadītājs:</label>
+        	<select id="supervisor" name="supervisor" required>
+        		<option th:each="supervisor : ${supervisors}" th:value="${supervisor.getIdperson()}" th:text="${supervisor.getName()} + ' ' + ${supervisor.getSurname()}"></option>
+    		</select><br><br>
+        	
+        
+        	<input type="submit" class="btn-bck" value="Pievienot">
+    	</form>
+    </div>	
+</body>
+</html>
