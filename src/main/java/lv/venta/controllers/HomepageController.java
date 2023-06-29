@@ -56,7 +56,9 @@ public class HomepageController {
 	        
 	        return "homepage";
 	  }
-	  
+	 
+	 //News --> 
+	 
 	 @GetMapping("/all-news")
 	 public String showAllNews(Model model) {
 	     List<News> allNews = newsService.getAllNews();
@@ -102,45 +104,6 @@ public class HomepageController {
         return "redirect:/home-page";
      }
      
-    //<-----Mazais kalendārais grafiks------->
-     
-     
-     @GetMapping("/calendar-add")
-     public String showCalendarAddForm() {
-         return "calendar-add";
-     }
-     
-     @PostMapping("/add-activity")
-     public String addActivity(@RequestParam("gads") int gads,
-                               @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                               @ModelAttribute("activity") CalendarActivity activity) {
-         calendarService.addActivity(studioProgrammId, gads, activity.getActivity(), activity.getActivityEndDate(), activity.getActivityImplementation());
-         return "redirect:/home-page";
-     }
-
-     // Dzēst aktivitāti konkrētam gadam un studiju programmai
-     @PostMapping("/remove-activity")
-     public String removeActivity(@RequestParam("gads") int gads,
-                                  @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                                  @RequestParam("activityId") long activityId) {
-         calendarService.removeActivity(studioProgrammId, gads, activityId);
-         return "redirect:/home-page";
-     }
-
-     
-     // Iegūt kālendāra grafikus pēc gada un programmas
-     @GetMapping("/schedules/{year}/{programId}")
-     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
-                                                 @PathVariable("programId") long programId,
-                                                 Model model) {
-         StudioProgramm program = studioProgService.getStudioProgrammById(programId);
-         List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
-         model.addAttribute("program", program);
-         model.addAttribute("scheduleList", scheduleList);
-         return "schedules-by-program";
-     }
-     
-
      // Documents 
      
      @GetMapping("/all-documents")
