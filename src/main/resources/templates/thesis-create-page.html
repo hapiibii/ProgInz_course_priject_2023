@@ -33,10 +33,6 @@
         	<select id="supervisor" name="supervisor" required>
         		<option th:each="supervisor : ${supervisors}" th:value="${supervisor.getIdperson()}" th:text="${supervisor.getName()} + ' ' + ${supervisor.getSurname()}"></option>
     		</select><br><br>
-        	<label for="reviewers">Recenzents:</label>
-        	<select id="reviewers" name="reviewers" required>
-        		<option th:each="reviewers : ${reviewers}" th:value="${reviewers.getIdperson()}" th:text="${reviewers.getName()} + ' ' + ${reviewers.getSurname()}"></option>
-    		</select><br><br>
         	
         
         	<input type="submit" class="btn-bck" value="Pievienot">
