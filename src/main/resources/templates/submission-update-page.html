@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<form action="#"  th:action="@{/update/__${idsubmission}__}"  th:object="${submission}"   method="post">
+	<form action="#"  th:action="@{/submission/update/__${idsubmission}__}"  th:object="${submission}"   method="post">
 		<table>
 			<tr>
 				<td>Submission date: </td>
@@ -8,9 +8,8 @@
 			</tr>
 			
 			<tr>
-				<td>Submission file: </td>
-				<td><input type="text" th:field="*{file}"   />  </td>
-				<td th:if="${#fields.hasErrors('file')}" th:errors="*{file}"> </td>
+				<td>Document File file:</td>
+				<td><input type="file" name="file" /></td>
 			</tr>
 			
 		

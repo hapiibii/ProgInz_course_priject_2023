@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iesniegumi</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="/images/logo.png" alt="Logo" class="header-logo">
+    </header>
+    
+    <div class="saites-block">
+        	 <!-- /*janorada buspectam saites kur pogas aizved*/ -->
+        	
+             <button class="menu-button"><h3>Dokumenti</h3></button>
+            <br>
+            <button class="menu-button"><h3>Iesniegšana</h3></button>
+            <br>
+            <button class="menu-button"><h3>Aizstāvēšana</h3></button>
+            <br>
+            <button class="menu-button"><h3>ITF Dome</h3></button>
+            <br>
+            <button class="menu-button"><h3>Darbu izstrāde</h3></button>
+            <br>
+            <button class="menu-button"><h3>Kalendārais grafiks</h3></button>
+            <br>
+            <button class="menu-button"><h3>Arhīvs</h3></button>
+        </div>
+    
+    <div class="news-block">
+    <h1>Iesniegumi</h1>
+    <div class="submission">
+        <h2 class="submission-title"> Noslēgumi darbs PDF formātā </h2>
+        <button class="submission-button">Poga 1</button>
+    </div>
+    <div class="submission">
+        <h2 class="submission-title">Noslēgumu darba tēma</h2>
+        <button class="submission-button">Poga 2</button>
+    </div>
+</div>
+    
+    <div class="calendar-block">
+            <h1>Kalendārais grafiks</h1>
+            <hr>
+            <table>
+                <tr>
+                    <th>End Date</th>
+                    <th>Activity</th>
+                </tr>
+                <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
+                <tr th:each="activity : ${scheduleList}">
+                    <td th:text="${activity.activityEndDate}"></td>
+                    <td th:text="${activity.activity}"></td>
+                </tr>
+            </table>
+            <!-- Pievienot kalendāra grafiku poga -->
+            <a href="/home-page/calendar-add">Pievienot kalendāro grafiku</a>
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+
+</body>
+</html>

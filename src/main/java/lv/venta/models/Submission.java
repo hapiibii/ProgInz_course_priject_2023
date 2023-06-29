@@ -51,7 +51,7 @@ public class Submission {
 	
 	
 	public Submission(LocalDateTime submissionDate, File file) {
-		this.submissionDate = submissionDate;
+		this.submissionDate = LocalDateTime.now();
 		this.file = file;
 	}
 	
