@@ -10,29 +10,61 @@
 			<img src="/images/logo.png" alt="Logo" class="header-logo">
 		</header>
 		
-		<table>
-			<tr th:each="temp : ${allThesises}">
-				<td th:text="${temp.getIdthesis()}"> </td>
-				<td th:text="${temp.getStudent()}"> </td>
-				<td th:text="${temp.getTitleEn()}"> </td>
-				<td th:text="${temp.getTitleLv()}"> </td>
-				<td th:text="${temp.getSupervisor()}"> </td>
-				<td th:text="${temp.getReviewers()}"> </td>
-				<td th:text="${temp.getGoal()}"> </td>
-				<td th:text="${temp.getTasks()}"> </td>
-				<td th:text="${temp.getStatusFromSupervisor()}"> </td>
-				<td th:text="${temp.getAccStatus()}"> </td>
-				<td th:text="${temp.getTitleEn()}"> </td>
-				<td>
-					<ul>
-						<li th:each="comment : ${temp.getComments() }">
-							<span th:text="${comment.getSupervisor() }">Supervisor</span>
-						</li>
-					</ul>
-				</td>
-			</tr>
-		</table>
-		<!-- Poga Atpakaļ -->
-		<a href="/home-page">Atpakaļ</a>
+		<div class="thesis-table">
+			<h1>ITF Domes Tabula</h1>
+			<div class="btn-right">
+				<a href="/itftable-page/create" ><input  class="btn-bck"
+    			type="button" value="Pievienot"/></a>
+    		</div>
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Students</th>
+					<th>Nosaukums EN</th>
+					<th>Nosaukums LV</th>
+					<th>Darba Vadītājs</th>
+					<th>Recenzents</th>
+					<th>Mērķis</th>
+					<th>Uzdevumi</th>
+					<th>Statuss no DV</th>
+					<th>Statuss</th>
+					<th:block th:if="${temp != null}">
+						<ul>
+							<li th:each="comment : ${temp.getComments() }">
+								<span th:text="${comment.getSupervisor().getName() + ' ' + comment.getSupervisor().getSurname()}">Supervisor</span>
+							</li>
+						</ul>
+					</th:block>
+					<th> </th>
+				</tr>
+				<tr th:each="temp : ${allThesises}">
+					<td th:text="${temp.getIdthesis()}"> </td>
+					<td th:text="${temp.getStudent().getName() + ' ' + temp.getStudent().getSurname()}"> </td>
+					<td th:text="${temp.getTitleEn()}"> </td>
+					<td th:text="${temp.getTitleLv()}"> </td>
+					<td th:text="${temp.getSupervisor().getName() + ' ' + temp.getSupervisor().getSurname()}"> </td>
+					<td th:text="${temp.getReviewers().isEmpty() ? '' : temp.getReviewers().iterator().next().getName() + ' ' + temp.getReviewers().iterator().next().getSurname()}"> </td>
+					<td th:text="${temp.getGoal()}"> </td>
+					<td th:text="${temp.getTasks()}"> </td>
+					<td th:text="${temp.isStatusFromSupervisor()}"> </td>
+					<td th:text="${temp.getAccStatus()}"> </td>
+					<td>
+						<ul>
+							<li th:each="comment : ${temp.getComments() }">
+								<span th:text="${comment.getDescription() }">Description</span>
+							</li>
+						</ul>
+					</td>
+					<td class="action-buttons"><a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" ><input  class="btn-bck"
+    					type="button" value="Rediģēt"/></a>
+    					<a href="@{/itftable-page/delete/{idthesis}(idthesis=${temp.getIdthesis()})}" ><input  class="btn-bck"
+    					type="button" value="Dzēst"/></a>
+    				</td>
+    				
+				</tr>
+			</table>
+			<!-- Poga Atpakaļ -->
+			<a href="/home-page">Atpakaļ</a>
+		</div>
 	</body>
 </html>

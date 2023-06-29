@@ -113,5 +113,6 @@ public class Thesis {
 		this.supervisor = supervisor;
 		this.submitDateTime = LocalDateTime.now();
 		this.accStatus = AcceptanceStatus.submited;
+		this.statusFromSupervisor = true;
 	}
 }
