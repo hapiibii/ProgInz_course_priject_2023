@@ -10,6 +10,8 @@ import lv.venta.models.CalendarSchedule;
 
 public interface ICalendarRepo extends CrudRepository<CalendarActivity, Long> {
 	List<CalendarActivity> findAll();
-	List<CalendarActivity> getActivityEndDates();
+
+	List<CalendarActivity> getActivityEndDate();
+
 
 }

@@ -69,5 +69,9 @@ public class StudioProgrammService implements IStudioProgrammService {
 		Optional<StudioProgramm> programmOptional = studioProgrammRepo.findById(idstprog);
 		return programmOptional.orElse(null);
 	}
+	@Override
+	public StudioProgramm getStudioProgrammByTitle(String title) {
+		return studioProgrammRepo.findByTitle(title);
+	}
 
 }

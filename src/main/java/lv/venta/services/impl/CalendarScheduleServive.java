@@ -9,18 +9,18 @@ import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.repos.ICalendarRepo;
-import lv.venta.services.ICalendasScheduleServive;
+import lv.venta.services.ICalendarScheduleService;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CalendasScheduleServive implements ICalendasScheduleServive{
+public class CalendarScheduleServive implements ICalendarScheduleService{
 
 	private ICalendarScheduleRepo calendarScheduleRepo;
 	private ICalendarRepo calendarRepo;
 	
 	@Autowired
-    public CalendasScheduleServive (ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo) {
+    public CalendarScheduleServive (ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo) {
 		this.calendarScheduleRepo = calendarScheduleRepo;
 		this.calendarRepo = calendarRepo;
 	}
@@ -76,6 +76,11 @@ public class CalendasScheduleServive implements ICalendasScheduleServive{
 	    }
 
 	    calendarScheduleRepo.delete(calendarSchedule);
+	}
+
+	@Override
+	public List<CalendarSchedule> getCalendarSchedules() {
+	    return (List<CalendarSchedule>) calendarScheduleRepo.findAll();
 	}
 
 	

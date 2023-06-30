@@ -12,4 +12,5 @@ public interface ICalendarService {
     void removeActivity(long activityId);
     List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm);
     List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title);
+	List<CalendarActivity> getActivityEndDate();
 }

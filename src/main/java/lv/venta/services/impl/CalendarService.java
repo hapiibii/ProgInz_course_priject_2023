@@ -91,6 +91,11 @@ public class CalendarService implements ICalendarService {
 
 	    return activities;
 	}
+	
+	@Override
+	public List<CalendarActivity> getActivityEndDate() {
+		return calendarRepo.getActivityEndDate();
+	}
 
 }
 
