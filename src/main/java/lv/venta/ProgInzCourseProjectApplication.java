@@ -12,11 +12,9 @@ import lv.venta.models.Comment;
 import lv.venta.models.News;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
-<<<<<<< HEAD
-import lv.venta.models.Faculty;
-=======
+
 import lv.venta.models.Documents;
->>>>>>> paula
+
 import lv.venta.models.Thesis;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
@@ -26,11 +24,9 @@ import lv.venta.models.users.User;
 import lv.venta.repos.IAcademicPersonelRepo;
 import lv.venta.repos.ICommentRepo;
 import lv.venta.repos.ICourseRepo;
-<<<<<<< HEAD
-import lv.venta.repos.INewsRepo;
-=======
+
 import lv.venta.repos.IDocumentsRepo;
->>>>>>> paula
+
 import lv.venta.repos.IPersonRepo;
 import lv.venta.repos.IStudentRepo;
 import lv.venta.repos.IStudioProgrammRepo;
@@ -45,11 +41,8 @@ public class ProgInzCourseProjectApplication {
 	}
 	
 	@Bean
-<<<<<<< HEAD
-	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IStudioProgrammRepo studioProgRepo, INewsRepo newRepo) {
-=======
 	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo) {
->>>>>>> paula
+
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
