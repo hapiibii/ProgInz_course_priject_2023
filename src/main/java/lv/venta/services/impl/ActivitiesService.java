@@ -20,6 +20,7 @@ public class ActivitiesService implements IActivitiesService {
 	private IActivitiesRepo activitiesRepo;
 	private ICalendarService calendarService;
 	private ICalendarRepo calendarRepo;
+
 	
 	@Autowired
 	public ActivitiesService(IActivitiesRepo activitiesRepo, ICalendarService calendarService, ICalendarRepo calendarRepo) {
@@ -39,7 +40,7 @@ public class ActivitiesService implements IActivitiesService {
             String formattedDate = currentDate.format(formatter); 
             Activities activities = new Activities(" ", LocalDate.parse(formattedDate, formatter)); 
 
-            List<CalendarActivity> activitiesWithEndDates = calendarRepo.getActivityEndDates();
+            List<CalendarActivity> activitiesWithEndDates = calendarService.getActivityEndDate();
             for (CalendarActivity activityWithEndDate : activitiesWithEndDates) {
                 LocalDate endDate = activityWithEndDate.getActivityEndDate();
                 if (endDate != null && formattedDate.equals(endDate.format(formatter))) {

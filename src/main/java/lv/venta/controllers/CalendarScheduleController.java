@@ -66,7 +66,7 @@ public class CalendarScheduleController {
 	 @PostMapping("/remove-activity")
 	    public String removeActivity(@RequestParam("idCalendar") long idCalendar,
 	                                 @RequestParam("idActivity") long idActivity) {
-		 	calendarService.removeActivity(idActivity);
+		 calendarService.removeActivity(idActivity);
 		 	return "redirect:/calendar-schedule";
 	 	}
 

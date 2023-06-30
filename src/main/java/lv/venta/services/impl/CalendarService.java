@@ -28,12 +28,14 @@ public class CalendarService implements ICalendarService {
 	private ICalendarRepo calendarRepo;
 	private ICalendarScheduleRepo calendarScheduleRepo;
 	private IStudioProgrammService studioProgrammService;
+	private ICalendarService calendarService;
 
 	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo,ICalendarScheduleRepo calendarScheduleRepo, IStudioProgrammService studioProgrammService) {
+    public CalendarService(ICalendarRepo calendarRepo,ICalendarScheduleRepo calendarScheduleRepo, IStudioProgrammService studioProgrammService, ICalendarService calendarService) {
         this.calendarRepo = calendarRepo;
 		this.calendarScheduleRepo = calendarScheduleRepo;
 		this.studioProgrammService = studioProgrammService;
+		this.calendarService =calendarService;
     }
 
 	@Override
@@ -94,7 +96,7 @@ public class CalendarService implements ICalendarService {
 	
 	@Override
 	public List<CalendarActivity> getActivityEndDate() {
-		return calendarRepo.getActivityEndDate();
+		return calendarService.getActivityEndDate();
 	}
 
 }
