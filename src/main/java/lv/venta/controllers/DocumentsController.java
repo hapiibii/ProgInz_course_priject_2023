@@ -86,7 +86,7 @@ public class DocumentsController {
 		if (!result.hasErrors()) {
 			try {
 				Documents temp = documentsService.updateDocument(iddocument, document.getDocumentName(), document.getFile());
-				return "redirect:/document/" + temp.getDocumentName(); //tiks izsaukts -> localhost:8080/document/dokumeta nosaukums
+				return "redirect:/document/showAll" ;//tiks izsaukts -> localhost:8080/document/dokumeta nosaukums
 			}
 			catch (Exception e) {
 				return "redirect:/error";
