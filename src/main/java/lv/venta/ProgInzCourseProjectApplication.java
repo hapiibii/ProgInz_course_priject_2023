@@ -109,12 +109,12 @@ public class ProgInzCourseProjectApplication {
 				
 				
 				
-				String filePath = "/iesniegums1.odt";
+				String filePath = "files/iesniegums1.odt";
 				File file = new File(filePath);
 				Documents doc1 = new Documents("Test", file);
 				documentRepo.save(doc1);
 				
-				String filePath2 = "/iesniegums2.odt";
+				String filePath2 = "files/dokuments1.odt";
 				File file2 = new File(filePath);
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);

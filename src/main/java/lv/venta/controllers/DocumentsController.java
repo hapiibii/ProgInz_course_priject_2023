@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,7 +87,9 @@ public class DocumentsController {
 		if (!result.hasErrors()) {
 			try {
 				Documents temp = documentsService.updateDocument(iddocument, document.getDocumentName(), document.getFile());
-				return "redirect:/document/showAll" ;//tiks izsaukts -> localhost:8080/document/dokumeta nosaukums
+
+				return "redirect:/document/showAll"; //tiks izsaukts -> localhost:8080/document/dokumeta nosaukums
+
 			}
 			catch (Exception e) {
 				return "redirect:/error";
@@ -99,15 +102,15 @@ public class DocumentsController {
 	
 	@GetMapping("/insert")
 	public String insertDocumentGetFunction (Model model) {
-		Documents document = new Documents();
-		model.addAttribute("documents", document);
+		//Documents document = new Documents();
+		model.addAttribute("document", new Documents());
 		return "document-insert-page";
 	}
 	
 	
 	
 	@PostMapping("/insert")
-	public String insertDocumentPostFunction (@Valid Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
+	public String insertDocumentPostFunction (@ModelAttribute("document") Documents document, BindingResult result, @RequestParam("file") MultipartFile file) {
 		//if (!result.hasErrors()) {
 			try {
 				if (!file.isEmpty() && file != null) {
