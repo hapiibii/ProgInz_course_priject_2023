@@ -52,9 +52,5 @@ public class CalendarSchedule {
         this.studioProgramm = studioProgramm;
     }
 
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> alina
 }
