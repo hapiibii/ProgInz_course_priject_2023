@@ -35,7 +35,7 @@
     <div class="news-block">
             <h1>Dokumenti</h1>
             <table class="news-table" style = "width: 100%;">
-                <tr th:each="submission : ${myAllSubmissions}">
+                <tr th:each="document : ${myAllDocuments}">
                     <th>
                         <h3 class="news-title" th:text="${document.documentName}"></h3>
                     </th>
@@ -46,12 +46,21 @@
                         <a th:href="@{/document-page/update-document/{iddocument}(iddocument=${document.iddocument})}">Labot</a>
                         <a th:href="@{/document-page/delete-document/{iddocument}(iddocument=${document.iddocument})}">Dzēst</a>
                     </td>
+                    <td>
+					<ul>
+						<li th:each="document : ${temp.getDocument() }">
+							<span th:text="${document.getDocumentName() }">Nosaukums</span>
+						</li>
+					</ul>
+				</td>
                 </tr>
             </table>
             <!-- Izveidot pogu, kas noved uz jaunu dokumentu pievienošanas formas -->
             <a href="/document-page/create-documents">Izveidot dokumentu</a>
             
-            <a href="document/showAll">Visi dokumenti</a>
+
+            <a href="/document/showAll">Visi dokumenti</a>
+
         </div>
     
     

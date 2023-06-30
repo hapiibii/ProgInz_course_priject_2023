@@ -5,14 +5,23 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 
+
+<head>
+		<title>Dokumenta pievienošana</title>
+		<link rel="stylesheet" type="text/css" href="/style.css">
+	</head>
+	
 	<body>
-	
-	
-    <header>
-        <img src="/images/logo.png" alt="Logo" class="header-logo">
-    </header>
-	
-		<form action="#"  th:action="@{/document/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
+		<header>
+			<img src="/images/logo.png" alt="Logo" class="header-logo">
+		</header>
+		<div class="back-button">
+    	<a href="http://localhost:8080/document-page" class="button">Atpakaļ</a>
+		</div>
+		<h1>Dokumenta pievienošana</h1>
+
+	<form action="#"  th:action="@{/document/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
+
 		<table>
 			<tr>
 				<td>Iesnieguma nosaukums:</td>
