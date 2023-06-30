@@ -21,7 +21,7 @@
             <br>
             <button class="menu-button"><h3>Aizstāvēšana</h3></button>
             <br>
-            <a href="/itftable-page" class="menu-button"><h3>ITF Dome</h3></a>
+            <a href="/itftable-page/review" class="menu-button"><h3>ITF Dome</h3></a>
             <br>
             <button class="menu-button"><h3>Darbu izstrāde</h3></button>
             <br>
@@ -54,10 +54,9 @@
                     <th>Activity</th>
                 </tr>
                 <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
-                <tr th:each="activity : ${scheduleList}">
-                    <td th:text="${activity.activityEndDate}"></td>
-                    <td th:text="${activity.activity}"></td>
-                    
+                <tr th:each="activities : ${activeDatesList}">
+                    <td th:text="${activities.activityDate}"></td>
+                    <td th:text="${activities.activiti}"></td>
                 </tr>
             </table>
         </div>
