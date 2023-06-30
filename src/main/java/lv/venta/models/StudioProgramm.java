@@ -52,11 +52,21 @@ public class StudioProgramm {
 
 	public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
 			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
-		
+		super();
 		this.faculty = faculty;
 		this.degree = degree;
 		this.title = title;
 	}
+
+	/*public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
+			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
+		
+		this.faculty = faculty;
+		this.degree = degree;
+		this.title = title;
+	}*/
+	
+	
 	
 
 }

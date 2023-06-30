@@ -41,9 +41,13 @@ public class CalendarSchedule {
     @JoinColumn(name = "idstprog")
     private StudioProgramm studioProgramm;
 
+    
+    
     public CalendarSchedule(Year gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
         this.gads = gads;
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }
+
+
 }

@@ -16,7 +16,7 @@
     			type="button" value="Atpakaļ"/></a>
     		</div>
     
-    	<form method="post" th:action="@{/itftable-page/create}">
+    	<form action="#" th:action="@{/itftable-page/create}" th:object="${thesis}" method="post">
         	<label for="titleEn">Nosaukums angliski:</label>
         	<input type="text" id="titleEn" name="titleEn" required><br><br>
         	<label for="titleLv">Nosaukums latviski:</label>
@@ -35,7 +35,7 @@
     		</select><br><br>
         	
         
-        	<input type="submit" class="btn-bck" value="Pievienot">
+        	<button type="submit" class="btn-bck"> Pievienot </button>
     	</form>
     </div>	
 </body>
