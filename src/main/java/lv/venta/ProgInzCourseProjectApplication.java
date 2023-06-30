@@ -1,5 +1,6 @@
 package lv.venta;
 
+import java.io.File;
 import java.time.LocalDate;
 
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +12,11 @@ import lv.venta.models.Comment;
 import lv.venta.models.News;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
+<<<<<<< HEAD
 import lv.venta.models.Faculty;
+=======
+import lv.venta.models.Documents;
+>>>>>>> paula
 import lv.venta.models.Thesis;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
@@ -21,7 +26,11 @@ import lv.venta.models.users.User;
 import lv.venta.repos.IAcademicPersonelRepo;
 import lv.venta.repos.ICommentRepo;
 import lv.venta.repos.ICourseRepo;
+<<<<<<< HEAD
 import lv.venta.repos.INewsRepo;
+=======
+import lv.venta.repos.IDocumentsRepo;
+>>>>>>> paula
 import lv.venta.repos.IPersonRepo;
 import lv.venta.repos.IStudentRepo;
 import lv.venta.repos.IStudioProgrammRepo;
@@ -36,7 +45,11 @@ public class ProgInzCourseProjectApplication {
 	}
 	
 	@Bean
+<<<<<<< HEAD
 	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IStudioProgrammRepo studioProgRepo, INewsRepo newRepo) {
+=======
+	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo) {
+>>>>>>> paula
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
@@ -99,12 +112,19 @@ public class ProgInzCourseProjectApplication {
 				LocalDate today = LocalDate.now();
 				LocalDate tomorrow = LocalDate.now().plusDays(1);
 				News new1 = new News ("Parbaude", "Seit ir parbaude vai var pievienot jaunumu", today, tomorrow);
-				newRepo.save(new1);
+
 				
-				StudioProgramm prog1 = new StudioProgramm(Faculty.ITF, Degree.bsc, "Program title");
-				StudioProgramm prog2 = new StudioProgramm(Faculty.EPK, Degree.phd, "Program title");
-				studioProgRepo.save(prog1);
-				studioProgRepo.save(prog2);
+				
+				
+				String filePath = "/iesniegums1.odt";
+				File file = new File(filePath);
+				Documents doc1 = new Documents("Test", file);
+				documentRepo.save(doc1);
+				
+				String filePath2 = "/iesniegums2.odt";
+				File file2 = new File(filePath);
+				Documents doc2 = new Documents("Test", file2);
+				documentRepo.save(doc2);
 				
 
 			}
