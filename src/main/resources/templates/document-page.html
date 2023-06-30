@@ -47,7 +47,7 @@
                         <a th:href="@{/document-page/delete-document/{iddocument}(iddocument=${document.iddocument})}">Dzēst</a>
                     </td>
                     <ul>
-              			<li th:each="document : ${temp.getDocuments() }">
+              			<li th:each="document : ${document.getDocuments() }">
                 		<span th:text="${document.getDocumentName() }">Nosaukums</span>
               </li>
             </ul>

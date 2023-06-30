@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-		<title>ITF Domes Tabula</title>
+		<title>Dokumenta pievienošana</title>
 		<link rel="stylesheet" type="text/css" href="/style.css">
 	</head>
 	
@@ -9,6 +9,7 @@
 		<header>
 			<img src="/images/logo.png" alt="Logo" class="header-logo">
 		</header>
+		<h1>Dokumenta pievienošana</h1>
 
 	<form action="#"  th:action="@{/document/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
 		<table>
