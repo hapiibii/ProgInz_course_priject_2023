@@ -19,7 +19,7 @@
       <p>Statuss: <span th:text="${thesis.acccStatus}"></span></p>
       <p>Students: <span th:value="${student.idperson}" th:text="${student.name + ' ' + student.surname}"></span></p>
       <p>Darba vadītājs: <span th:value="${supervisor.idperson}" th:text="${supervisor.name + ' ' + supervisor.surname}"></span></p>
-      <p>Recenzents: <span th:value="${reviewers.idperson}" th:text="${reviewers.name + ' ' + reviewers.surname}"></span></p>
+      <p>Recenzents: <span th:text="${reviewers.name + ' ' + reviewers.surname}"></span></p>
       <p>Komentārs: <span><ul>
               <li th:each="comment : ${temp.getComments() }">
                 <span th:text="${comment.getDescription() }">Description</span>
