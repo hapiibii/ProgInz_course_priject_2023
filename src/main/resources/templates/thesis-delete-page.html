@@ -10,7 +10,7 @@
   </header>
   
   <body>
-    <div class="thesis-table">
+    <div class="thesis-block">
       <h1>Izdzēst ierakstu no ITF Domes tabulas</h1>
       <p>Nosaukums angliski: <span th:text="${thesis.titleEn}"></span></p>
       <p>Nosaukums latviski: <span th:text="${thesis.titleLv}"></span></p>
@@ -26,9 +26,9 @@
               </li>
             </ul></span></p>
       <form action="#" th:action="@{/itftable-page/delete/${idthesis}(idthesis=${thesis.idthesis})}" method="post">
-        <button type="submit">Dzēst</button>
+        <button type="submit" class="btn-bck">Dzēst</button>
       </form>
-      <a href="/home-page">Atpakaļ</a>
+      <a href="/home-page" class="btn-bck">Atpakaļ</a>
     </div>
   </body>
 </html>
