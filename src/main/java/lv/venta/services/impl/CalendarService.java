@@ -32,8 +32,11 @@ public class CalendarService implements ICalendarService {
         this.calendarRepo = calendarRepo;
 		this.studioProgrammService = studioProgrammService;
     }
-	
-	
+
+	@Override
+	public List<CalendarSchedule> getCalendarSchedules() {
+	    return calendarSchedules;
+	}
 	
 	@Override
 	public void addActivity(StudioProgramm studioProgramm, int gads, String activity, LocalDate activityEndDate, String activityImplementation) {
