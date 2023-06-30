@@ -16,7 +16,7 @@
       <p>Nosaukums latviski: <span th:text="${thesis.titleLv}"></span></p>
       <p>Mērķis: <span th:text="${thesis.goal}"></span></p>
       <p>Uzdevumi: <span th:text="${thesis.tasks}"></span></p>
-      <p>Statuss: <span th:text="${thesis.acccStatus}"></span></p>
+      <p>Statuss: <span th:text="${thesis.accStatus}"></span></p>
       <p>Students: <span th:value="${student.idperson}" th:text="${student.name + ' ' + student.surname}"></span></p>
       <p>Darba vadītājs: <span th:value="${supervisor.idperson}" th:text="${supervisor.name + ' ' + supervisor.surname}"></span></p>
       <p>Recenzents: <span th:text="${reviewers.name + ' ' + reviewers.surname}"></span></p>
@@ -25,7 +25,7 @@
                 <span th:text="${comment.getDescription() }">Description</span>
               </li>
             </ul></span></p>
-      <form action="#" th:action="@{/itftable-page/delete/${idthesis}(idthesis=${thesis.idthesis})}" method="post">
+      <form action="#" th:action="@{/itftable-page/delete/__${thesis.idthesis}__}" th:object="thesis" method="post">
         <button type="submit" class="btn-bck">Dzēst</button>
       </form>
       <a href="/home-page" class="btn-bck">Atpakaļ</a>
