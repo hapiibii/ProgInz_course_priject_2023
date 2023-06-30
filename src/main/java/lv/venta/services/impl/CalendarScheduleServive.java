@@ -8,7 +8,6 @@ import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
-import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.ICalendarScheduleService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +17,11 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 
 	private ICalendarScheduleRepo calendarScheduleRepo;
 	private ICalendarRepo calendarRepo;
-	private ICalendarScheduleService calendarScheduleService;
 	
 	@Autowired
     public CalendarScheduleServive (ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo, ICalendarScheduleService calendarScheduleService) {
 		this.calendarScheduleRepo = calendarScheduleRepo;
 		this.calendarRepo = calendarRepo;
-		this.calendarScheduleService = calendarScheduleService;
 	}
 	
 	@Override
