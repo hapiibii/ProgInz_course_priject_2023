@@ -45,23 +45,6 @@
     
 </div>
     
-    <div class="calendar-block">
-            <h1>Kalendārais grafiks</h1>
-            <hr>
-            <table>
-                <tr>
-                    <th>End Date</th>
-                    <th>Activity</th>
-                </tr>
-                <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
-                <tr th:each="activity : ${scheduleList}">
-                    <td th:text="${activity.activityEndDate}"></td>
-                    <td th:text="${activity.activity}"></td>
-                    
-                </tr>
-            </table>
-        </div>
-    
     
     
     
