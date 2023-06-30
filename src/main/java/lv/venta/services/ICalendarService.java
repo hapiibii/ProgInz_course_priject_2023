@@ -5,11 +5,12 @@ import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 
 public interface ICalendarService {
 	List<CalendarSchedule> getCalendarSchedules();
-	void addActivity(StudioProgramm studioProgramm, int year, String activity, LocalDate activityEndDate, String activityImplementation);
+	void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate, String activityImplementation);
     void removeActivity(StudioProgramm studioProgramm, int year, long activityId);
     List<CalendarActivity> getActivitiesEndingWithinTwoWeeks();
     List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm);

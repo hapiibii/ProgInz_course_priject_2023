@@ -11,7 +11,10 @@
         <input type="text" name="gads" id="gads" required><br><br>
         
         <label for="studioProgrammId">Studiju programma ID:</label>
-        <input type="text" name="studioProgrammId" id="studioProgrammId" required><br><br>
+        <select id="studioProgramm" name="studioProgramm" required>
+            <option th:each="studioProgramm : ${allStudioProgramms}" th:value="${studioProgramm.getIdstprog()}" th:text="${studioProgramm.getTitle()} "></option>
+        </select>
+        <br><br>
         
         <label for="activity">Aktivitāte:</label>
         <input type="text" name="activity" id="activity" required><br><br>

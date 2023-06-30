@@ -11,9 +11,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.Year;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class CalendarSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,4 +47,6 @@ public class CalendarSchedule {
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }
+
+    
 }
