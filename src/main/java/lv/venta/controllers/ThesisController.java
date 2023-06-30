@@ -75,7 +75,13 @@ public class ThesisController {
 	@GetMapping("/edit/{idthesis}")
 	public String showEditThesis(@PathVariable("idthesis") long idthesis, Model model) {
 		Thesis thesis = thesisService.getThesisById(idthesis);
+		List<Student> students = studentService.getAllStudent();
+        List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
+        List<AcademicPersonel> reviewers = personelService.getAllAcademicPersonel();
 		model.addAttribute("thesis", thesis);
+		model.addAttribute("students", students);
+        model.addAttribute("supervisors", supervisors);
+        model.addAttribute("reviewers", reviewers);
 		return "thesis-edit-page";
 	}
 	
