@@ -39,12 +39,10 @@ public class CalendarScheduleController {
 	 }
 	 
 	 @GetMapping("/calendar-add")
-
      public String showCalendarAddForm(Model model) {
 		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
 		 model.addAttribute("calendarSchedules", new  CalendarSchedule());
 		 model.addAttribute("allStudioProgramms", allStudioProgramms);
-
          return "calendar-add";
      }
      

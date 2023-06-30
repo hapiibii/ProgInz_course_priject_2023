@@ -13,4 +13,5 @@ public interface IStudioProgrammService {
 	void deleteStudioProgramm(long idstprog) throws Exception;
 	List<StudioProgramm> getAllStudioProgramms();
 	StudioProgramm getStudioProgrammById(long idstprog);
+	StudioProgramm getStudioProgrammByTitle(String title);
 }
