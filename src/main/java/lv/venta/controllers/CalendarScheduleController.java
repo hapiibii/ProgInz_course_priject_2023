@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.models.CalendarActivity;
+import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
@@ -31,6 +32,10 @@ public class CalendarScheduleController {
 	 
 	 @GetMapping
 	 public String showAll(Model model) {
+		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();
+		    
+		 model.addAttribute("calendarSchedules", calendarSchedules);
+;
 		 return "calendar-schedule";
 	 }
 	 
