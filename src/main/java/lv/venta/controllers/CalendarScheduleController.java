@@ -1,5 +1,6 @@
 package lv.venta.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +33,28 @@ public class CalendarScheduleController {
 	 
 	 @GetMapping
 	 public String showAll(Model model) {
-		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();
-		    
+		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();   
 		 model.addAttribute("calendarSchedules", calendarSchedules);
-;
 		 return "calendar-schedule";
 	 }
 	 
 	 @GetMapping("/calendar-add")
+<<<<<<< HEAD
      public String showCalendarAddForm() {
 		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
+=======
+     public String showCalendarAddForm(Model model) {
+		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
+		 model.addAttribute("calendarSchedules", new  CalendarSchedule());
+		 model.addAttribute("allStudioProgramms", allStudioProgramms);
+>>>>>>> alina
          return "calendar-add";
      }
      
      @PostMapping("/calendar-add")
-     public String addActivity(@RequestParam("gads") int gads,
-                               @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                               @ModelAttribute("activity") CalendarActivity activity) {
-         calendarService.addActivity(studioProgrammId, gads, activity.getActivity(), activity.getActivityEndDate(), activity.getActivityImplementation());
+     public String addActivity(@ModelAttribute("calendarSchedule") CalendarSchedule calendarSchedule, CalendarActivity calendarActivity) {
+
+         calendarService.addActivity(calendarSchedule.getStudioProgramm(), calendarSchedule.getGads(), calendarActivity.getActivity(), calendarActivity.getActivityEndDate(), calendarActivity.getActivityImplementation());
          return "redirect:/Calendar-schedule";
      }
 
