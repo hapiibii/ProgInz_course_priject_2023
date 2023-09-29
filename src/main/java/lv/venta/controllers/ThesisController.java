@@ -64,7 +64,7 @@ public class ThesisController {
 	
 	//TODO create-thesis post
 	@PostMapping("/create")
-	public String сreateThesis(@ModelAttribute("thesis") Thesis thesis) {
+	public String сreateThesis(   Thesis thesis) {
 		thesis.setAccStatus(AcceptanceStatus.submited);
 		thesis.setSubmitDateTime(LocalDateTime.now());
 		thesisService.createThesis(thesis);
