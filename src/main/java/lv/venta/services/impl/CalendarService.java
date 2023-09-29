@@ -38,13 +38,6 @@ public class CalendarService implements ICalendarService {
 	    return calendarSchedules;
 	}
 	
-	@Override
-	public void addActivity(StudioProgramm studioProgramm, int gads, String activity, LocalDate activityEndDate, String activityImplementation) {
-	    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(gads, studioProgramm);
-	    CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
-	    calendarSchedule.getActivities().add(calendarActivity);
-	}
-
 	 @Override
 	 public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
 		    CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
@@ -127,6 +120,18 @@ public class CalendarService implements ICalendarService {
 
 	        return activitiesWithEndDates;
 	    }
+
+		@Override
+		public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
+				String activityImplementation) {
+		    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
+		    CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
+		    calendarSchedule.getActivities().add(calendarActivity);
+			
+		}
+
+	
+
 
 }
 
