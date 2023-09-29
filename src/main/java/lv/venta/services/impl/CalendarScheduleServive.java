@@ -9,6 +9,8 @@ import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.services.ICalendarScheduleService;
+
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 	    }
 
 	    // Izveidojam jaunu kalendāra grafika objektu ar tukšām aktivitātēm
-	    CalendarSchedule calendarSchedule = new CalendarSchedule(year, new ArrayList<>(), studioProgramm);
+	    CalendarSchedule calendarSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
 
 	    
 	    calendarScheduleRepo.save(calendarSchedule);

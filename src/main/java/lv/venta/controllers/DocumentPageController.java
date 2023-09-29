@@ -35,7 +35,7 @@ public class DocumentPageController {
 	
 	
 	@GetMapping("/all-documents")
-	public String showAllDocuemnts (Model model) {
+	public String showAllDocuments (Model model) {
 		List<Documents> allDocuments = documentService.retrieveAllDocuments();
 		model.addAttribute("allDocuemnts", allDocuments);
 		return "all-documents-page";

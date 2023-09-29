@@ -46,11 +46,15 @@ public class CalendarSchedule {
 
     
     
-    public CalendarSchedule(int gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
-        this.gads = gads;
+    public CalendarSchedule(Year gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
+        this.gads = gads.getValue();
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }
+
+
+
+	
 
 
 }

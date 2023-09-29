@@ -4,7 +4,6 @@ import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
-import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
@@ -23,79 +22,117 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalendarService implements ICalendarService {
-	
-	
-	private ICalendarRepo calendarRepo;
-	private ICalendarScheduleRepo calendarScheduleRepo;
-	private IStudioProgrammService studioProgrammService;
+  private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
+  
+  private ICalendarRepo calendarRepo;
+  private IStudioProgrammService studioProgrammService;
 
-	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo,ICalendarScheduleRepo calendarScheduleRepo, IStudioProgrammService studioProgrammService) {
+  @Autowired
+    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService) {
         this.calendarRepo = calendarRepo;
-		this.calendarScheduleRepo = calendarScheduleRepo;
-		this.studioProgrammService = studioProgrammService;
+    this.studioProgrammService = studioProgrammService;
     }
 
-	@Override
-	public void addActivity(Long idCalendar, String activity, LocalDate activityEndDate, String activityImplementation) {
-		CalendarSchedule calendarSchedule = calendarScheduleRepo.findById(idCalendar)
-				.orElseThrow(() -> new IllegalArgumentException("Kalendāra grafiks ar norādīto ID nav atrasts"));
+  @Override
+  public List<CalendarSchedule> getCalendarSchedules() {
+      return calendarSchedules;
+  }
+  
+   @Override
+   public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
+        CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
+        if (calendarSchedule != null) { 
+            calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
+        }
+  }
 
-		CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
-		calendarRepo.save(calendarActivity);
-	}
+   @Override
+   public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
+     LocalDate currentDate = LocalDate.now();
+     LocalDate twoWeeksLater = currentDate.plus(2, ChronoUnit.WEEKS);
+     //TODO pabeigt
+     return new ArrayList<>();
+   //  return calendarSchedules.stream()
+/*
+     return calendarSchedules.stream()
+         .flatMap(schedule -> schedule.getActivities().stream())
+         .filter(activity -> activity.getActivityEndDate().isBefore(twoWeeksLater))
+         .collect(Collectors.toList());*/
+      }
 
-	@Override
-	public void removeActivity(long activityId) {
-		CalendarActivity calendarActivity = calendarRepo.findById(activityId)
-				.orElseThrow(() -> new IllegalArgumentException("Aktivitāte ar norādīto ID nav atrasta"));
+      @Override
+      public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
+          CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
+          if (calendarSchedule != null) {
+              return calendarSchedule.getActivities();
+          }
+          return new ArrayList<>();
+      }
 
-		calendarRepo.delete(calendarActivity);
-	}
+      private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
+          for (CalendarSchedule schedule : calendarSchedules) {
+              if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
+                  return schedule;
+              }
+          }
+          CalendarSchedule newSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
+          calendarSchedules.add(newSchedule);
+          return newSchedule;
+      }
 
-	@Override
-	public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
-	    List<CalendarActivity> activities = new ArrayList<>();
+      private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
+          for (CalendarSchedule schedule : calendarSchedules) {
+              if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
+                  return schedule;
+              }
+          }
+          return null;
+      }  
+      
+      
+      @Override
+      public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
+          List<CalendarActivity> matchingActivities = new ArrayList<>();
 
-	    // Iegūstam visus kalendāra grafikus attiecīgajam gadam un studiju programmai
-	    List<CalendarSchedule> calendarSchedules = (List<CalendarSchedule>) calendarScheduleRepo.findByGadsAndStudioProgramm(year, studioProgramm);
+          for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) {
+              if (program.getTitle().equals(title)) {
+                  Collection<CalendarSchedule> schedules = program.getActivities();
+                  for (CalendarSchedule schedule : schedules) {
+                      List<CalendarActivity> activities = schedule.getActivities();
+                      matchingActivities.addAll(activities);
+                  }
+              }
+          }
+          return matchingActivities;
+      }
+      
+      public List<CalendarActivity> getEndDates() {
+          List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 
-	    // Pārbaudām katru kalendara grafiku
-	    for (CalendarSchedule calendarSchedule : calendarSchedules) {
-	        // Iegūstam aktivitātes no kalendāra grafika
-	        List<CalendarActivity> scheduleActivities = calendarSchedule.getActivities();
-	        activities.addAll(scheduleActivities);
-	    }
+          // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
+          List<CalendarActivity> allActivities = calendarRepo.findAll();
 
-	    return activities;
-	}
+          // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
+          for (CalendarActivity activity : allActivities) {
+              LocalDate endDate = activity.getActivityEndDate();
+              if (endDate != null) {
+                  activitiesWithEndDates.add(activity);
+              }
+          }
 
-	@Override
-	public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
-	    List<CalendarActivity> activities = new ArrayList<>();
+          return activitiesWithEndDates;
+      }
 
-	    // Iegūstam studiju programmu pēc nosaukuma
-	    StudioProgramm studioProgramm = studioProgrammService.getStudioProgrammByTitle(title);
+    @Override
+    public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
+        String activityImplementation) {
+        CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
+        CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
+        calendarSchedule.getActivities().add(calendarActivity);
+      
+    }
 
-	    if (studioProgramm != null) {
-	        // Iegūstam visus kalendāra grafikus attiecīgajai studiju programmai
-	        List<CalendarSchedule> calendarSchedules = calendarScheduleRepo.findByStudioProgramm(studioProgramm);
 
-	        // Pārbaudām katru kalendāra grafiku
-	        for (CalendarSchedule calendarSchedule : calendarSchedules) {
-	            // Iegūstam aktivitātes no kalendāra grafika
-	            List<CalendarActivity> scheduleActivities = calendarSchedule.getActivities();
-	            activities.addAll(scheduleActivities);
-	        }
-	    }
-
-	    return activities;
-	}
-	
-	@Override
-	public List<CalendarActivity> getActivityEndDate() {
-		return getActivityEndDate();
-	}
 
 }
-
+          

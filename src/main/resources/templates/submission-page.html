@@ -21,7 +21,7 @@
             <br>
             <button class="menu-button"><h3>Aizstāvēšana</h3></button>
             <br>
-            <button class="menu-button"><h3>ITF Dome</h3></button>
+            <a href="/itftable-page/review" class="menu-button"><h3>ITF Dome</h3></a>
             <br>
             <button class="menu-button"><h3>Darbu izstrāde</h3></button>
             <br>
@@ -40,26 +40,13 @@
 	</div>
     <div class="submission" style="display: flex; justify-content: space-between; align-items: center;">
         <h2 class="submission-title" style="text-align: left;">Noslēgumu darba tēma</h2>
-        <a href="/submission/insert" class="menu-button"><h3>Pievienot</h3></a>
+        <a href="/submission/insert" class="submission-button">Pievienot</a>
     </div>
+    
 </div>
     
-    <div class="calendar-block">
-            <h1>Kalendārais grafiks</h1>
-            <hr>
-            <table>
-                <tr>
-                    <th>End Date</th>
-                    <th>Activity</th>
-                </tr>
-                <!-- Iterēt caur scheduleList un attēlot aktivitātes -->
-                <tr th:each="activity : ${scheduleList}">
-                    <td th:text="${activity.activityEndDate}"></td>
-                    <td th:text="${activity.activity}"></td>
-                </tr>
-            </table>
-        </div>
-    
+
+
     
     
     

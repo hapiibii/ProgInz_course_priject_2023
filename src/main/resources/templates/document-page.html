@@ -21,7 +21,7 @@
             <br>
             <button class="menu-button"><h3>Aizstāvēšana</h3></button>
             <br>
-            <button class="menu-button"><h3>ITF Dome</h3></button>
+            <a href="/itftable-page/review" class="menu-button"><h3>ITF Dome</h3></a>
             <br>
             <button class="menu-button"><h3>Darbu izstrāde</h3></button>
             <br>
@@ -34,24 +34,19 @@
     
     <div class="news-block">
             <h1>Dokumenti</h1>
-            <table class="news-table" style = "width: 100%;">
-                <tr th:each="submission : ${myAllSubmissions}">
-                    <th>
-                        <h3 class="news-title" th:text="${document.documentName}"></h3>
-                    </th>
-                    <td colspan="2">
-                        <p class="news-description" th:text="${document.file}"></p>
-                    </td>
-                    <td class="action-buttons">
-                        <a th:href="@{/document-page/update-document/{iddocument}(iddocument=${document.iddocument})}">Labot</a>
-                        <a th:href="@{/document-page/delete-document/{iddocument}(iddocument=${document.iddocument})}">Dzēst</a>
-                    </td>
-                </tr>
-            </table>
+            <table>
+	<tr th:each="document : ${myAllDocuments}">
+		<td th:text="${document.getIddocument()}"></td>
+		<td th:text="${document.getDocumentName()}"></td>
+		<td th:text="${document.getFile()}"></td>
+	</tr>
+	
+	
+</table>
             <!-- Izveidot pogu, kas noved uz jaunu dokumentu pievienošanas formas -->
             <a href="/document-page/create-documents">Izveidot dokumentu</a>
             
-            <a href="document/showAll">Visi dokumenti</a>
+            <a href="/document/showAll">Visi dokumenti</a>
         </div>
     
     

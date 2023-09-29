@@ -1,5 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+		<title>Iesnieguma pievienošana</title>
+		<link rel="stylesheet" type="text/css" href="/style.css">
+	</head>
+	
+	<body>
+		<header>
+			<img src="/images/logo.png" alt="Logo" class="header-logo">
+		</header>
+		<div class="back-button">
+    	<a href="http://localhost:8080/submission-page" class="button">Atpakaļ</a>
+		</div>
+	<h1>Iesnieguma pievienošana</h1>
 
 	<form action="#"  th:action="@{/submission/insert}"  th:object="${submission}"   method="post" enctype="multipart/form-data">
 		<table>
@@ -22,5 +35,5 @@
 		
 	</form>
 	
-	
+	</body>
 </html>
