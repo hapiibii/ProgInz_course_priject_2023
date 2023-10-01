@@ -1,10 +1,16 @@
 package lv.venta.models.users;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +28,17 @@ public class UserAuthority {
 	@Pattern(regexp = "[A-Z]{3,8}")
 	@NotNull
 	private String title;
+	
+	
+	@ManyToMany
+	@JoinTable(name = "Users_Authorities", joinColumns = @JoinColumn(name = "UserAuthorityId"), inverseJoinColumns = @JoinColumn(name = "Iduser"))
+	private Collection<User> users = new ArrayList<>();
+	
+	
+	
+	
+	
+	
 
 	public String getTitle() {
 		return title;
