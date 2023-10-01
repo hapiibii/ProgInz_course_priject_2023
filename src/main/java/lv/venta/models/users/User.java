@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 //TODO pielikt toString, ja nepieciešams
-public class User {
+public class User extends Person{
 
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "Iduser")
@@ -29,10 +29,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long iduser;
 	
-	//@Column(name = "Username")
-	//@NotNull
+	@Column(name = "Username")
+	@NotNull
 	//@Pattern(regexp = "[a-z]")
-	//private String username;
+	private String username;
 	
 	
 	//TODO kad pievienos Spring security, tad jauzliek passwordEncoder
@@ -50,9 +50,11 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private Person person;
 	
-	public User(@NotNull String password, @NotNull @Email String email) {
+	public User(String name, String surname, Role role, User user,  @NotNull String password, @NotNull @Email String email) {
+		super(name, surname, role, user);
 		this.password = password;
 		this.email = email;
+		username = name.toLowerCase() + "." + surname.toLowerCase();
 	}
 	
 	
