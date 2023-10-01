@@ -1,10 +1,15 @@
 package lv.venta.models.users;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -46,6 +51,15 @@ public class User extends Person{
 	@Email
 	private String email;
 
+	
+	
+	
+	
+	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+	private Collection<UserAuthority> authorities = new ArrayList<>();
+	
+	
+	
 	
 	@OneToOne(mappedBy = "user")
 	private Person person;
