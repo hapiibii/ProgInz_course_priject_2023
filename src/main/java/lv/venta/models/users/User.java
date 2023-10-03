@@ -26,7 +26,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 //TODO pielikt toString, ja nepieciešams
-public class User extends Person{
+public class User {
 
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "Iduser")
@@ -64,13 +64,22 @@ public class User extends Person{
 	@OneToOne(mappedBy = "user")
 	private Person person;
 	
-	public User(String name, String surname, Role role, User user,  @NotNull String password, @NotNull @Email String email) {
-		super(name, surname, role, user);
+	public User(String name, String surname,  @NotNull String password) {
 		this.password = password;
 		//this.email = email;
 		username = name.toLowerCase() + "." + surname.toLowerCase();
 	}
 	
+	public void addAuthority(UserAuthority authority) {
+		if (!authorities.contains(authority)) {
+			authorities.add(authority);
+		}
+	}
 	
+	public void removeAuthority(UserAuthority authority) {
+		if (!authorities.contains(authority)) {
+			authorities.remove(authority);
+		}
+	}
 	
 }
