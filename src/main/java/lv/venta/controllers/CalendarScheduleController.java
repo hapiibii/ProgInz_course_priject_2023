@@ -17,63 +17,67 @@ import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.services.ICalendarService;
+import lv.venta.services.ICalendarScheduleService;
 import lv.venta.services.IStudioProgrammService;
 
 @Controller
 @RequestMapping("/Calendar-schedule")
 public class CalendarScheduleController {
 	 private final ICalendarService calendarService;
+	 private final ICalendarScheduleService calendarScheduleService;
 	 private final IStudioProgrammService studioProgService;
 	 
 	 @Autowired
-	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService) {
+	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,ICalendarScheduleService calendarScheduleService) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
+		 this.calendarScheduleService = calendarScheduleService;
 	 }
 	 
 	 @GetMapping
-	 public String showAll(Model model) {
-		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();   
-		 model.addAttribute("calendarSchedules", calendarSchedules);
-		 return "calendar-schedule";
+	    public String showAll(Model model) {
+		 List<CalendarSchedule> calendarSchedules = calendarScheduleService.getCalendarSchedules();
+		    
+		 for (CalendarSchedule calendarSchedule : calendarSchedules) {
+		     List<CalendarActivity> activities = calendarSchedule.getActivities();
+		     calendarSchedule.setActivities(activities);
+		 }
+		    
+		    model.addAttribute("calendarSchedules", calendarSchedules);
+		    return "calendar-schedule";
 	 }
 	 
 	 @GetMapping("/calendar-add")
+	    public String showCalendarAddForm(Model model) {
+	        List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
+	        model.addAttribute("calendarSchedule", new CalendarSchedule());
+	        model.addAttribute("allStudioProgramms", allStudioProgramms);
+	        return "calendar-add";
+	 }
 
-     public String showCalendarAddForm(Model model) {
-		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
-		 model.addAttribute("calendarSchedules", new  CalendarSchedule());
-		 model.addAttribute("allStudioProgramms", allStudioProgramms);
+	 @PostMapping("/calendar-add")
+	 public String addActivity(@ModelAttribute("calendarSchedule") CalendarSchedule calendarSchedule,
+	                              @ModelAttribute("calendarActivity") CalendarActivity calendarActivity) {
+		 calendarService.addActivity(calendarSchedule.getIdCalendar(), calendarActivity.getActivity(),
+	    calendarActivity.getActivityEndDate(), calendarActivity.getActivityImplementation());
+	     return "redirect:/calendar-schedule";
+	}
 
-         return "calendar-add";
-     }
-     
-     @PostMapping("/calendar-add")
-     public String addActivity(@ModelAttribute("calendarSchedule") CalendarSchedule calendarSchedule, CalendarActivity calendarActivity) {
+	 @PostMapping("/remove-activity")
+	    public String removeActivity(@RequestParam("idCalendar") long idCalendar,
+	                                 @RequestParam("idActivity") long idActivity) {
+		 calendarService.removeActivity(idActivity);
+		 	return "redirect:/calendar-schedule";
+	 	}
 
-         calendarService.addActivity(calendarSchedule.getStudioProgramm(), calendarSchedule.getGads(), calendarActivity.getActivity(), calendarActivity.getActivityEndDate(), calendarActivity.getActivityImplementation());
-         return "redirect:/Calendar-schedule";
-     }
-
-     // Dzēst aktivitāti konkrētam gadam un studiju programmai
-     @PostMapping("/remove-activity")
-     public String removeActivity(@RequestParam("gads") int gads,
-                                  @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                                  @RequestParam("activityId") long activityId) {
-         calendarService.removeActivity(studioProgrammId, gads, activityId);
-         return "redirect:/Calendar-schedule";
-     }
-
-     
-     // Iegūt kālendāra grafikus pēc gada un programmas
-     @GetMapping("/schedules/{year}/{programId}")
-     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
-                                                 @PathVariable("programId") long programId,
-                                                 Model model) {
-         StudioProgramm program = studioProgService.getStudioProgrammById(programId);
-         List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
-         model.addAttribute("program", program);
-         model.addAttribute("scheduleList", scheduleList);
-         return "schedules-by-program";
-     }
+	 @GetMapping("/schedules/{year}/{programId}")
+	 public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
+	                                                @PathVariable("programId") long programId,
+	                                                Model model) {
+	     StudioProgramm program = studioProgService.getStudioProgrammById(programId);
+	     List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
+	     model.addAttribute("program", program);
+	     model.addAttribute("scheduleList", scheduleList);
+	     return "schedules-by-program";
+	}
 }

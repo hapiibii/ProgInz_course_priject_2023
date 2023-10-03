@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.repos.IActivitiesRepo;
+import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.IActivitiesService;
 import lv.venta.services.ICalendarService;
 
@@ -18,11 +19,14 @@ import lv.venta.services.ICalendarService;
 public class ActivitiesService implements IActivitiesService {
 	private IActivitiesRepo activitiesRepo;
 	private ICalendarService calendarService;
+	private ICalendarRepo calendarRepo;
+
 	
 	@Autowired
-	public ActivitiesService(IActivitiesRepo activitiesRepo, ICalendarService calendarService) {
+	public ActivitiesService(IActivitiesRepo activitiesRepo, ICalendarService calendarService, ICalendarRepo calendarRepo) {
 		this.activitiesRepo = activitiesRepo;
 		this.calendarService = calendarService;
+		this.calendarRepo =calendarRepo;
 	}
 	
 	@Override
@@ -36,7 +40,7 @@ public class ActivitiesService implements IActivitiesService {
             String formattedDate = currentDate.format(formatter); 
             Activities activities = new Activities(" ", LocalDate.parse(formattedDate, formatter)); 
 
-            List<CalendarActivity> activitiesWithEndDates = calendarService.getEndDates();
+            List<CalendarActivity> activitiesWithEndDates = calendarService.getActivityEndDate();
             for (CalendarActivity activityWithEndDate : activitiesWithEndDates) {
                 LocalDate endDate = activityWithEndDate.getActivityEndDate();
                 if (endDate != null && formattedDate.equals(endDate.format(formatter))) {

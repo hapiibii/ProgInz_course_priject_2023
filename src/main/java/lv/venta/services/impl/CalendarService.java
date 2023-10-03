@@ -22,116 +22,117 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalendarService implements ICalendarService {
-	private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
-	
-	private ICalendarRepo calendarRepo;
-	private IStudioProgrammService studioProgrammService;
+  private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
+  
+  private ICalendarRepo calendarRepo;
+  private IStudioProgrammService studioProgrammService;
 
-	@Autowired
+  @Autowired
     public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService) {
         this.calendarRepo = calendarRepo;
-		this.studioProgrammService = studioProgrammService;
+    this.studioProgrammService = studioProgrammService;
     }
 
-	@Override
-	public List<CalendarSchedule> getCalendarSchedules() {
-	    return calendarSchedules;
-	}
-	
-	 @Override
-	 public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
-		    CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
-		    if (calendarSchedule != null) { 
-		        calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
-		    }
-	}
+  @Override
+  public List<CalendarSchedule> getCalendarSchedules() {
+      return calendarSchedules;
+  }
+  
+   @Override
+   public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
+        CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
+        if (calendarSchedule != null) { 
+            calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
+        }
+  }
 
-	 @Override
-	 public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
-		 LocalDate currentDate = LocalDate.now();
-		 LocalDate twoWeeksLater = currentDate.plus(2, ChronoUnit.WEEKS);
+   @Override
+   public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
+     LocalDate currentDate = LocalDate.now();
+     LocalDate twoWeeksLater = currentDate.plus(2, ChronoUnit.WEEKS);
+     //TODO pabeigt
+     return new ArrayList<>();
+   //  return calendarSchedules.stream()
+/*
+     return calendarSchedules.stream()
+         .flatMap(schedule -> schedule.getActivities().stream())
+         .filter(activity -> activity.getActivityEndDate().isBefore(twoWeeksLater))
+         .collect(Collectors.toList());*/
+      }
 
-		 return calendarSchedules.stream()
-				 .flatMap(schedule -> schedule.getActivities().stream())
-				 .filter(activity -> activity.getActivityEndDate().isBefore(twoWeeksLater))
-				 .collect(Collectors.toList());
-	    }
+      @Override
+      public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
+          CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
+          if (calendarSchedule != null) {
+              return calendarSchedule.getActivities();
+          }
+          return new ArrayList<>();
+      }
 
-	    @Override
-	    public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
-	        CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
-	        if (calendarSchedule != null) {
-	            return calendarSchedule.getActivities();
-	        }
-	        return new ArrayList<>();
-	    }
+      private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
+          for (CalendarSchedule schedule : calendarSchedules) {
+              if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
+                  return schedule;
+              }
+          }
+          CalendarSchedule newSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
+          calendarSchedules.add(newSchedule);
+          return newSchedule;
+      }
 
-	    private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
-	        for (CalendarSchedule schedule : calendarSchedules) {
-	            if (schedule.getGads().getValue() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
-	                return schedule;
-	            }
-	        }
-	        CalendarSchedule newSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
-	        calendarSchedules.add(newSchedule);
-	        return newSchedule;
-	    }
+      private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
+          for (CalendarSchedule schedule : calendarSchedules) {
+              if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
+                  return schedule;
+              }
+          }
+          return null;
+      }  
+      
+      
+      @Override
+      public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
+          List<CalendarActivity> matchingActivities = new ArrayList<>();
 
-	    private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
-	        for (CalendarSchedule schedule : calendarSchedules) {
-	            if (schedule.getGads().getValue() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
-	                return schedule;
-	            }
-	        }
-	        return null;
-	    }  
-	    
-	    
-	    @Override
-	    public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
-	        List<CalendarActivity> matchingActivities = new ArrayList<>();
+          for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) {
+              if (program.getTitle().equals(title)) {
+                  Collection<CalendarSchedule> schedules = program.getActivities();
+                  for (CalendarSchedule schedule : schedules) {
+                      List<CalendarActivity> activities = schedule.getActivities();
+                      matchingActivities.addAll(activities);
+                  }
+              }
+          }
+          return matchingActivities;
+      }
+      
+      public List<CalendarActivity> getEndDates() {
+          List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 
-	        for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) {
-	            if (program.getTitle().equals(title)) {
-	                Collection<CalendarSchedule> schedules = program.getActivities();
-	                for (CalendarSchedule schedule : schedules) {
-	                    List<CalendarActivity> activities = schedule.getActivities();
-	                    matchingActivities.addAll(activities);
-	                }
-	            }
-	        }
+          // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
+          List<CalendarActivity> allActivities = calendarRepo.findAll();
 
-	        return matchingActivities;
-	    }
-	    
-	    public List<CalendarActivity> getEndDates() {
-	        List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
+          // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
+          for (CalendarActivity activity : allActivities) {
+              LocalDate endDate = activity.getActivityEndDate();
+              if (endDate != null) {
+                  activitiesWithEndDates.add(activity);
+              }
+          }
 
-	        // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
-	        List<CalendarActivity> allActivities = calendarRepo.findAll();
+          return activitiesWithEndDates;
+      }
 
-	        // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
-	        for (CalendarActivity activity : allActivities) {
-	            LocalDate endDate = activity.getActivityEndDate();
-	            if (endDate != null) {
-	                activitiesWithEndDates.add(activity);
-	            }
-	        }
+    @Override
+    public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
+        String activityImplementation) {
+        CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
+        CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
+        calendarSchedule.getActivities().add(calendarActivity);
+      
+    }
 
-	        return activitiesWithEndDates;
-	    }
-
-		@Override
-		public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
-				String activityImplementation) {
-		    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
-		    CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
-		    calendarSchedule.getActivities().add(calendarActivity);
-			
-		}
-
-	
 
 
 }
-
+          
