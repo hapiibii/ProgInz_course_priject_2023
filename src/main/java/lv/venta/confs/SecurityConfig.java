@@ -13,6 +13,8 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import lv.venta.services.impl.security.UserDetailsServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +26,8 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public UserDetailsManagerImpl userDetailsManager() {
-	  UserDetailsManagerImpl manager = new UserDetailsManagerImpl();
+	public UserDetailsServiceImpl userDetailsManager() {
+	  UserDetailsServiceImpl manager = new UserDetailsServiceImpl();
 	  return manager;
 	}
 	 

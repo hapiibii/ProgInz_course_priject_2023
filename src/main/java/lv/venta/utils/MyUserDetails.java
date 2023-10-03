@@ -25,7 +25,7 @@ public class MyUserDetails implements UserDetails{
 		Iterator<GrantedAuthority> iter = user.getAuthorities().iterator();
 		
 		while(iter.hasNext()) {
-			SimpleGrantedAuthority temp = new SimpleGrantedAuthority(iter.next().getTitle());
+			SimpleGrantedAuthority temp = new SimpleGrantedAuthority(((UserAuthority) iter.next()).getTitle());
 			authorities.add(temp);
 			
 		}

@@ -46,10 +46,10 @@ public class User extends Person{
 	//TODO papildinat ar validaciju, kad ir zinams passwordEncoder
 	private String password;
 	
-	@NotNull
-	@Column(name = "Email")
-	@Email
-	private String email;
+	//@NotNull
+	//@Column(name = "Email")
+	//@Email
+	//private String email;
 
 	
 	
@@ -67,7 +67,7 @@ public class User extends Person{
 	public User(String name, String surname, Role role, User user,  @NotNull String password, @NotNull @Email String email) {
 		super(name, surname, role, user);
 		this.password = password;
-		this.email = email;
+		//this.email = email;
 		username = name.toLowerCase() + "." + surname.toLowerCase();
 	}
 	
