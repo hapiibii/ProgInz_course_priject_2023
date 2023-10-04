@@ -35,7 +35,7 @@ public class CalendarSchedule {
 	private long idCalendar;
 	    
 	@Column(name = "gads")
-	private int gads;
+	private Year gads;
 	    
 	@OneToMany(mappedBy = "calendarSchedule", cascade = CascadeType.ALL) // visi operācijas izmaiņas, kas tiek veiktas CalendarSchedule objektam (piemēram, dzēšana vai atjaunināšana), tiks automātiski izplatītas arī uz saistītajiem CalendarActivity objektiem
 	private List<CalendarActivity> activities = new ArrayList<>();
@@ -47,7 +47,7 @@ public class CalendarSchedule {
     
     
     public CalendarSchedule(Year gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
-        this.gads = gads.getValue();
+        this.gads = gads;
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }

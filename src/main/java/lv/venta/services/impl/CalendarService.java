@@ -39,7 +39,7 @@ public class CalendarService implements ICalendarService {
   }
   
    @Override
-   public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
+   public void removeActivity(StudioProgramm studioProgramm, Year gads, long activityId) {
         CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
         if (calendarSchedule != null) { 
             calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
@@ -61,7 +61,7 @@ public class CalendarService implements ICalendarService {
       }
 
       @Override
-      public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
+      public List<CalendarActivity> getActivitiesByYearAndProgram(Year year, StudioProgramm studioProgramm) {
           CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
           if (calendarSchedule != null) {
               return calendarSchedule.getActivities();
@@ -69,18 +69,18 @@ public class CalendarService implements ICalendarService {
           return new ArrayList<>();
       }
 
-      private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
+      private CalendarSchedule getOrCreateCalendarSchedule(Year year, StudioProgramm studioProgramm) {
           for (CalendarSchedule schedule : calendarSchedules) {
               if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
                   return schedule;
               }
           }
-          CalendarSchedule newSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
+          CalendarSchedule newSchedule = new CalendarSchedule(year, new ArrayList<>(), studioProgramm);
           calendarSchedules.add(newSchedule);
           return newSchedule;
       }
 
-      private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
+      private CalendarSchedule getCalendarSchedule(Year year, StudioProgramm studioProgramm) {
           for (CalendarSchedule schedule : calendarSchedules) {
               if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
                   return schedule;
@@ -126,7 +126,7 @@ public class CalendarService implements ICalendarService {
     @Override
     public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
         String activityImplementation) {
-        CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
+        CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year, studioProgramm);
         CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
         calendarSchedule.getActivities().add(calendarActivity);
       

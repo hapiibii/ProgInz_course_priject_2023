@@ -21,13 +21,13 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 	private ICalendarRepo calendarRepo;
 	
 	@Autowired
-    public CalendarScheduleServive (ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo, ICalendarScheduleService calendarScheduleService) {
-		this.calendarScheduleRepo = calendarScheduleRepo;
-		this.calendarRepo = calendarRepo;
+	public CalendarScheduleServive(ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo) {
+	    this.calendarScheduleRepo = calendarScheduleRepo;
+	    this.calendarRepo = calendarRepo;
 	}
 	
 	@Override
-	public void createCalendarSchedule(StudioProgramm studioProgramm, int year) {
+	public void createCalendarSchedule(StudioProgramm studioProgramm, Year year) {
 	    // vai kalendāra grafiks jau eksistē norādītajam gadam un studiju programmam
 	    CalendarSchedule existingSchedule = calendarScheduleRepo.findByGadsAndStudioProgramm(year, studioProgramm);
 	    if (existingSchedule != null) {
@@ -35,7 +35,7 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 	    }
 
 	    // Izveidojam jaunu kalendāra grafika objektu ar tukšām aktivitātēm
-	    CalendarSchedule calendarSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
+	    CalendarSchedule calendarSchedule = new CalendarSchedule(year, new ArrayList<>(), studioProgramm);
 
 	    
 	    calendarScheduleRepo.save(calendarSchedule);
