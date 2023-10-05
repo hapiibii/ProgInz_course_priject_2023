@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import lv.venta.services.impl.security.UserDetailsServiceImpl;
 
@@ -47,6 +49,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
+		.requestMatchers("/style.css").permitAll()
 		.requestMatchers("/Calendar-schedule").hasAnyAuthority("USER")
 		.requestMatchers("/Calendar-schedule/calendar-add").hasAnyAuthority("ADMIN")
 		.requestMatchers("/Calendar-schedule/remove-activity").hasAnyAuthority("ADMIN")
@@ -97,7 +100,11 @@ public class SecurityConfig {
 		return http.build();
 	}
 	
-	
+
+	public void configure(WebSecurity web) throws Exception {
+	    web.ignoring()
+	       .requestMatchers("/resources/static/css/**");
+	}
 	
 	
 	
