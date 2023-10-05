@@ -50,6 +50,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
 		.requestMatchers("/style.css").permitAll()
+		.requestMatchers("/images/**").permitAll()
 		.requestMatchers("/Calendar-schedule").hasAnyAuthority("USER")
 		.requestMatchers("/Calendar-schedule/calendar-add").hasAnyAuthority("ADMIN")
 		.requestMatchers("/Calendar-schedule/remove-activity").hasAnyAuthority("ADMIN")
