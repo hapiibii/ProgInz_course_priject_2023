@@ -6,9 +6,10 @@ import java.util.Iterator;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lv.venta.models.users.User;
 import lv.venta.models.users.UserAuthority;
 
 public class MyUserDetails implements UserDetails{
@@ -22,7 +23,7 @@ public class MyUserDetails implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		Iterator<GrantedAuthority> iter = user.getAuthorities().iterator();
+		Iterator<UserAuthority> iter = user.getAuthorities().iterator();
 		
 		while(iter.hasNext()) {
 			SimpleGrantedAuthority temp = new SimpleGrantedAuthority(((UserAuthority) iter.next()).getTitle());

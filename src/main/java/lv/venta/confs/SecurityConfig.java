@@ -19,6 +19,7 @@ import lv.venta.services.impl.security.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer () {
@@ -60,7 +61,7 @@ public class SecurityConfig {
 		.requestMatchers("/document/delete/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/document/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/document/insert").hasAnyAuthority("USER")
-		.requestMatchers("/home-page").hasAnyAuthority("USER")
+		.requestMatchers("/home-page").permitAll()
 		.requestMatchers("/home-page/all-news").hasAnyAuthority("USER")
 		.requestMatchers("/home-page/create-news").hasAnyAuthority("USER")
 		.requestMatchers("/home-page/edit-news/**").hasAnyAuthority("USER")
@@ -90,6 +91,8 @@ public class SecurityConfig {
 		.formLogin().permitAll()
 		.and()
 		.logout().permitAll();
+		
+		
 		
 		return http.build();
 	}
