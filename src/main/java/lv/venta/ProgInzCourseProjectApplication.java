@@ -63,7 +63,7 @@ public class ProgInzCourseProjectApplication {
 				//userRepo.save(us2);
 				//userRepo.save(us3);
 				//userRepo.save(us4);			
-				User user1 = new User("Paula", "Cielava", passwordEncoderSimple().encode("123"));
+				User user1 = new User("Test", "Test", passwordEncoderSimple().encode("123"));
 				userRepo.save(user1);
 				
 				User user2 = new User("Janis", "Janis", passwordEncoderSimple().encode("111"));
