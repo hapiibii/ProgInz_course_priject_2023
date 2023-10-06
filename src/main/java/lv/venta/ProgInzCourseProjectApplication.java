@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lv.venta.models.Comment;
 import lv.venta.models.News;
@@ -21,6 +23,7 @@ import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Role;
 import lv.venta.models.users.Student;
 import lv.venta.models.users.User;
+import lv.venta.models.users.UserAuthority;
 import lv.venta.repos.IAcademicPersonelRepo;
 import lv.venta.repos.ICommentRepo;
 import lv.venta.repos.ICourseRepo;
@@ -31,6 +34,7 @@ import lv.venta.repos.IPersonRepo;
 import lv.venta.repos.IStudentRepo;
 import lv.venta.repos.IStudioProgrammRepo;
 import lv.venta.repos.IThesisRepo;
+import lv.venta.repos.IUserAuthorityRepo;
 import lv.venta.repos.IUserRepo;
 
 @SpringBootApplication
@@ -41,32 +45,59 @@ public class ProgInzCourseProjectApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo) {
+	public PasswordEncoder passwordEncoderSimple() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+	
+	@Bean
+	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo, IUserAuthorityRepo authorityRepo) {
 
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-				User us1 = new User("123", "karina.krinkele@venta.lv"); //pasn
-				User us2 = new User("123", "karlis.immers@venta.lv"); //pasn
-				User us3 = new User("123", "baiba.egle@venta.lv"); //st
-				User us4 = new User("123", "marina.satura@venta.lv"); //st
-				userRepo.save(us1);
-				userRepo.save(us2);
-				userRepo.save(us3);
-				userRepo.save(us4);
+				//User us1 = new User("123", "karina.krinkele@venta.lv"); //pasn
+				//User us2 = new User("123", "karlis.immers@venta.lv"); //pasn
+				//User us3 = new User("123", "baiba.egle@venta.lv"); //st
+				//User us4 = new User("123", "marina.satura@venta.lv"); //st
+				//userRepo.save(us1);
+				//userRepo.save(us2);
+				//userRepo.save(us3);
+				//userRepo.save(us4);			
+				User user1 = new User("Test", "Test", passwordEncoderSimple().encode("123"));
+				userRepo.save(user1);
+				
+				User user2 = new User("Janis", "Janis", passwordEncoderSimple().encode("111"));
+				userRepo.save(user2);
+				
+				UserAuthority auth1 = new UserAuthority("USER");
+				UserAuthority auth2 = new UserAuthority("ADMIN");
+				auth1.addUser(user1);
+				auth2.addUser(user2);
+				auth2.addUser(user1);
+				authorityRepo.save(auth1);
+				authorityRepo.save(auth2);
+				
+				user1.addAuthority(auth1);
+				user1.addAuthority(auth2);
+				user2.addAuthority(auth2);
+				userRepo.save(user1);
+				userRepo.save(user2);
+				
 				
 				Course c1 = new Course("Javaa", 4);
 				Course c2 = new Course("Datastr", 2);
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
-				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, us1, Degree.mg);
-				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, us2, Degree.mg);
+				// user vietā ieliku null
+				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, null, Degree.mg);
+				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, null, Degree.mg);
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
-				Student s1 = new Student("Baiba", "Egle", "123123-12312", Role.Students, us3, "22000043", false);
-				Student s2 = new Student("Marina", "Satura", "123153-12322", Role.Students, us4, "22000089", true);
+				// user vietā ieliku null
+				Student s1 = new Student("Baiba", "Egle", "123123-12312", Role.Students, null, "22000043", false);
+				Student s2 = new Student("Marina", "Satura", "123153-12322", Role.Students, null, "22000089", true);
 				
 				
 				s2.addDebtCourse(c1);

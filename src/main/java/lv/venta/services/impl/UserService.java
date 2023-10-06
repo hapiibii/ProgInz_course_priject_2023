@@ -31,9 +31,9 @@ public class UserService implements IUserService {
 			if(password != null) {
 				existingUser.setPassword(password);
 			}
-			if(email != null) {
-				existingUser.setEmail(email);
-			}
+		//	if(email != null) {
+		//		existingUser.setEmail(email);
+		//	}
 			userRepo.save(existingUser);
 		}
 		else {
