@@ -27,7 +27,7 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 	}
 	
 	@Override
-	public void createCalendarSchedule(StudioProgramm studioProgramm, Year year) {
+	public void createCalendarSchedule(StudioProgramm studioProgramm, int year) {
 	    // vai kalendāra grafiks jau eksistē norādītajam gadam un studiju programmam
 	    CalendarSchedule existingSchedule = calendarScheduleRepo.findByGadsAndStudioProgramm(year, studioProgramm);
 	    if (existingSchedule != null) {

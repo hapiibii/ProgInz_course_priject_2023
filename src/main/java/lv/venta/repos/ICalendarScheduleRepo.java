@@ -10,8 +10,9 @@ import lv.venta.models.StudioProgramm;
 
 public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule, Long> {
 	
-	CalendarSchedule findByGadsAndStudioProgramm(Year year, StudioProgramm studioProgramm);
+	CalendarSchedule findByGadsAndStudioProgramm(int year, StudioProgramm studioProgramm);
 
 	List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
+
 	
 }

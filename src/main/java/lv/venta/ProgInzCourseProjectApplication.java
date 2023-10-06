@@ -14,7 +14,7 @@ import lv.venta.models.Course;
 import lv.venta.models.Degree;
 
 import lv.venta.models.Documents;
-
+import lv.venta.models.Faculty;
 import lv.venta.models.Thesis;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
@@ -41,7 +41,7 @@ public class ProgInzCourseProjectApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo) {
+	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo, IStudioProgrammRepo studioprogrepo) {
 
 		return new CommandLineRunner() {
 			@Override
@@ -119,7 +119,12 @@ public class ProgInzCourseProjectApplication {
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);
 				
-
+				StudioProgramm studioprogramm1 = new StudioProgramm(Faculty.ITF, Degree.phd, "Programesanas specialists");
+				studioprogrepo.save(studioprogramm1);
+				StudioProgramm studioprogramm2 = new StudioProgramm(Faculty.EPK, Degree.mg, "Ekanomikas fakultate");
+				studioprogrepo.save(studioprogramm2);
+				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.bsc, "Talmaciba");
+				studioprogrepo.save(studioprogramm3);
 			}
 		};
 	}

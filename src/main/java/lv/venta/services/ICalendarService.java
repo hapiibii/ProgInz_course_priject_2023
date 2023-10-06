@@ -10,10 +10,11 @@ import java.util.List;
 
 public interface ICalendarService {
 	List<CalendarSchedule> getCalendarSchedules();
-	void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate, String activityImplementation);
-    void removeActivity(StudioProgramm studioProgramm, Year year, long activityId);
+	void addActivity(String studioProgrammTitle, int year, String activity, LocalDate activityEndDate, String activityImplementation);
+    void removeActivity(StudioProgramm studioProgramm, int year, long activityId);
     List<CalendarActivity> getActivitiesEndingWithinTwoWeeks();
-    List<CalendarActivity> getActivitiesByYearAndProgram(Year year, StudioProgramm studioProgramm);
+    List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm);
     List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title);
     List<CalendarActivity> getEndDates();
+
 }

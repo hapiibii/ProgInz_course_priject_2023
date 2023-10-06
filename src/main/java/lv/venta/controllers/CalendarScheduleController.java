@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
@@ -22,7 +23,7 @@ import lv.venta.services.IStudioProgrammService;
 
 @Controller
 @RequestMapping("/Calendar-schedule")
-public class CalendarScheduleController {
+public class CalendarScheduleController {   //Domes kalendārais grafiks, kas tiek noteikts katrai fakultātei
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 
@@ -40,7 +41,30 @@ public class CalendarScheduleController {
 	 }
 	 
 	 @GetMapping("/calendar-add")
+	 public String showCalendarAddForm(Model model) {
+	        List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
+	        model.addAttribute("calendarScheduleDTO", new CalendarScheduleDTO()); // Izmantojiet CalendarScheduleDTO
+	        model.addAttribute("allStudioProgramms", allStudioProgramms);
+	        return "calendar-add";
+	    }
 
+	 @PostMapping("/calendar-add")
+	 public String addActivity(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
+	     System.out.println(calendarScheduleDTO.toString());
+
+	     calendarService.addActivity(
+	         calendarScheduleDTO.getStudioProgrammTitle(),
+	         calendarScheduleDTO.getGads(),
+	         calendarScheduleDTO.getActivity(),
+	         calendarScheduleDTO.getActivityEndDate(),
+	         calendarScheduleDTO.getActivityImplementation()
+	     );
+
+	     return "redirect:/calendar-schedule";
+	 }
+
+/*	 
+	 @GetMapping("/calendar-add")
      public String showCalendarAddForm(Model model) {
 		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
 		 model.addAttribute("calendarSchedules", new  CalendarSchedule());
@@ -51,14 +75,16 @@ public class CalendarScheduleController {
      
      @PostMapping("/calendar-add")
      public String addActivity(@ModelAttribute("calendarSchedule") CalendarSchedule calendarSchedule, CalendarActivity calendarActivity) {
+    	 System.out.print(calendarSchedule);
+    	 System.out.println(calendarActivity);
 
          calendarService.addActivity(calendarSchedule.getStudioProgramm(), calendarSchedule.getGads(), calendarActivity.getActivity(), calendarActivity.getActivityEndDate(), calendarActivity.getActivityImplementation());
-         return "redirect:/Calendar-schedule";
+         return  "redirect:/Calendar-schedule";
      }
-
+*/
      // Dzēst aktivitāti konkrētam gadam un studiju programmai
      @PostMapping("/remove-activity")
-     public String removeActivity(@RequestParam("gads") Year gads,
+     public String removeActivity(@RequestParam("gads") int gads,
                                   @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
                                   @RequestParam("activityId") long activityId) {
          calendarService.removeActivity(studioProgrammId, gads, activityId);
@@ -68,7 +94,7 @@ public class CalendarScheduleController {
      
      // Iegūt kālendāra grafikus pēc gada un programmas
      @GetMapping("/schedules/{year}/{programId}")
-     public String showSchedulesByYearAndProgram(@PathVariable("year") Year year,
+     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
                                                  @PathVariable("programId") long programId,
                                                  Model model) {
          StudioProgramm program = studioProgService.getStudioProgrammById(programId);

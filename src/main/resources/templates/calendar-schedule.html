@@ -46,7 +46,7 @@
 		            <td th:text="${activity.activity}"></td>
 		            <td th:text="${activity.activityImplementation}"></td>
 		            
-		            <td><form action="/Calendar-schedule/remove-activity" method="post">
+		            <td><form action="/calendar-schedule/remove-activity" method="post">
 				            <input type="hidden" name="gads" th:value="${year}">
 				            <input type="hidden" name="studioProgrammId" th:value="${programId}">
 				            <input type="hidden" name="activityId" th:value="${activity.activityId}">
