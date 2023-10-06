@@ -2,26 +2,32 @@ package lv.venta.services.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.Documents;
+import lv.venta.repos.IDocumentsRepo;
 import lv.venta.services.IDocumentsService;
 
 @Service
-public class DocumentsServiceImpl implements IDocumentsService{
+public class DocumentsServiceImpl implements IDocumentsService {
 
-	ArrayList<Documents> allDocuments = new ArrayList<>();
-	
+	private ArrayList<Documents> allDocuments = new ArrayList<>();
+
+	@Autowired
+	private IDocumentsRepo documentsRepo;
+
 	// atgriež visus dokumentus
 	@Override
-	public ArrayList<Documents> retrieveAllDocuments () {
+	public List<Documents> retrieveAllDocuments() {
 		return allDocuments;
 	}
-	
+
 	// atgriež dokumentu pēc id
 	@Override
-	public Documents retrieveDocumentById (long iddocument) throws Exception {
+	public Documents retrieveDocumentById(long iddocument) throws Exception {
 		for (Documents temp : allDocuments) {
 			if (temp.getIddocument() == iddocument) {
 				return temp;
@@ -29,10 +35,10 @@ public class DocumentsServiceImpl implements IDocumentsService{
 		}
 		throw new Exception("Wrong id!");
 	}
-	
+
 	// atgriež dokumentu pēc nosaukuma
 	@Override
-	public ArrayList<Documents> retrieveDocumentByDocumentName (String documentName) throws Exception {
+	public ArrayList<Documents> retrieveDocumentByDocumentName(String documentName) throws Exception {
 		if (documentName != null) {
 			ArrayList<Documents> allDocumentsWithDocumentName = new ArrayList<>();
 			for (Documents temp : allDocuments) {
@@ -40,17 +46,16 @@ public class DocumentsServiceImpl implements IDocumentsService{
 				}
 			}
 			return allDocumentsWithDocumentName;
-		}
-		else {
+		} else {
 			throw new Exception("Documents name don`t exist!");
 		}
 	}
-	
+
 	// dzēš dokumentu pēc id
 	@Override
-	public void deleteDocumentByDocumetId (long iddocument) throws Exception { 
+	public void deleteDocumentByDocumetId(long iddocument) throws Exception {
 		boolean isFound = false;
-		for (Documents temp : allDocuments) { 
+		for (Documents temp : allDocuments) {
 			if (temp.getIddocument() == iddocument) {
 				allDocuments.remove(temp);
 				isFound = true;
@@ -61,11 +66,10 @@ public class DocumentsServiceImpl implements IDocumentsService{
 			throw new Exception("Wrong ID!");
 		}
 	}
-	
-	
+
 	// atjauno dokumentu
 	@Override
-	public Documents updateDocument (long iddocument, String documentName, File file) throws Exception {
+	public Documents updateDocument(long iddocument, String documentName, File file) throws Exception {
 		for (Documents temp : allDocuments) {
 			if (temp.getIddocument() == iddocument) {
 				temp.setDocumentName(documentName);
@@ -75,39 +79,21 @@ public class DocumentsServiceImpl implements IDocumentsService{
 		}
 		throw new Exception("Wrong ID!");
 	}
-	
-	
-	// ievietošana 
+
+	// ievietošana
 	@Override
-	public Documents insertDocument (String documentName, File file) {
-		for (Documents temp : allDocuments) {
-			if (temp.getDocumentName().equals(documentName)) {
-				temp.setFile(file);
-				return temp;
-			}
-		}
+	public Documents insertDocument(String documentName, File file) {
 		Documents newDocument = new Documents(documentName, file);
-		allDocuments.add(newDocument);
+		allDocuments.add(newDocument); // Pievienojiet jauno dokumentu lokālajam sarakstam
 		return newDocument;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/*
+	 * @Override public Documents insertDocument (String documentName, File file) {
+	 * for (Documents temp : allDocuments) { if
+	 * (temp.getDocumentName().equals(documentName)) { temp.setFile(file); return
+	 * temp; } } Documents newDocument = new Documents(documentName, file);
+	 * allDocuments.add(newDocument); return newDocument; }
+	 */
+
 }

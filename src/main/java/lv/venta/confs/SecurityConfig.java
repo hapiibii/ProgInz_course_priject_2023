@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import jakarta.servlet.DispatcherType;
 import lv.venta.services.impl.security.UserDetailsServiceImpl;
 
 
@@ -91,6 +92,9 @@ public class SecurityConfig {
 		.requestMatchers("/itftable-page/create-coments/**").hasAnyAuthority("USER")
 		.requestMatchers("/itftable-page/edit-coment/**").hasAnyAuthority("USER")
 		.requestMatchers("/itftable-page/delete-coments/**").hasAnyAuthority("USER")
+		.requestMatchers("/h2-console").permitAll()
+	    .requestMatchers("/h2-console/**").permitAll()
+	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()
 		.and()

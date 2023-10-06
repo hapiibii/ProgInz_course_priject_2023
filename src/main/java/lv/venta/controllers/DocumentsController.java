@@ -2,6 +2,7 @@ package lv.venta.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,15 @@ public class DocumentsController {
 		model.addAttribute("myAllDocuments", documentsService.retrieveAllDocuments());
 		return "all-documents-page";
 	}
+	
+	@GetMapping("/document-page")
+    public String showDocumentPage(Model model) {
+		
+        List<Documents> allDocuments = documentsService.retrieveAllDocuments();
+        
+        model.addAttribute("myAllDocuments", allDocuments);
+        return "document-page"; 
+    }
 	
 	@GetMapping("/showAll/{iddocument}")
 	public String showDocumentsById (@PathVariable long iddocument, Model model) {
@@ -123,16 +133,13 @@ public class DocumentsController {
 					document.setFile(new File(filePath));
 				}
 				documentsService.insertDocument(document.getDocumentName(), document.getFile());
-				return "redirect:/document/showAll";
+				return "redirect:/document-page";
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 				return "error-page";
 			}
-		//}
-		//else {
-		//	return "document-insert-page";
-		//}
+		
 	}
 	
 	
