@@ -40,9 +40,23 @@
 		            <th>. ak. gada aktivitāte</th>
 		            <th>Aktivitātes realizēšanas datums</th>
 		        </tr>
+		        
+		        
 		        <!-- Iterējam caur aktivitātēm un attēlojam informāciju -->
-		        <tr th:each="activity : ${scheduleList}">
-		        	<td th:text="${stat.count}"></td>
+		        <tr th:each="activity : ${calendarSchedules}">
+		        	<!-- <td th:text="${stat.count}"></td> -->
+		           <!-- for cikls activities -->
+		         <td>
+				<ul>
+					<li th:each="atemp : ${activity.getActivities()}">
+						<span th:text="${atemp.getActiviti()}"></span>
+					
+					</li>
+				</ul>
+			</td>  
+		           
+		           
+		           
 		            <td th:text="${activity.activity}"></td>
 		            <td th:text="${activity.activityImplementation}"></td>
 		            
@@ -54,6 +68,8 @@
 				        </form>
 				    </td>
 		        </tr>
+		        
+		        
 	    	</table>
 	    </div>
 	  </div>  

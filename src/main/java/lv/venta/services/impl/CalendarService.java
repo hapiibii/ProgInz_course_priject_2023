@@ -4,6 +4,7 @@ import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
+import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
 
@@ -24,11 +25,13 @@ public class CalendarService implements ICalendarService {
 	
 	private ICalendarRepo calendarRepo;
 	private IStudioProgrammService studioProgrammService;
+	private ICalendarScheduleRepo calendarSchedulrRepo;
 
 	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService) {
+    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService, ICalendarScheduleRepo calendarSchedulrRepo) {
         this.calendarRepo = calendarRepo;
 		this.studioProgrammService = studioProgrammService;
+		this.calendarSchedulrRepo = calendarSchedulrRepo;
     }
 
 	@Override
@@ -120,8 +123,11 @@ public class CalendarService implements ICalendarService {
 	public void addActivity(String studioProgrammTitle, int year, String activity, LocalDate activityEndDate,String activityImplementation) {
 		StudioProgramm studioProgramm = studioProgrammService.getStudioProgrammByTitle(studioProgrammTitle);
 		CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year, studioProgramm);
-		CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
+		CalendarSchedule tempCalendarSchedule = calendarSchedulrRepo.save(calendarSchedule);
+		CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, tempCalendarSchedule);
 		calendarSchedule.getActivities().add(calendarActivity);
+		
+		calendarRepo.save(calendarActivity);
 			
 	}
 }

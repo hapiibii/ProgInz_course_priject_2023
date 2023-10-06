@@ -43,7 +43,7 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 	 @GetMapping("/calendar-add")
 	 public String showCalendarAddForm(Model model) {
 	        List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
-	        model.addAttribute("calendarScheduleDTO", new CalendarScheduleDTO()); // Izmantojiet CalendarScheduleDTO
+	        model.addAttribute("calendarScheduleDTO", new CalendarScheduleDTO()); 
 	        model.addAttribute("allStudioProgramms", allStudioProgramms);
 	        return "calendar-add";
 	    }
@@ -60,7 +60,7 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 	         calendarScheduleDTO.getActivityImplementation()
 	     );
 
-	     return "redirect:/calendar-schedule";
+	     return "redirect:/Calendar-schedule";
 	 }
 
 /*	 
