@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Iesniegumi</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+
+    <header>
+        <img src="/images/logo.png" alt="Logo" class="header-logo">
+    </header>
+    
+    <div class="saites-block">
+        	 <!-- /*janorada bus pec tam saites kur pogas aizved*/ -->
+        	
+            <a href="/document-page" class="menu-button"><h3>Dokumenti</h3></a>
+            <br>
+            <a href="/submission-page" class="menu-button"><h3>Iesniegšana</h3></a>
+            <br>
+            <button class="menu-button"><h3>Aizstāvēšana</h3></button>
+            <br>
+            <a href="/itftable-page/review" class="menu-button"><h3>ITF Dome</h3></a>
+            <br>
+            <button class="menu-button"><h3>Darbu izstrāde</h3></button>
+            <br>
+            <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule'">
+          	<h3>Kalendārais grafiks</h3>
+      		</button>
+            <br>
+            <button class="menu-button"><h3>Arhīvs</h3></button>
+        </div>
+    
+    <div class="news-block">
+            <h1>Dokumenti</h1>
+            <table>
+            
+            	<tr>
+	                <th>ID</th>
+	                <th>Nosaukums</th>
+	                <th>Faila nosaukums</th>
+            	</tr>
+            
+				<tr th:each="document : ${myAllDocuments}">
+					<td th:text="${document.iddocument}"></td>
+	                <td th:text="${document.documentName}"></td>
+	                <td th:text="${document.file?.name}"></td>
+				</tr>
+	
+	
+</table>
+            <!-- Izveidot pogu, kas noved uz jaunu dokumentu pievienošanas formas -->
+            <a href="/document-page/create-documents">Izveidot dokumentu</a>
+            
+            <a href="/document/showAll">Visi dokumenti</a>
+        </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+</body>
+</html>

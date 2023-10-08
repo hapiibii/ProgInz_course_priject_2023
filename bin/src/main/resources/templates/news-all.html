@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visi jaunumi</title>
+</head>
+<body>
+    <h1>Visi jaunumi</h1>
+<link rel="stylesheet" type="text/css" href="/style.css">
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Delete</th>
+        </tr>
+        <!-- Iterēt caur allNews un attēlot jaunumus -->
+        <tr th:each="news : ${allNews}">
+            <td th:text="${news.title}"></td>
+            <td th:text="${news.description}"></td>
+            <td><a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a></td>
+        </tr>
+    </table>
+
+    <!-- Pievienot pogu, kas noved atpakaļ uz sākumlapu -->
+    <a href="/home-page">Atpakaļ</a>
+</body>
+</html>
