@@ -18,6 +18,7 @@ import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
+import lv.venta.services.ICalendarScheduleService;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
 
@@ -26,11 +27,13 @@ import lv.venta.services.IStudioProgrammService;
 public class CalendarScheduleController {   //Domes kalendārais grafiks, kas tiek noteikts katrai fakultātei
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
+	 private final ICalendarScheduleService calendarScheduleService;
 	 
 	 @Autowired
-	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService) {
+	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,ICalendarScheduleService calendarScheduleService) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
+		 this.calendarScheduleService = calendarScheduleService;
 	 }
 	 
 	 @GetMapping
@@ -39,49 +42,23 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 		 model.addAttribute("calendarSchedules", calendarSchedules);
 		 return "calendar-schedule";
 	 }
-	 
+
 	 @GetMapping("/calendar-add")
 	 public String showCalendarAddForm(Model model) {
-	        List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
-	        model.addAttribute("calendarScheduleDTO", new CalendarScheduleDTO()); 
-	        model.addAttribute("allStudioProgramms", allStudioProgramms);
-	        return "calendar-add";
-	    }
-
-	 @PostMapping("/calendar-add")
-	 public String addActivity(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
-	     System.out.println(calendarScheduleDTO.toString());
-
-	     calendarService.addActivity(
-	         calendarScheduleDTO.getStudioProgrammTitle(),
-	         calendarScheduleDTO.getGads(),
-	         calendarScheduleDTO.getActivity(),
-	         calendarScheduleDTO.getActivityEndDate(),
-	         calendarScheduleDTO.getActivityImplementation()
-	     );
-
-	     return "redirect:/Calendar-schedule";
+		 
+	     // Jaizveido jauns CalendarScheduleDTO objekts, lai saņemtu lietotāja ievadītos datus
+	     CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
+	     model.addAttribute("calendarScheduleDTO", calendarScheduleDTO);
+	     return "calendar-add"; //  HTML, kur tiek parādīta forma datu ievadīšanai
 	 }
 
-/*	 
-	 @GetMapping("/calendar-add")
-     public String showCalendarAddForm(Model model) {
-		 List<StudioProgramm> allStudioProgramms = studioProgService.getAllStudioProgramms();
-		 model.addAttribute("calendarSchedules", new  CalendarSchedule());
-		 model.addAttribute("allStudioProgramms", allStudioProgramms);
-
-         return "calendar-add";
-     }
-     
-     @PostMapping("/calendar-add")
-     public String addActivity(@ModelAttribute("calendarSchedule") CalendarSchedule calendarSchedule, CalendarActivity calendarActivity) {
-    	 System.out.print(calendarSchedule);
-    	 System.out.println(calendarActivity);
-
-         calendarService.addActivity(calendarSchedule.getStudioProgramm(), calendarSchedule.getGads(), calendarActivity.getActivity(), calendarActivity.getActivityEndDate(), calendarActivity.getActivityImplementation());
-         return  "redirect:/Calendar-schedule";
-     }
-*/
+	 @PostMapping("/calendar-add")
+	 public String addCalendarSchedule(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
+	     // Izsauc servisa metodi
+	     calendarScheduleService.addCalendarSchedule(calendarScheduleDTO);
+	     return "redirect:/Calendar-schedule"; // Pēc veiksmīgas pievienošanas atgriežam lietotāju atpakaļ uz formas lapu
+	 }
+	 
      // Dzēst aktivitāti konkrētam gadam un studiju programmai
      @PostMapping("/remove-activity")
      public String removeActivity(@RequestParam("gads") int gads,
