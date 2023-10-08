@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pievienot kalendāra grafiku</title>
 </head>
 <body>
     <h1>Pievienot kalendāra grafiku</h1>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <form action="/Calendar-schedule/calendar-add" th:object="${calendarScheduleDTO}" method="post">
-         <label for="gads">Gads:</label>
-        <input type="text" name="gads" id="gads" required><br><br>
+    
+    <form action="/Calendar-schedule/calendar-add" th:object="${calendarScheduleDTO}" method="post">    
+        <!-- Gads -->
+        <label for="gads">Gads:</label>
+        <input type="number" id="gads" name="gads" required><br><br>
         
-       
-        <label for="studioProgrammId">Studiju programma:</label>
-        <select id="studioProgramm" name="studioProgramm" required>
-            <option th:each="studioProgramm : ${allStudioProgramms}" th:value="${studioProgramm.getIdstprog()}" th:text="${studioProgramm.getTitle()} "></option>
-        </select>
-        <br><br>
-
+        <!-- Studiju programmas nosaukums -->
+        <label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
+        <input type="text" id="studioProgrammTitle" name="studioProgrammTitle" required><br><br>
         
+        <!-- Aktivitātes dati -->
         <label for="activity">Aktivitāte:</label>
-        <input type="text" name="activity" id="activity" required><br><br>
+        <input type="text" id="activity" name="activity" required><br><br>
         
-        <label for="activityEndDate">Beigu datums:</label>
-        <input type="date" name="activityEndDate" id="activityEndDate" required><br><br>
+        <label for="activityEndDate">Aktivitātes beigu datums:</label>
+        <input type="date" id="activityEndDate" name="activityEndDate" required><br><br>
         
-        <label for="activityImplementation">Realizācija:</label>
-        <textarea name="activityImplementation" id="activityImplementation" rows="4" cols="50" required></textarea><br><br>
+        <label for="activityImplementation">Aktivitātes īstenošana:</label>
+        <input type="text" id="activityImplementation" name="activityImplementation" required><br><br>
         
-        <input type="submit" value="Pievienot">
+        <button type="submit">Pievienot</button>
     </form>
+    
+    <br>
+    <a href="/Calendar-schedule">Atpakaļ uz kalendāra grafikiem</a>
 </body>
 </html>
