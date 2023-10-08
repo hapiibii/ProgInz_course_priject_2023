@@ -3,11 +3,13 @@ package lv.venta.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
+import lv.venta.repos.IStudioProgrammRepo;
 import lv.venta.services.ICalendarScheduleService;
 
 import java.time.Year;
@@ -18,53 +20,45 @@ import java.util.List;
 public class CalendarScheduleServive implements ICalendarScheduleService{
 
 	private ICalendarScheduleRepo calendarScheduleRepo;
+	private IStudioProgrammRepo studioProgrammRepo;
+	
 	private ICalendarRepo calendarRepo;
 	
 	@Autowired
-	public CalendarScheduleServive(ICalendarScheduleRepo calendarScheduleRepo, ICalendarRepo calendarRepo) {
+	public CalendarScheduleServive(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
 	    this.calendarScheduleRepo = calendarScheduleRepo;
+	    this.studioProgrammRepo = studioProgrammRepo;
+	    
 	    this.calendarRepo = calendarRepo;
 	}
 	
-	@Override
-	public void createCalendarSchedule(StudioProgramm studioProgramm, int year) {
-	    // vai kalendāra grafiks jau eksistē norādītajam gadam un studiju programmam
-	    CalendarSchedule existingSchedule = calendarScheduleRepo.findByGadsAndStudioProgramm(year, studioProgramm);
-	    if (existingSchedule != null) {
-	        throw new IllegalArgumentException("Kalendāra grafiks jau eksistē šim gadam un studiju programmam.");
-	    }
+	public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
+        // 1.Jaatrod eksistejosa studiju programma pec nosaukuma
+        StudioProgramm studioProgramm = studioProgrammRepo.findByTitle(calendarScheduleDTO.getStudioProgrammTitle());
 
-	    // Izveidojam jaunu kalendāra grafika objektu ar tukšām aktivitātēm
-	    CalendarSchedule calendarSchedule = new CalendarSchedule(year, new ArrayList<>(), studioProgramm);
+        if (studioProgramm == null) {
+            throw new IllegalArgumentException("Studiju programma nav atrasta: " + calendarScheduleDTO.getStudioProgrammTitle());
+        }
+        else {
+        	// 2. Jaizveido calendarSchedule, ar attiecīgu gadu un studiju programmu, kam tad tiks pievienotas itf noteiktās aktivitātes
+            CalendarSchedule calendarSchedule = new CalendarSchedule();
+            calendarSchedule.setGads(calendarScheduleDTO.getGads());
+            calendarSchedule.setStudioProgramm(studioProgramm);
 
-	    
-	    calendarScheduleRepo.save(calendarSchedule);
-	}
+            //3. jāizveido CalendarActivity objekts un tad jaiestata vertibas
+            CalendarActivity calendarActivity = new CalendarActivity();
+            calendarActivity.setActivity(calendarScheduleDTO.getActivity());
+            calendarActivity.setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
+            calendarActivity.setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
+            calendarActivity.setCalendarSchedule(calendarSchedule);
 
+            // Pievienojam CalendarActivity objektu CalendarSchedule un saglabājam tos datu bāzē
+            calendarSchedule.getActivities().add(calendarActivity);
+            calendarScheduleRepo.save(calendarSchedule);
+        }
+        
+    }
 	
-	@Override
-	public void addCalenadScheduleActivity(long idCalendar, long idActivity) {
-	    // Iegūstam kalendāra grafika objektu pēc ID
-	    CalendarSchedule calendarSchedule = calendarScheduleRepo.findById(idCalendar)
-	            .orElseThrow(() -> new IllegalArgumentException("Kalendāra grafiks ar norādīto ID nav atrasts"));
-
-	  
-	    CalendarActivity activity = calendarRepo.findById(idActivity)
-	            .orElseThrow(() -> new IllegalArgumentException("Aktivitāte ar norādīto ID nav atrasta"));
-
-	    //vai aktivitāte jau nav saistīta ar citu kalendāra grafiku
-	    if (activity.getCalendarSchedule() != null) {
-	        throw new IllegalArgumentException("Aktivitāte jau ir saistīta ar citu kalendāra grafiku");
-	    }
-	    
-	    calendarSchedule.getActivities().add(activity);
-	    activity.setCalendarSchedule(calendarSchedule);
-
-	    calendarScheduleRepo.save(calendarSchedule);
-	    calendarRepo.save(activity);
-	}
-
-
 	@Override
 	public void removeCalendarSchedule(long idCalendar) {
 	    CalendarSchedule calendarSchedule = calendarScheduleRepo.findById(idCalendar)

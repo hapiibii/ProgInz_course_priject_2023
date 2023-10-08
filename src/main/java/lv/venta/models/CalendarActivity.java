@@ -50,7 +50,9 @@ public class CalendarActivity {
         this.activityImplementation = activityImplementation;
         this.calendarSchedule = calendarSchedule;
     }
-    
 
+	public CalendarActivity() {
+	}
+    
 }
 

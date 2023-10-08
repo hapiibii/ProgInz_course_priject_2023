@@ -45,16 +45,10 @@ public class CalendarSchedule {
     private StudioProgramm studioProgramm;
 
     
-    
     public CalendarSchedule(int gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
         this.gads = gads;
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }
-
-
-
-	
-
 
 }
