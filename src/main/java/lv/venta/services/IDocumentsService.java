@@ -2,12 +2,13 @@ package lv.venta.services;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import lv.venta.models.Documents;
 
 public interface IDocumentsService {
 
-	ArrayList<Documents> retrieveAllDocuments();
+	List<Documents> retrieveAllDocuments();
 
 	Documents retrieveDocumentById(long iddocument) throws Exception;
 

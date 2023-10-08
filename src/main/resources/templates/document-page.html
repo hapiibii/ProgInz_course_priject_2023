@@ -13,7 +13,7 @@
     </header>
     
     <div class="saites-block">
-        	 <!-- /*janorada buspectam saites kur pogas aizved*/ -->
+        	 <!-- /*janorada bus pec tam saites kur pogas aizved*/ -->
         	
             <a href="/document-page" class="menu-button"><h3>Dokumenti</h3></a>
             <br>
@@ -35,11 +35,18 @@
     <div class="news-block">
             <h1>Dokumenti</h1>
             <table>
-	<tr th:each="document : ${myAllDocuments}">
-		<td th:text="${document.getIddocument()}"></td>
-		<td th:text="${document.getDocumentName()}"></td>
-		<td th:text="${document.getFile()}"></td>
-	</tr>
+            
+            	<tr>
+	                <th>ID</th>
+	                <th>Nosaukums</th>
+	                <th>Faila nosaukums</th>
+            	</tr>
+            
+				<tr th:each="document : ${myAllDocuments}">
+					<td th:text="${document.iddocument}"></td>
+	                <td th:text="${document.documentName}"></td>
+	                <td th:text="${document.file?.name}"></td>
+				</tr>
 	
 	
 </table>
