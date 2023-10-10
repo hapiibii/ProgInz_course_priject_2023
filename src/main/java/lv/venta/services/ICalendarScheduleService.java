@@ -13,4 +13,6 @@ public interface ICalendarScheduleService {
 	
 	void removeCalendarSchedule(long idCalendar);
 	List<CalendarSchedule> getCalendarSchedules();
+
+	List<CalendarScheduleDTO> getAllCalendarSchedules();
 }

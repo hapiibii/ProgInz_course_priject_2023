@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CalendarScheduleServive implements ICalendarScheduleService{
+public class CalendarScheduleService implements ICalendarScheduleService{
 
 	private ICalendarScheduleRepo calendarScheduleRepo;
 	private IStudioProgrammRepo studioProgrammRepo;
@@ -25,12 +25,35 @@ public class CalendarScheduleServive implements ICalendarScheduleService{
 	private ICalendarRepo calendarRepo;
 	
 	@Autowired
-	public CalendarScheduleServive(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
+	public CalendarScheduleService(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
 	    this.calendarScheduleRepo = calendarScheduleRepo;
 	    this.studioProgrammRepo = studioProgrammRepo;
 	    
 	    this.calendarRepo = calendarRepo;
 	}
+	
+	@Override
+    public List<CalendarScheduleDTO> getAllCalendarSchedules() {
+        List<CalendarSchedule> calendarSchedules = (List<CalendarSchedule>) calendarScheduleRepo.findAll();
+
+        // Saraksts kur glabāsies DTO objekti
+        List<CalendarScheduleDTO> calendarScheduleDTOList = new ArrayList<>();
+
+        // Loops caur  CalendarSchedule un parveidot dto objektos
+        for (CalendarSchedule calendarSchedule : calendarSchedules) {
+            CalendarScheduleDTO dto = new CalendarScheduleDTO();
+            dto.setGads(calendarSchedule.getGads());
+            dto.setStudioProgrammTitle(calendarSchedule.getStudioProgramm().getTitle());
+            dto.setActivity(calendarSchedule.getActivities().get(0).getActivity());
+            dto.setActivityEndDate(calendarSchedule.getActivities().get(0).getActivityEndDate());
+            dto.setActivityImplementation(calendarSchedule.getActivities().get(0).getActivityImplementation());
+
+            // pievienot dto sarakstam
+            calendarScheduleDTOList.add(dto);
+        }
+
+        return calendarScheduleDTOList;
+    }
 	
 	public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
         // 1.Jaatrod eksistejosa studiju programma pec nosaukuma

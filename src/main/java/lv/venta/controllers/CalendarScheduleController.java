@@ -38,8 +38,8 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 	 
 	 @GetMapping
 	 public String showAll(Model model) {
-		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();   
-		 model.addAttribute("calendarSchedules", calendarSchedules);
+		 List<CalendarScheduleDTO> schedules = calendarScheduleService.getAllCalendarSchedules();
+	        model.addAttribute("schedules", schedules);
 		 return "calendar-schedule";
 	 }
 
