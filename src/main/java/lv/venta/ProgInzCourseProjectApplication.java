@@ -106,7 +106,7 @@ public class ProgInzCourseProjectApplication {
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
-				//parbaudei
+				//create a person to add it to DB to check if Created date/last modified date and created by/last modified by shows correctly
 				Person pers1 = new Person("Testname", "Testsurname", "111111-11111", Role.God, user1);
 				personRepo.save(pers1);
 				
