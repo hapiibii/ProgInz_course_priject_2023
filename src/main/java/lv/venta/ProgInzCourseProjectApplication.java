@@ -1,6 +1,7 @@
 package lv.venta;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +19,7 @@ import lv.venta.models.Degree;
 import lv.venta.models.Documents;
 
 import lv.venta.models.Thesis;
+import lv.venta.models.Translate;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Role;
@@ -150,7 +152,18 @@ public class ProgInzCourseProjectApplication {
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);
 				
+				
+				
+				String langFrom = "lv"; 
+		        String langTo = "en";  
+		        String textToTranslate = "Tulkošana strādā"; 
 
+		        try {
+		            String translatedText = Translate.translate(langFrom, langTo, textToTranslate);
+		            System.out.println("Tulkojums: " + translatedText);
+		        } catch (IOException e) {
+		            System.err.println("Kļūda veicot tulkojumu: " + e.getMessage());
+		        }
 			}
 		};
 	}

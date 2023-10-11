@@ -14,9 +14,8 @@
 
     <div class="container">
         <div class="saites-block">
-        	 <!-- /*janorada buspectam saites kur pogas aizved*/ -->
-        	
-        	
+            <!-- /*janorada buspectam saites kur pogas aizved*/ -->
+
             <a href="/document-page" class="menu-button"><h3>Dokumenti</h3></a>
             <br>
             <a href="/submission-page" class="menu-button"><h3>Iesniegšana</h3></a>
@@ -27,17 +26,17 @@
             <br>
             <button class="menu-button"><h3>Darbu izstrāde</h3></button>
             <br>
-            
+
             <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule'">
-           <h3>Kalendārais grafiks</h3>
-      		</button>
+                <h3>Kalendārais grafiks</h3>
+            </button>
             <br>
             <button class="menu-button"><h3>Arhīvs</h3></button>
         </div>
 
         <div class="news-block">
             <h1>Jaunumi</h1>
-            <table class="news-table" style = "width: 100%;">
+            <table class="news-table" style="width: 100%;">
                 <!-- Iterēt caur newsList un attēlot jaunumus -->
                 <tr th:each="news : ${activeNewsList}">
                     <th>
@@ -73,10 +72,58 @@
                     <td th:text="${activities.activiti}"></td>
                 </tr>
             </table>
-           
         </div>
     </div>
 
+    <button id="translateButton">Tulkot uz angļu</button>
+    <div id="translatedContent"></div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var translateButton = document.getElementById("translateButton");
+            translateButton.addEventListener("click", function() {
+                translatePageToEnglish();
+            });
+        });
+
+        function translatePageToEnglish() {
+            var langFrom = "lv";
+            var langTo = "en";
+            var textToTranslate = document.body.innerText;
+            var translatedContent = document.getElementById("translatedContent");
+
+            translate(langFrom, langTo, textToTranslate)
+                .then(function (translatedText) {
+                    translatedContent.innerHTML = translatedText;
+                })
+                .catch(function (error) {
+                    console.error("Kļūda tulkojot: " + error);
+                });
+        }
+
+        function translate(langFrom, langTo, text) {
+            return new Promise(function (resolve, reject) {
+                var apiURL = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
+                var data = new FormData();
+                data.append("q", text);
+                data.append("source", langFrom);
+                data.append("target", langTo);
+
+                fetch(apiURL, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resolve(data.data.translations[0].translatedText);
+                })
+                .catch(error => {
+                    reject("HTTP pieprasījuma kļūda");
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>
