@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rediģēt Studiju Programmu</title>
+</head>
+<body>
+    <h2>Rediģēt Studiju Programmu</h2>
+
+    <form th:object="${studioProgram}" th:action="@{/edit-studio-program/{id}(id=${studioProgram.idstprog})}" method="post">
+        <input type="hidden" th:field="*{idstprog}">
+        <label for="faculty">Fakultāte:</label>
+        <select id="faculty" name="faculty" th:field="*{faculty}" required>
+            <option value="ITF">ITF</option>
+            <option value="EPK">EPK</option>
+            <option value="TSK">TSK</option>
+        </select>
+        <br>
+
+        <label for="degree">Grāds:</label>
+        <select id="degree" name="degree" th:field="*{degree}" required>
+            <option value="bsc">Bakalaura grāds</option>
+            <option value="mg">Maģistra grāds</option>
+            <option value="phd">Doktora grāds</option>
+            <option value="unknown">Nav zināms</option>
+            <option value="other">Cits</option>
+        </select>
+        <br>
+
+        <label for="title">Nosaukums:</label>
+        <input type="text" id="title" name="title" th:field="*{title}" required>
+        <br>
+
+        <button type="submit">Saglabāt izmaiņas</button>
+    </form>
+</body>
+</html>

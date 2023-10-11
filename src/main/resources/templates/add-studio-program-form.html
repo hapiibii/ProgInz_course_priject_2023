@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pievienot Studiju Programmu</title>
+</head>
+<body>
+    <h2>Pievienot Jaunu Studiju Programmu</h2>
+
+    <form th:object="${newProgram}" th:action="@{/add-studio-program}" method="post">
+        <label for="faculty">Fakultāte:</label>
+        <select id="faculty" name="faculty" required>
+            <option value="ITF">ITF</option>
+            <option value="EPK">EPK</option>
+            <option value="TSK">TSK</option>
+        </select>
+        <br>
+
+        <label for="degree">Grāds:</label>
+        <select id="degree" name="degree" required>
+            <option value="bsc">Bakalaura grāds</option>
+            <option value="mg">Maģistra grāds</option>
+            <option value="phd">Doktora grāds</option>
+            <option value="unknown">Nav zināms</option>
+            <option value="other">Cits</option>
+        </select>
+        <br>
+
+        <label for="title">Nosaukums:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+
+        <button type="submit">Pievienot Studiju Programmu</button>
+    </form>
+</body>
+</html>

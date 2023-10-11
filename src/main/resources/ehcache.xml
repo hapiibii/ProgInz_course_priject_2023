@@ -1,0 +1,10 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+    xsi:noNamespaceSchemaLocation="http://www.ehcache.org/ehcache.xsd">
+    <cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.jmx.JMXCacheManagerPeerProviderFactory" properties="peerDiscovery=manual,rmiUrls=//localhost:40001/myCache"/>
+    <cache name="studioProgramms"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"/>
+</ehcache>
+

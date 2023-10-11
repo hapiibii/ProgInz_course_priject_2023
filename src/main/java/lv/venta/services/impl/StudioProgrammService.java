@@ -2,6 +2,7 @@ package lv.venta.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,7 +26,7 @@ public class StudioProgrammService implements IStudioProgrammService {
 		this.studioProgrammRepo = studioProgrammRepo;
 	}
 	
-	@CachePut(value = "studioProgramms", key = "#programm.idstprog")
+	@Cacheable(value = "studioProgramms", key = "#programm.idstprog")
 	@Override
 	public void createStudioProgramm(StudioProgramm programm) {
 	    studioProgrammRepo.save(programm);
@@ -64,7 +65,7 @@ public class StudioProgrammService implements IStudioProgrammService {
 		
 	}
 
-	@Cacheable("studioProgramms")
+
     public List<StudioProgramm> getAllStudioProgramms() {
         return (List<StudioProgramm>) studioProgrammRepo.findAll();
     }
@@ -80,4 +81,26 @@ public class StudioProgrammService implements IStudioProgrammService {
         return studioProgrammRepo.findByTitle(title);
     }
 
+	
+	public List<Faculty> getAllFaculties() {
+        List<StudioProgramm> studioPrograms = (List<StudioProgramm>) studioProgrammRepo.findAll();
+        List<Faculty> uniqueFaculties = new ArrayList<>();
+
+        for (StudioProgramm program : studioPrograms) {
+            uniqueFaculties.add(program.getFaculty());
+        }
+
+        return uniqueFaculties;
+    }
+
+    public List<Degree> getAllDegrees() {
+        List<StudioProgramm> studioPrograms = (List<StudioProgramm>) studioProgrammRepo.findAll();
+        List<Degree> uniqueDegrees = new ArrayList<>();
+
+        for (StudioProgramm program : studioPrograms) {
+            uniqueDegrees.add(program.getDegree());
+        }
+
+        return uniqueDegrees;
+    }
 }
