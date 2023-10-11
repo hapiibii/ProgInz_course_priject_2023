@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visas studiju programmas</title>
+</head>
+<body>
+    <h1>Visas studiju programmas</h1>
+    <table>
+        <tr>
+            <th>Studiju programma</th>
+            <th>Fakultāte</th>
+            <th>Grāds</th>
+        </tr>
+        <tr th:each="program : ${studioPrograms}">
+            <td th:text="${program.title}"></td>
+            <td th:text="${program.faculty}"></td>
+            <td th:text="${program.degree}"></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -7,8 +7,5 @@ import lv.venta.models.StudioProgramm;
 
 public interface IStudioProgrammRepo extends CrudRepository<StudioProgramm, Long>{
 
-	StudioProgramm findByTitle(String title);
-	
-
-	
+	StudioProgramm findByTitle(String title);	
 }
