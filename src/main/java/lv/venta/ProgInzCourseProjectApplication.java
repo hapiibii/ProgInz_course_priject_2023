@@ -7,11 +7,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lv.venta.models.Comment;
 import lv.venta.models.News;
+import lv.venta.models.SpringSecurityAuditorAware;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
 
@@ -20,6 +23,7 @@ import lv.venta.models.Documents;
 import lv.venta.models.Thesis;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
+import lv.venta.models.users.Person;
 import lv.venta.models.users.Role;
 import lv.venta.models.users.Student;
 import lv.venta.models.users.User;
@@ -38,11 +42,18 @@ import lv.venta.repos.IUserAuthorityRepo;
 import lv.venta.repos.IUserRepo;
 
 @SpringBootApplication
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class ProgInzCourseProjectApplication {
+	
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new SpringSecurityAuditorAware();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProgInzCourseProjectApplication.class, args);
 	}
+	
 	
 	@Bean
 	public PasswordEncoder passwordEncoderSimple() {
@@ -94,6 +105,10 @@ public class ProgInzCourseProjectApplication {
 				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, null, Degree.mg);
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
+				
+				//parbaudei
+				Person pers1 = new Person("Testname", "Testsurname", "111111-11111", Role.God, user1);
+				personRepo.save(pers1);
 				
 				// user vietā ieliku null
 				Student s1 = new Student("Baiba", "Egle", "123123-12312", Role.Students, null, "22000043", false);
