@@ -11,7 +11,7 @@ public class Translate {
 	
 	
 	public static String translate(String langFrom, String langTo, String text) throws IOException {
-        // INSERT YOUR KEY HERE
+        
 		String apiKey = "AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
 		String urlStr = "https://translation.googleapis.com/language/translate/v2?key=" + apiKey +
 		                "&q=" + URLEncoder.encode(text, "UTF-8") +
