@@ -69,7 +69,7 @@ public class StudioProgrammService implements IStudioProgrammService {
 		
 	}
 
-
+	
     public List<StudioProgramm> getAllStudioProgramms() {
         return (List<StudioProgramm>) studioProgrammRepo.findAll();
     }

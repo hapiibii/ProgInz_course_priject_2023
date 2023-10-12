@@ -41,7 +41,7 @@ public class CalendarActivity {
     private String activityImplementation;
     
     @ManyToOne
-    @JoinColumn(name = "calendar_schedule_id")
+    @JoinColumn(name = "Idcalendar")
     private CalendarSchedule calendarSchedule;
     
     public CalendarActivity(String activity, LocalDate activityEndDate, String activityImplementation, CalendarSchedule calendarSchedule) {

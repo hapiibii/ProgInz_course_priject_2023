@@ -13,6 +13,5 @@ public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule,
 	CalendarSchedule findByGadsAndStudioProgramm(int year, StudioProgramm studioProgramm);
 
 	List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
-
 	
 }

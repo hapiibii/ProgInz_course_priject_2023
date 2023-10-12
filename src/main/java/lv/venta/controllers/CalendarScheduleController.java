@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.dto.CalendarScheduleDTO;
@@ -40,6 +41,7 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 	 public String showAll(Model model) {
 		 List<CalendarScheduleDTO> schedules = calendarScheduleService.getAllCalendarSchedules();
 	        model.addAttribute("schedules", schedules);
+	        System.out.println(schedules);
 		 return "calendar-schedule";
 	 }
 
@@ -58,17 +60,13 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 	     calendarScheduleService.addCalendarSchedule(calendarScheduleDTO);
 	     return "redirect:/Calendar-schedule"; // Pēc veiksmīgas pievienošanas atgriežam lietotāju atpakaļ uz formas lapu
 	 }
-	 
-     // Dzēst aktivitāti konkrētam gadam un studiju programmai
-     @PostMapping("/remove-activity")
-     public String removeActivity(@RequestParam("gads") int gads,
-                                  @RequestParam("studioProgrammId") StudioProgramm studioProgrammId,
-                                  @RequestParam("activityId") long activityId) {
-         calendarService.removeActivity(studioProgrammId, gads, activityId);
-         return "redirect:/Calendar-schedule";
-     }
 
-     
+	 @PostMapping("/delete/{id}")
+	 public String deleteCalendarSchedule(@PathVariable Long id) {
+	     calendarScheduleService.removeCalendarSchedule(id);
+	     return "redirect:/Calendar-schedule";
+	 }
+	 
      // Iegūt kālendāra grafikus pēc gada un programmas
      @GetMapping("/schedules/{year}/{programId}")
      public String showSchedulesByYearAndProgram(@PathVariable("year") int year,

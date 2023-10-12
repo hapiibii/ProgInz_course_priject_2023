@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class CalendarScheduleDTO {
-	
+	private Long idCalendar;
 	private int gads;  //from CalendarSchedule models class
 	
 	@NotNull
@@ -35,5 +35,13 @@ public class CalendarScheduleDTO {
 	
 	@NotBlank
     private String activityImplementation; //from CalendarActivity models class
+	
+	public Long getId() {
+	    return idCalendar;
+	}
+
+	public void setId(long idCalendar2) {
+		this.idCalendar = idCalendar;		
+	}
 
 }

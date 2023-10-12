@@ -47,10 +47,15 @@
 			            <!-- Jaitere caur  -->
 			            <tr th:each="schedule : ${schedules}">
 			                <td th:text="${schedule.gads}"></td>
+			                <td th:text="${schedule.idCalendar}"></td>
 			                <td th:text="${schedule.studioProgrammTitle}"></td>
 			                <td th:text="${schedule.activity}"></td>
 			                <td th:text="${schedule.activityEndDate}"></td>
 			                <td th:text="${schedule.activityImplementation}"></td>
+			                <td>
+	                            <a th:href="@{'/Calendar-schedule/edit/' + ${schedule.idCalendar}}">Rediģēt</a>
+	                            <a th:href="@{'/Calendar-schedule/delete/' + ${schedule.idCalendar}}">Dzēst</a>
+                        	</td>
 			            </tr>
 			        </tbody>
 			    </table>
