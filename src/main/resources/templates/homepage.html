@@ -16,26 +16,26 @@
         <div class="saites-block">
             <!-- /*janorada buspectam saites kur pogas aizved*/ -->
 
-            <a href="/document-page" class="menu-button"><h3>Dokumenti</h3></a>
+            <a href="/document-page" class="menu-button"><h3 th:text="${TranslateDocuments}"></h3></a>
             <br>
-            <a href="/submission-page" class="menu-button"><h3>Iesniegšana</h3></a>
+            <a href="/submission-page" class="menu-button"><h3 th:text="${TranslateIesnieg}"></h3></a>
             <br>
-            <button class="menu-button"><h3>Aizstāvēšana</h3></button>
+            <button class="menu-button"><h3 th:text="${TranslateAiztavesana}"></h3></button>
             <br>
-            <a href="/itftable-page/review" class="menu-button"><h3>ITD Dome</h3></a>
+            <a href="/itftable-page/review" class="menu-button"><h3 th:text="${TranslateITFDome}"></h3></a>
             <br>
-            <button class="menu-button"><h3>Darbu izstrāde</h3></button>
+            <button class="menu-button"><h3 th:text="${TranslateDarbuIzstrade}"></h3></button>
             <br>
 
             <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule'">
-                <h3>Kalendārais grafiks</h3>
+                <h3 th:text="${TranslateKalendaraisGrafiks}"></h3>
             </button>
             <br>
-            <button class="menu-button"><h3>Arhīvs</h3></button>
+            <button class="menu-button"><h3 th:text="${TranslateArhivs}"></h3></button>
         </div>
 
         <div class="news-block">
-            <h1>Jaunumi</h1>
+            <h1 th:text="${TranslateJaunumi}"></h1>
             <table class="news-table" style="width: 100%;">
                 <!-- Iterēt caur newsList un attēlot jaunumus -->
                 <tr th:each="news : ${activeNewsList}">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="calendar-block">
-            <h1>Kalendārais grafiks</h1>
+            <h1 th:text="${TranslateKalendaraisGrafiksBlock}">Kalendārais grafiks</h1>
             <hr>
             <table>
                 <tr>
