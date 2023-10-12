@@ -123,11 +123,11 @@ public class ProgInzCourseProjectApplication {
 				documentRepo.save(doc2);
 			
 				StudioProgramm studioprogramm1 = new StudioProgramm(Faculty.ITF, Degree.phd, "Programesanas specialists");
-				studioprogrepo.save(studioprogramm1);/*	
+				studioprogrepo.save(studioprogramm1);	
 				StudioProgramm studioprogramm2 = new StudioProgramm(Faculty.EPK, Degree.mg, "Ekanomikas fakultate");
 				studioprogrepo.save(studioprogramm2);
 				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.bsc, "Talmaciba");
-				studioprogrepo.save(studioprogramm3);*/
+				studioprogrepo.save(studioprogramm3);
 			}
 		};
 	}

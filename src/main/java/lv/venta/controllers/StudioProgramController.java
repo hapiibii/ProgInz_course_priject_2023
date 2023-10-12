@@ -41,10 +41,9 @@ public class StudioProgramController {
 
         return "add-studio-program-form";
     }
-
+    
     @PostMapping("/add-studio-program")
     public String addStudioProgram(@ModelAttribute("newProgram") StudioProgramm newProgram) {
-        // Izveidojiet jaunu studiju programmu, izmantojot servisu
         studioProgramService.createStudioProgramm(newProgram);
 
         return "redirect:/studio-programs";

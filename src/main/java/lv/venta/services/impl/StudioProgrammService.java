@@ -29,7 +29,11 @@ public class StudioProgrammService implements IStudioProgrammService {
 	@Cacheable(value = "studioProgramms", key = "#programm.idstprog")
 	@Override
 	public void createStudioProgramm(StudioProgramm programm) {
+	    String cacheKey = "studioProgram:" + programm.getIdstprog();
+	    System.out.println("ID pirms saglabāšanas: " + programm.getIdstprog());
 	    studioProgrammRepo.save(programm);
+	    System.out.println("ID pēc saglabāšanas: " + programm.getIdstprog());
+
 	}
 
 	@CachePut(value = "studioProgramms", key = "#idstprog")
