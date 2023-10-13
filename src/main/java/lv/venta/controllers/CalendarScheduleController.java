@@ -20,7 +20,7 @@ import lv.venta.services.IStudioProgrammService;
 
 @Controller
 @RequestMapping("/Calendar-schedule")
-public class CalendarScheduleController {   //Domes kalendārais grafiks, kas tiek noteikts katrai fakultātei
+public class CalendarScheduleController {
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
@@ -42,20 +42,17 @@ public class CalendarScheduleController {   //Domes kalendārais grafiks, kas ti
 
 	 @GetMapping("/calendar-add")
 	 public String showCalendarAddForm(Model model) {
-		 
-	     // Jaizveido jauns CalendarScheduleDTO objekts, lai saņemtu lietotāja ievadītos datus
-	     CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
+		 CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
 	     model.addAttribute("calendarScheduleDTO", calendarScheduleDTO);
-	     return "calendar-add"; //  HTML, kur tiek parādīta forma datu ievadīšanai
+	     return "calendar-add";
 	 }
 
 	 @PostMapping("/calendar-add")
 	 public String addCalendarSchedule(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
-	     // Izsauc servisa metodi
 	     calendarScheduleService.addCalendarSchedule(calendarScheduleDTO);
-	     return "redirect:/Calendar-schedule"; // Pēc veiksmīgas pievienošanas atgriežam lietotāju atpakaļ uz formas lapu
-	 }
-
+	     return "redirect:/Calendar-schedule";
+	 }	 
+	 
 	 @PostMapping("/delete/{id}")
 	 public String deleteCalendarSchedule(@PathVariable Long id) {
 	     calendarScheduleService.removeCalendarSchedule(id);

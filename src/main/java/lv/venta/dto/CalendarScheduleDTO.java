@@ -1,7 +1,6 @@
 package lv.venta.dto;
 
 import java.time.LocalDate;
-import java.time.Year;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,7 +34,4 @@ public class CalendarScheduleDTO {
 	
 	@NotBlank
     private String activityImplementation; //from CalendarActivity models class
-
-
-
 }

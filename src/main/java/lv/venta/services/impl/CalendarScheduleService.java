@@ -22,15 +22,13 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	private ICalendarScheduleRepo calendarScheduleRepo;
 	private IStudioProgrammRepo studioProgrammRepo;
 	private ICalendarRepo calendarRepo;
-	
-	
+		
 	@Autowired
 	public CalendarScheduleService(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
 	    this.calendarScheduleRepo = calendarScheduleRepo;
 	    this.studioProgrammRepo = studioProgrammRepo;
 	    this.calendarRepo = calendarRepo;
 	}
-
 	
 	public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
         // 1.Jaatrod eksistejosa studiju programma pec nosaukuma
@@ -55,10 +53,8 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             // Pievienojam CalendarActivity objektu CalendarSchedule un saglabājam tos datu bāzē
             calendarSchedule.getActivities().add(calendarActivity);
             calendarScheduleRepo.save(calendarSchedule);
-        }
-        
+        }        
     }
-
     	
 	@Override
 	public void removeCalendarSchedule(long idCalendar) {
@@ -72,8 +68,7 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
 	    }
 	}
-	
-	
+		
 	@Override
     public List<CalendarScheduleDTO> getAllCalendarSchedules() {
         List<CalendarSchedule> calendarSchedules = (List<CalendarSchedule>) calendarScheduleRepo.findAll();
@@ -93,8 +88,6 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             // pievienot dto sarakstam
             calendarScheduleDTOList.add(dto);
         }
-
         return calendarScheduleDTOList;
     }
-	
 }
