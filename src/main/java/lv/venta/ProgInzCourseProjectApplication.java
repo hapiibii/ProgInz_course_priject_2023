@@ -63,8 +63,8 @@ public class ProgInzCourseProjectApplication {
 				courseRepo.save(c1);
 				courseRepo.save(c2);
 				
-				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, us1, Degree.mg);
-				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, us2, Degree.mg);
+				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, us1, Degree.MG);
+				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, us2, Degree.MG);
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
@@ -122,11 +122,11 @@ public class ProgInzCourseProjectApplication {
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);
 			
-				StudioProgramm studioprogramm1 = new StudioProgramm(Faculty.ITF, Degree.phd, "Programesanas specialists");
+				StudioProgramm studioprogramm1 = new StudioProgramm(Faculty.ITF, Degree.PHD, "Programesanas specialists");
 				studioprogrepo.save(studioprogramm1);	
-				StudioProgramm studioprogramm2 = new StudioProgramm(Faculty.EPK, Degree.mg, "Ekanomikas fakultate");
+				StudioProgramm studioprogramm2 = new StudioProgramm(Faculty.EPK, Degree.MG, "Ekanomikas fakultate");
 				studioprogrepo.save(studioprogramm2);
-				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.bsc, "Talmaciba");
+				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.BSC, "Talmaciba");
 				studioprogrepo.save(studioprogramm3);
 			}
 		};

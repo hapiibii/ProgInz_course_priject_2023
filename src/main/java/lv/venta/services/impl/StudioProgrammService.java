@@ -65,10 +65,8 @@ public class StudioProgrammService implements IStudioProgrammService {
 		}
 		catch (Exception e) {
 			throw new Exception("Could not delete studio programm with this ID.", e);
-		}
-		
+		}		
 	}
-
 	
     public List<StudioProgramm> getAllStudioProgramms() {
         return (List<StudioProgramm>) studioProgrammRepo.findAll();
@@ -84,7 +82,6 @@ public class StudioProgrammService implements IStudioProgrammService {
     public StudioProgramm getStudioProgrammByTitle(String title) {
         return studioProgrammRepo.findByTitle(title);
     }
-
 	
 	public List<Faculty> getAllFaculties() {
         List<StudioProgramm> studioPrograms = (List<StudioProgramm>) studioProgrammRepo.findAll();

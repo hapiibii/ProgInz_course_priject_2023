@@ -35,13 +35,7 @@ public class CalendarScheduleDTO {
 	
 	@NotBlank
     private String activityImplementation; //from CalendarActivity models class
-	
-	public Long getId() {
-	    return idCalendar;
-	}
 
-	public void setId(long idCalendar2) {
-		this.idCalendar = idCalendar;		
-	}
+
 
 }

@@ -77,14 +77,13 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	@Override
     public List<CalendarScheduleDTO> getAllCalendarSchedules() {
         List<CalendarSchedule> calendarSchedules = (List<CalendarSchedule>) calendarScheduleRepo.findAll();
-
         // Saraksts kur glabāsies DTO objekti
         List<CalendarScheduleDTO> calendarScheduleDTOList = new ArrayList<>();
 
         // Loops caur  CalendarSchedule un parveidot dto objektos
         for (CalendarSchedule calendarSchedule : calendarSchedules) {
             CalendarScheduleDTO dto = new CalendarScheduleDTO();
-            dto.setId(calendarSchedule.getIdCalendar());
+            dto.setIdCalendar(calendarSchedule.getIdCalendar());
             dto.setGads(calendarSchedule.getGads());
             dto.setStudioProgrammTitle(calendarSchedule.getStudioProgramm().getTitle());
             dto.setActivity(calendarSchedule.getActivities().get(0).getActivity());

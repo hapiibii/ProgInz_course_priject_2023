@@ -37,7 +37,7 @@
 			        <thead>
 			            <tr>
 			                <th>Gads</th>
-			                <th>Studiju programma</th>
+			                <th>Studiju programma</th>			     
 			                <th>Aktivitāte</th>
 			                <th>Aktivitātes beigu datums</th>
 			                <th>Aktivitātes īstenošana</th>
@@ -47,7 +47,6 @@
 			            <!-- Jaitere caur  -->
 			            <tr th:each="schedule : ${schedules}">
 			                <td th:text="${schedule.gads}"></td>
-			                <td th:text="${schedule.idCalendar}"></td>
 			                <td th:text="${schedule.studioProgrammTitle}"></td>
 			                <td th:text="${schedule.activity}"></td>
 			                <td th:text="${schedule.activityEndDate}"></td>
