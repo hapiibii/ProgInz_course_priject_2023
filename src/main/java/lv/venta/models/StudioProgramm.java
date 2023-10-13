@@ -1,7 +1,5 @@
 package lv.venta.models;
 
-
-
 import java.util.Collection;
 
 import jakarta.persistence.Column;
@@ -16,14 +14,11 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Table(name = "studioprogramm_table")
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
 public class StudioProgramm {
 	
 	@Column(name = "Idstprog")
@@ -46,27 +41,53 @@ public class StudioProgramm {
 	@Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam")
 	private String title;
 	
-	//relation with Schedule
 	@OneToMany(mappedBy = "studioProgramm")
 	private Collection<CalendarSchedule> activities;
 
 	public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
 			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
 		super();
-		this.faculty = faculty;
-		this.degree = degree;
-		this.title = title;
+		setFaculty(faculty);
+		setDegree(degree);
+		setTitle(title);
 	}
 
-	/*public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
-			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
-		
-		this.faculty = faculty;
-		this.degree = degree;
-		this.title = title;
-	}*/
-	
-	
-	
+	public StudioProgramm() {
+		faculty = Faculty.UNKNOWN;
+		degree = Degree.UNKNOWN;
+		title = "Nav norādīts";		
+	}
+
+	public void setIdstprog(long idstprog) {
+		this.idstprog = idstprog;
+	}
+
+	public void setFaculty(Faculty faculty) {
+		if(faculty == null ) {
+			this.faculty = Faculty.UNKNOWN;
+		}else {
+			this.faculty = faculty;
+		}	
+	}
+
+	public void setDegree(Degree degree) {
+		if(degree == null) {
+			this.degree = Degree.UNKNOWN;
+		}else {
+			this.degree = degree;
+		}		
+	}
+
+	public void setTitle(String title) {
+		if(title == null || !title.matches("[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+")) {
+			this.title = "Nav norādīts";
+		}else {
+			this.title = title;
+		}	
+	}
+
+	public void setActivities(Collection<CalendarSchedule> activities) {
+		this.activities = activities;
+	}
 
 }
