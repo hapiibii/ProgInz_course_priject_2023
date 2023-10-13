@@ -20,8 +20,7 @@ import lombok.ToString;
 @Table(name = "documents_table")
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
+//@Setter
 @ToString
 public class Documents {
 
@@ -39,13 +38,38 @@ public class Documents {
 	
 	@Column(name = "File")
 	private File file;
+	
+	
+	public void setDocumentName(String documentName) {
+		if (documentName != null) {
+			this.documentName = documentName;
+		}
+		else {
+			this.documentName = documentName;
+		}
+	}
 
-	public Documents(@NotNull @Size(min = 3, max = 35) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String documentName,
-			File file) {
-		this.documentName = documentName;
-		this.file = file;
+	public void setFile(File file) {
+		if(file != null) {
+			this.file = file;
+		}
+		else {
+			this.file = file;
+		}
 	}
 	
+	
+	public Documents(@NotNull @Size(min = 3, max = 35) @Pattern(regexp = "[A-Z]{1}[a-z\\ ]+") String documentName,
+			File file) {
+		setDocumentName(documentName);
+		setFile(file);
+	}
+	
+	public Documents () {
+		documentName = "";
+		file = null;
+	}
+
 	
 	
 	
