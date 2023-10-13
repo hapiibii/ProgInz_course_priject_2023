@@ -1,5 +1,6 @@
 package lv.venta.controllers;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
+import lv.venta.models.Translate;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
 
@@ -32,9 +34,15 @@ public class CalendarScheduleController {
 	 }
 	 
 	 @GetMapping
-	 public String showAll(Model model) {
+	 public String showAll(Model model) throws IOException {
 		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();   
 		 model.addAttribute("calendarSchedules", calendarSchedules);
+		 
+		 // Calendar-schedule page translation
+		 //String calendarScheduleTranslate = Translate.translate("lv", "en", "Kalendārais grafiks");
+		 //String calTrans1 = calendarScheduleTranslate.split("translatedText")[1].trim().split("\"")[2];
+		 //model.addAttribute("TranslateKalendGrafiks",calTrans1);
+		 
 		 return "calendar-schedule";
 	 }
 	 
