@@ -10,7 +10,7 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
 	public Optional<String> getCurrentAuditor() {
 		
 		//returns a String representing the username
-		return Optional.ofNullable("Noname").filter(s -> !s.isEmpty());
+		return Optional.ofNullable("Admin").filter(s -> !s.isEmpty());
 		
 	}
 
