@@ -109,21 +109,21 @@ public class ThesisController {
 	
 	//
 	//TODO add-comment get
-		@GetMapping("/create-coments")
+		@GetMapping("/create-comment")
 		public String showCreateComment(Model model) {
 			model.addAttribute("comment", new Comment());
-			return "thesis-edit-page";
+			return "comment-create-page";
 		}
 		
 	//TODO add-comment post
-		@PostMapping("/create-coments/{personelId}/{thesisId}")
-		public String сreateComment(Comment comment, @PathVariable("personelId") long personelId, @PathVariable("thesisId")long thesisId) {
+		@PostMapping("/create-comment/{personelId}/{thesisId}")
+		public String сreateComment(Comment comment, @PathVariable("personelId") long personelId, @PathVariable("thesisId") long thesisId) {
 			commentService.createComment(comment.getDescription(), personelId, thesisId); //TODO ???? kā te rīkoties??
 			return "redirect:/itftable-page/review";
 		}
 		
 	//TODO edit-comment get
-		@GetMapping("/edit-coment/{idcom}")
+		@GetMapping("/edit-comment/{idcom}")
 		public String showEditComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -131,13 +131,13 @@ public class ThesisController {
 		}
 		
 	//TODO edit-comment post
-		@PostMapping("/edit-coment/{idcom}")
+		@PostMapping("/edit-comment/{idcom}")
 		public String editComment(@PathVariable("idcom") long idcom, @ModelAttribute("comment") Comment comment) throws Exception {
 			commentService.updateComment(idcom, comment.getDescription());
 			return "redirect:/itftable-page/review";
 		}
 	//TODO delete-comment get
-		@GetMapping("/delete-coments/{idcom}")
+		@GetMapping("/delete-comment/{idcom}")
 		public String showDeleteComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -145,7 +145,7 @@ public class ThesisController {
 		}
 		
 	//TODO delete-comment post
-		@PostMapping("/delete-coments/{idcom}")
+		@PostMapping("/delete-comment/{idcom}")
 		public String deleteComment(@PathVariable("idcom") long idcom) throws Exception {
 			commentService.deleteComment(idcom);
 			return "redirect:/itftable-page/review";
