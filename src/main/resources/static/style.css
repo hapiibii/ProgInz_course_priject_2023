@@ -222,6 +222,18 @@ a {
   vertical-align: top;
   padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
 }
+.btn-back {
+  background-color: #3b986d;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
 
 /* Iesniegumu bloks */
 .submission-title {

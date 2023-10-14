@@ -24,7 +24,7 @@ import lv.venta.services.IStudioProgrammService;
 
 @Controller
 @RequestMapping("/Calendar-schedule")
-public class CalendarScheduleController {
+public class CalendarScheduleController {	
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
@@ -38,13 +38,64 @@ public class CalendarScheduleController {
 		 this.calendarScheduleRepo = calendarScheduleRepo;
 	 }
 	 
-	 @GetMapping
+	 
+	 @GetMapping("/studio-programms")
+	 public String showAllProgramms(Model model) {
+	     Iterable<StudioProgramm> programms = studioProgService.findAll();
+	     model.addAttribute("programms", programms);
+	     return "calendar-schedule-programms";
+	 }
+
+	 @GetMapping("/studio-programms/{id}")
+	 public String showProgrammActivities(@PathVariable Long id, Model model) {
+	     Optional<StudioProgramm> programmOptional = studioProgService.findById(id);
+	     
+	     if (programmOptional.isPresent()) {
+	         StudioProgramm programm = programmOptional.get();
+	         model.addAttribute("programm", programm);
+	         // Šeit pievienojiet papildu kodu, lai izgūtu programmas aktivitātes un pievienotu tās modelim, ja nepieciešams
+	         return "calendar-schedule-program-activities";
+	     } else {
+	         // No programm found with given ID
+	         return "error404"; // assuming you have a custom error 404 page
+	     }
+	 }
+
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	/* @GetMapping
 	 public String showAll(Model model) {
 		 List<CalendarScheduleDTO> schedules = calendarScheduleService.getAllCalendarSchedules();
 	        model.addAttribute("schedules", schedules);
 	        System.out.println(schedules);
 		 return "calendar-schedule";
-	 }
+	 }*/
 
 	 @GetMapping("/calendar-add")
 	 public String showCalendarAddForm(Model model) {

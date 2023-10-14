@@ -128,6 +128,7 @@ public class ProgInzCourseProjectApplication {
 				studioprogrepo.save(studioprogramm2);
 				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.BSC, "Talmaciba");
 				studioprogrepo.save(studioprogramm3);
+	
 			}
 		};
 	}

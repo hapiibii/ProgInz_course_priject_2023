@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kalendārais grafiks</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+    <header>
+        <img src="/images/logo.png" alt="Logo" class="header-logo">
+    </header>
+    <h1>Izvēlieties studija programmu</h1>
+    <div class="back-button">
+        <a href="http://localhost:8080/home-page" class="button">Atpakaļ</a>
+    </div>
+    <ul>
+        <li th:each="programm : ${programms}">
+            <a th:href="@{'/Calendar-schedule/studio-programms/' + ${programm.idstprog}}" th:text="${programm.title}"></a>
+        </li>
+    </ul>
+</body>
+</html>

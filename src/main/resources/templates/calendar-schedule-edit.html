@@ -1,24 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Rediģēt kalendāra ierakstu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Calendar Schedule</title>
+
+    <style>
+        /* Kopējais stils lapai */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ccdcd6;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #155741;
+            color: #3b986d;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Pārējais stils */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 25%;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 25%; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Rediģēt kalendāra ierakstu</h1>
+    <h1>Edit Calendar Schedule</h1>
     
-    <!-- Attēlo jebkādus ziņojumus vai kļūdas paziņojumus, ja tie ir -->
-    <p th:if="${message}" th:text="${message}"></p>
-
-    <form method="post" action="/Calendar-schedule/update/{id}">
-        <input type="text" name="gads" th:value="${schedule.gads}">
-        <input type="text" name="studioProgrammTitle" th:value="${schedule.studioProgrammTitle}">
-        <input type="text" name="activity" th:value="${schedule.activity}">
-        <input type="text" name="activityEndDate" th:value="${schedule.activityEndDate}">
-        <input type="text" name="activityImplementation" th:value="${schedule.activityImplementation}">
+    <form method="POST" action="/Calendar-schedule/edit/{id}">
+        <!-- Gads -->
+        <label for="gads">Gads:</label>
+        <input type="number" id="gads" name="calendarScheduleDTO.gads" value="${calendarScheduleDTO.gads}" required><br>
+        
+        <!-- Studiju programmas nosaukums -->
+        <label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
+        <select id="studioProgrammTitle" name="calendarScheduleDTO.studioProgrammTitle" style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; margin-left: 25%;" required>
+            <option value="${calendarScheduleDTO.studioProgrammTitle}">${calendarScheduleDTO.studioProgrammTitle}</option>
+            <!-- Šeit ievietojiet dinamiski iegūtās studiju programmu nosaukumus no servera -->
+        </select><br>
+        
+        <!-- Aktivitātes dati -->
+        <label for="activity">Aktivitāte:</label>
+        <input type="text" id="activity" name="calendarScheduleDTO.activity" value="${calendarScheduleDTO.activity}" required><br>
+        
+        <label for="activityEndDate">Aktivitātes beigu datums:</label>
+        <input type="date" id="activityEndDate" name="calendarScheduleDTO.activityEndDate" value="${calendarScheduleDTO.activityEndDate}" required><br>
+        
+        <label for="activityImplementation">Aktivitātes īstenošana:</label>
+        <input type="text" id="activityImplementation" name="calendarScheduleDTO.activityImplementation" value="${calendarScheduleDTO.activityImplementation}" required><br>
         
         <button type="submit">Saglabāt izmaiņas</button>
     </form>
+    
+    <br>
+    <a href="/Calendar-schedule" class="btn-bck">Atpakaļ</a>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var dropdown = document.getElementById("studioProgrammTitle");
+            var endpointUrl = "/studioprogramms/get-programm-titles";
 
-    <a href="/Calendar-schedule">Atcelt</a>
+            // Veic AJAX pieprasījumu, lai iegūtu studiju programmu nosaukumus
+            fetch(endpointUrl)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    // Pievieno opcijas dropdown sarakstam
+                    data.forEach(function(title) {
+                        var option = document.createElement("option");
+                        option.value = title;
+                        option.text = title;
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(function(error) {
+                    console.error("Kļūda iegūstot studiju programmu nosaukumus:", error);
+                });
+        });
+    </script>
+    
 </body>
 </html>
