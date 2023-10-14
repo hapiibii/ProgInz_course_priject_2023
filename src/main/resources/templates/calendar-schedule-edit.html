@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <!-- Virsraksts un saites uz CSS failiem, ja nepieciešams -->
+    <title>Rediģēt kalendāra ierakstu</title>
 </head>
 <body>
-    <h1>Edit Calendar Schedule</h1>
-    <form method="post" action="/Calendar-schedule/update">
-        <!-- Šeit ievietojiet laukus, lai rediģētu CalendarScheduleDTO informāciju -->
-        <input type="hidden" name="id" th:value="${schedule.idCalendar}" />
-        <input type="text" name="gads" th:value="${schedule.gads}" />
-        <input type="text" name="studioProgrammTitle" th:value="${schedule.studioProgrammTitle}" />
-        <input type="text" name="activity" th:value="${schedule.activity}" />
-        <input type="date" name="activityEndDate" th:value="${schedule.activityEndDate}" />
-        <input type="text" name="activityImplementation" th:value="${schedule.activityImplementation}" />
+    <h1>Rediģēt kalendāra ierakstu</h1>
+    
+    <!-- Attēlo jebkādus ziņojumus vai kļūdas paziņojumus, ja tie ir -->
+    <p th:if="${message}" th:text="${message}"></p>
+
+    <form method="post" action="/Calendar-schedule/update/{id}">
+        <input type="text" name="gads" th:value="${schedule.gads}">
+        <input type="text" name="studioProgrammTitle" th:value="${schedule.studioProgrammTitle}">
+        <input type="text" name="activity" th:value="${schedule.activity}">
+        <input type="text" name="activityEndDate" th:value="${schedule.activityEndDate}">
+        <input type="text" name="activityImplementation" th:value="${schedule.activityImplementation}">
+        
         <button type="submit">Saglabāt izmaiņas</button>
     </form>
+
+    <a href="/Calendar-schedule">Atcelt</a>
 </body>
 </html>

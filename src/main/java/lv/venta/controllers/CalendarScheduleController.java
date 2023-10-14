@@ -74,7 +74,6 @@ public class CalendarScheduleController {
 	         return "redirect:/Calendar-schedule";
 	     }
 	 }
-
 	 
 	 @PostMapping("/delete/{id}")
 	 public String deleteCalendarSchedule(@PathVariable Long id) {
@@ -82,7 +81,7 @@ public class CalendarScheduleController {
 	     calendarScheduleService.deleteCalendarScheduleById(id);
 	     return "redirect:/Calendar-schedule";
 	 }
-
+	 
 	 
 /*	 
      // Iegūt kālendāra grafikus pēc gada un programmas

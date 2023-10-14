@@ -2,13 +2,11 @@
 <html>
 <head>
     <title>Dzēst kalendāra ierakstu</title>
-    <!-- Jūsu stila lapa un citas nepieciešamās resursu saites -->
 </head>
 <body>
     <h1>Dzēst kalendāra ierakstu</h1>
     <p>Vai tiešām vēlaties dzēst šo ierakstu?</p>
     <form method="post" action="/Calendar-schedule/delete/${schedule.idCalendar}">
-        <!-- Ievietojiet CSRF token šeit, ja to izmantojat -->
         <button type="submit">Apstiprināt dzēšanu</button>
     </form>
     <a href="/Calendar-schedule">Atcelt</a>
