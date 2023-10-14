@@ -44,20 +44,6 @@ public class StudioProgramm {
 	@OneToMany(mappedBy = "studioProgramm")
 	private Collection<CalendarSchedule> activities;
 
-	public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
-			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
-		super();
-		setFaculty(faculty);
-		setDegree(degree);
-		setTitle(title);
-	}
-
-	public StudioProgramm() {
-		faculty = Faculty.UNKNOWN;
-		degree = Degree.UNKNOWN;
-		title = "Nav norādīts";		
-	}
-
 	public void setIdstprog(long idstprog) {
 		this.idstprog = idstprog;
 	}
@@ -89,5 +75,18 @@ public class StudioProgramm {
 	public void setActivities(Collection<CalendarSchedule> activities) {
 		this.activities = activities;
 	}
+	
+	public StudioProgramm(@NotNull Faculty faculty, @NotNull Degree degree,
+			@NotNull @Size(min = 3, max = 100) @Pattern(regexp = "[A-ZĀČĒĢĪĶĻŅŠŪŽ]{1}[a-zāčēģīķļņšūž\\ ]+", message = "Pirmajam burtam jābut lielajam") String title) {
+		super();
+		setFaculty(faculty);
+		setDegree(degree);
+		setTitle(title);
+	}
 
+	public StudioProgramm() {
+		faculty = Faculty.UNKNOWN;
+		degree = Degree.UNKNOWN;
+		title = "Nav norādīts";		
+	}
 }

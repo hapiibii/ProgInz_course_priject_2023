@@ -87,7 +87,7 @@ public class CalendarService implements ICalendarService {
 	    }
 	    return null;
 	}  
-  	 
+/*  	 
 	@Override  
 	public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
 		List<CalendarActivity> matchingActivities = new ArrayList<>();
@@ -103,7 +103,7 @@ public class CalendarService implements ICalendarService {
 
 	        return matchingActivities;
 	}
-	    
+*/	    
 	public List<CalendarActivity> getEndDates() {
 		List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 	    List<CalendarActivity> allActivities = calendarRepo.findAll();
@@ -118,7 +118,7 @@ public class CalendarService implements ICalendarService {
 
 	        return activitiesWithEndDates;
 	 }
-
+/*
 	@Override
 	public void addActivity(String studioProgrammTitle, int year, String activity, LocalDate activityEndDate,String activityImplementation) {
 		StudioProgramm studioProgramm = studioProgrammService.getStudioProgrammByTitle(studioProgrammTitle);
@@ -129,5 +129,5 @@ public class CalendarService implements ICalendarService {
 		
 		calendarRepo.save(calendarActivity);
 			
-	}
+	}*/
 }

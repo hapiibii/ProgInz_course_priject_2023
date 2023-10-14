@@ -58,7 +58,7 @@ public class CalendarScheduleController {
 	     calendarScheduleService.removeCalendarSchedule(id);
 	     return "redirect:/Calendar-schedule";
 	 }
-	 
+/*	 
      // Iegūt kālendāra grafikus pēc gada un programmas
      @GetMapping("/schedules/{year}/{programId}")
      public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
@@ -69,5 +69,5 @@ public class CalendarScheduleController {
          model.addAttribute("program", program);
          model.addAttribute("scheduleList", scheduleList);
          return "schedules-by-program";
-     }
+     }*/
 }

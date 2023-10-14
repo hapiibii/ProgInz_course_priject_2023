@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Studiju Programmas</title>
+</head>
+<body>
+    <h2>Studiju Programmas</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Faculty</th>
+            <th>Degree</th>
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="programm : ${programms}">
+            <td th:text="${programm.getFaculty()}"></td>
+            <td th:text="${programm.getDegree()}"></td>
+            <td th:text="${programm.getTitle()}"></td>
+            <td><a th:href="@{'/studioprogramms/edit/' + ${programm.getIdstprog()}}">Labot</a></td>
+            <td><a th:href="@{'/studioprogramms/delete/' + ${programm.getIdstprog()}}">Dzēst</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/studioprogramms/add">Pievienot Jaunu Programmu</a>
+</body>
+</html>
