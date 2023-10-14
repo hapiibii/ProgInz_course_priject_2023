@@ -8,9 +8,8 @@ public interface ICalendarScheduleService {
 	
 	void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO);
 	
-	void removeCalendarSchedule(long idCalendar);
+	void deleteCalendarScheduleById(long idCalendar);
 
 	List<CalendarScheduleDTO> getAllCalendarSchedules();
-
 	
 }

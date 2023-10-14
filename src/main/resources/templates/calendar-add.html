@@ -62,8 +62,11 @@
         <br>
         
         <!-- Studiju programmas nosaukums -->
-        <label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
-        <input type="text" id="studioProgrammTitle" name="studioProgrammTitle" required><br>
+<label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
+<select id="studioProgrammTitle" name="studioProgrammTitle" required style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; margin-left: 25%;">
+    <option value="">Izvēlieties studiju programmas nosaukumu</option>
+    <!-- Šeit ievietojiet dinamiski iegūtos studiju programmu nosaukumus no servera -->
+</select><br>
         
         <br>
         
@@ -86,5 +89,31 @@
     
     <br>
     <a href="/Calendar-schedule" class="btn-bck">Atpakaļ</a>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var dropdown = document.getElementById("studioProgrammTitle");
+            var endpointUrl = "/studioprogramms/get-programm-titles";
+
+            // Veic AJAX pieprasījumu, lai iegūtu studiju programmu nosaukumus
+            fetch(endpointUrl)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    // Pievieno opcijas dropdown sarakstam
+                    data.forEach(function(title) {
+                        var option = document.createElement("option");
+                        option.value = title;
+                        option.text = title;
+                        dropdown.appendChild(option);
+                    });
+                })
+                .catch(function(error) {
+                    console.error("Kļūda iegūstot studiju programmu nosaukumus:", error);
+                });
+        });
+    </script>
+    
 </body>
 </html>

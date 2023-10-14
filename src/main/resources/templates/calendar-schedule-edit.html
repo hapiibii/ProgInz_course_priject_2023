@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Virsraksts un saites uz CSS failiem, ja nepieciešams -->
+</head>
+<body>
+    <h1>Edit Calendar Schedule</h1>
+    <form method="post" action="/Calendar-schedule/update">
+        <!-- Šeit ievietojiet laukus, lai rediģētu CalendarScheduleDTO informāciju -->
+        <input type="hidden" name="id" th:value="${schedule.idCalendar}" />
+        <input type="text" name="gads" th:value="${schedule.gads}" />
+        <input type="text" name="studioProgrammTitle" th:value="${schedule.studioProgrammTitle}" />
+        <input type="text" name="activity" th:value="${schedule.activity}" />
+        <input type="date" name="activityEndDate" th:value="${schedule.activityEndDate}" />
+        <input type="text" name="activityImplementation" th:value="${schedule.activityImplementation}" />
+        <button type="submit">Saglabāt izmaiņas</button>
+    </form>
+</body>
+</html>

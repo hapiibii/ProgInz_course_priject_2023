@@ -3,6 +3,7 @@ package lv.venta.controllers;
 import lv.venta.models.StudioProgramm;
 import lv.venta.services.IStudioProgrammService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+
 
 @Controller
 @RequestMapping("/studioprogramms")
@@ -65,5 +69,18 @@ public class StudioProgrammController {
         }
         studioProgrammService.save(programm);
         return "redirect:/studioprogramms";
+    }
+    
+    @GetMapping("/get-programm-titles")
+    public ResponseEntity<List<String>> getProgrammTitles() {
+        Iterable<StudioProgramm> programmsIterable = studioProgrammService.findAll();
+        
+        List<String> titles = new ArrayList<>();
+        
+        for (StudioProgramm programm : programmsIterable) {
+            titles.add(programm.getTitle());
+        }
+        
+        return ResponseEntity.ok(titles);
     }
 }

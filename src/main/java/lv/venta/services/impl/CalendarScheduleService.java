@@ -55,19 +55,6 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             calendarScheduleRepo.save(calendarSchedule);
         }        
     }
-    	
-	@Override
-	public void removeCalendarSchedule(long idCalendar) {
-	    Optional<CalendarSchedule> optionalCalendarSchedule = calendarScheduleRepo.findById(idCalendar);
-
-	    if (optionalCalendarSchedule.isPresent()) {
-	        CalendarSchedule calendarSchedule = optionalCalendarSchedule.get();
-
-	        calendarScheduleRepo.delete(calendarSchedule);
-	    } else {
-	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
-	    }
-	}
 		
 	@Override
     public List<CalendarScheduleDTO> getAllCalendarSchedules() {
@@ -89,5 +76,21 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             calendarScheduleDTOList.add(dto);
         }
         return calendarScheduleDTOList;
-    }
+	}
+
+	@Override
+	public void deleteCalendarScheduleById(long idCalendar) {
+		// Atrodiet kalendāra ierakstu pēc ID, izmantojot calendarScheduleRepo
+	    Optional<CalendarSchedule> calendarSchedule = calendarScheduleRepo.findById(idCalendar);
+
+	    // Pārbaudiet, vai ieraksts ir atrasts
+	    if (calendarSchedule.isPresent()) {
+	        // Izdzēsiet ierakstu no datu bāzes
+	        calendarScheduleRepo.delete(calendarSchedule.get());
+	    } else {
+	        // Ja ieraksts nav atrasts, varat ģenerēt kļūdu vai veikt citas nepieciešamās darbības
+	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
+	    }
+	}
+
 }

@@ -13,12 +13,5 @@ public interface IStudioProgrammService {
 	public Optional<StudioProgramm> findById(Long id);
 	public StudioProgramm save(StudioProgramm programm);
 	public void delete(StudioProgramm programm);
-	
-	/*
-	void createStudioProgramm(StudioProgramm programm);
-	void updateStudioProgramm(long idstprog, Faculty faculty, Degree degree, String title) throws Exception;
-	void deleteStudioProgramm(long idstprog) throws Exception;
-	List<StudioProgramm> getAllStudioProgramms();
-	StudioProgramm getStudioProgrammById(long idstprog);
-	StudioProgramm getStudioProgrammByTitle(String title);*/
+
 }
