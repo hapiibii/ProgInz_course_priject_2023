@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +29,7 @@ public class CalendarScheduleController {
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
 	 private final ICalendarScheduleRepo calendarScheduleRepo;
+	 
 	 @Autowired
 	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,
 			 ICalendarScheduleService calendarScheduleService,ICalendarScheduleRepo calendarScheduleRepo) {
@@ -37,8 +37,7 @@ public class CalendarScheduleController {
 		 this.studioProgService = studioProgService;
 		 this.calendarScheduleService = calendarScheduleService;
 		 this.calendarScheduleRepo = calendarScheduleRepo;
-	 }
-	 
+	 }	 
 	 
 	 @GetMapping("/studio-programms")
 	 public String showAllProgramms(Model model) {
@@ -62,61 +61,44 @@ public class CalendarScheduleController {
 	         }
 	         return "calendar-schedule-program-activities";
 	     } else {
-	         return "error404";
+	         return "error-page";
 	     }
-	 }
-	 
+	 }	 
 
 	 @GetMapping("/calendar-add")
 	 public String showCalendarAddForm(Model model) {
-		 
-	     // Jaizveido jauns CalendarScheduleDTO objekts, lai saņemtu lietotāja ievadītos datus
 	     CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
 	     model.addAttribute("calendarScheduleDTO", calendarScheduleDTO);
-	     return "calendar-add"; //  HTML, kur tiek parādīta forma datu ievadīšanai
+	     return "calendar-add";
 	 }
 
 	 @PostMapping("/calendar-add")
 	 public String addCalendarSchedule(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
-	     // Izsauc servisa metodi
 	     calendarScheduleService.addCalendarSchedule(calendarScheduleDTO);
-	     return "redirect:/Calendar-schedule/studio-programms"; // Pēc veiksmīgas pievienošanas atgriežam lietotāju atpakaļ uz formas lapu
-	 }
-	 
+	     return "redirect:/Calendar-schedule/studio-programms";
+	 }	 
 	
-	 @GetMapping("/delete/{id}")
-	 public String showDeleteConfirmationPage(@PathVariable Long id, Model model) {
-	     // Iegūt konkrētā ieraksta datus izmantojot repository
-	     Optional<CalendarSchedule> schedule = calendarScheduleRepo.findById(id);
-
-	     // Pārbaudiet, vai ieraksts ir atrasts
-	     if (schedule.isPresent()) {
-	         model.addAttribute("schedule", schedule.get());
-	         return "calendar-schedule-delete";
-	     } else {
-	         // Ieraksts nav atrasts, varat veikt atbilstošas darbības šeit, piemēram, paziņojumu par kļūdu.
-	         return "redirect:/Calendar-schedule/studio-programms";
-	     }
-	 }
-	 
 	 @PostMapping("/delete/{id}")
 	 public String deleteCalendarSchedule(@PathVariable Long id) {
-	     // Veiciet faktisko dzēšanas darbību šeit, izmantojot id
 	     calendarScheduleService.deleteCalendarScheduleById(id);
 	     return "redirect:/Calendar-schedule/studio-programms";
 	 }
 	 
+	 @GetMapping("/edit/{idActivity}")
+	 public String editActivity(@PathVariable Long idActivity, Model model) {
+	     Optional<CalendarActivity> activityOptional = calendarService.findActivityById(idActivity);
+	     if (activityOptional.isPresent()) {
+	         model.addAttribute("activity", activityOptional.get());
+	         return "calendar-schedule-edit";
+	     } else {
+	         return "error404";
+	     }
+	 }
 	 
-/*	 
-     // Iegūt kālendāra grafikus pēc gada un programmas
-     @GetMapping("/schedules/{year}/{programId}")
-     public String showSchedulesByYearAndProgram(@PathVariable("year") int year,
-                                                 @PathVariable("programId") long programId,
-                                                 Model model) {
-         StudioProgramm program = studioProgService.getStudioProgrammById(programId);
-         List<CalendarActivity> scheduleList = calendarService.getActivitiesByYearAndProgram(year, program);
-         model.addAttribute("program", program);
-         model.addAttribute("scheduleList", scheduleList);
-         return "schedules-by-program";
-     }*/
+	 @PostMapping("/update/{idActivity}")
+	 public String updateActivity(@PathVariable Long idActivity, @ModelAttribute CalendarActivity activity) {
+	     calendarService.updateActivity(idActivity, activity);
+	     return "redirect:/Calendar-schedule/studio-programms"; 
+	 }
+
 }

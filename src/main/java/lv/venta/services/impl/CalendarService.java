@@ -11,8 +11,8 @@ import lv.venta.services.IStudioProgrammService;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,11 @@ public class CalendarService implements ICalendarService {
 	private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
 	
 	private ICalendarRepo calendarRepo;
-	private IStudioProgrammService studioProgrammService;
 	private ICalendarScheduleRepo calendarSchedulrRepo;
 
 	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService, ICalendarScheduleRepo calendarSchedulrRepo) {
+    public CalendarService(ICalendarRepo calendarRepo, ICalendarScheduleRepo calendarSchedulrRepo) {
         this.calendarRepo = calendarRepo;
-		this.studioProgrammService = studioProgrammService;
 		this.calendarSchedulrRepo = calendarSchedulrRepo;
     }
 
@@ -60,23 +58,9 @@ public class CalendarService implements ICalendarService {
 
 	@Override
 	public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
-	    // Atrod kalendāra sarakstu pēc gada un studiju programmas
 	    return calendarRepo.findByYearAndProgram(year, studioProgramm);
 	}
 	
-	@Override
-	public CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
-	    for (CalendarSchedule schedule : calendarSchedules) {
-	    	
-	    	if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
-	                return schedule;
-	        }
-	    }
-	        CalendarSchedule newSchedule = new CalendarSchedule(year, new ArrayList<>(), studioProgramm);
-	        calendarSchedules.add(newSchedule);
-	        return newSchedule;
-	}
-
 	private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
 	    for (CalendarSchedule schedule : calendarSchedules) {
 	       if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
@@ -105,4 +89,22 @@ public class CalendarService implements ICalendarService {
 
 	        return activitiesWithEndDates;
 	 }
+	
+	@Override
+	public Optional<CalendarActivity> findActivityById(Long idActivity) {
+	    return calendarRepo.findById(idActivity);
+	}
+	
+	@Override
+	public void updateActivity(Long idActivity, CalendarActivity updatedActivity) {
+	    Optional<CalendarActivity> existingActivityOptional = calendarRepo.findById(idActivity);
+	    if (existingActivityOptional.isPresent()) {
+	        CalendarActivity existingActivity = existingActivityOptional.get();
+	        
+	        existingActivity.setActivity(updatedActivity.getActivity());
+	        existingActivity.setActivityImplementation(updatedActivity.getActivityImplementation());
+	        
+	        calendarRepo.save(existingActivity);
+	    }
+	}
 }
