@@ -61,47 +61,18 @@ public class CalendarScheduleController {
 	     }
 	 }
 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	/* @GetMapping
-	 public String showAll(Model model) {
-		 List<CalendarScheduleDTO> schedules = calendarScheduleService.getAllCalendarSchedules();
-	        model.addAttribute("schedules", schedules);
-	        System.out.println(schedules);
-		 return "calendar-schedule";
-	 }*/
-
-	 @GetMapping("/calendar-add")
-	 public String showCalendarAddForm(Model model) {
-		 CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
-	     model.addAttribute("calendarScheduleDTO", calendarScheduleDTO);
-	     return "calendar-add";
+	 @GetMapping("/Calendar-schedule/add-to-program/{programId}")
+	 public String addActivityToProgram(@PathVariable Long programId, Model model) {
+	     Optional<StudioProgramm> programmOptional = studioProgService.findById(programId);
+	     
+	     if (programmOptional.isPresent()) {
+	         StudioProgramm programm = programmOptional.get();
+	         model.addAttribute("programm", programm);
+	         return "calendar-schedule-add";
+	     } else {
+	         // No programm found with given ID
+	         return "error404"; // assuming you have a custom error 404 page
+	     }
 	 }
 
 	 @PostMapping("/calendar-add")

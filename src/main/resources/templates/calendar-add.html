@@ -63,11 +63,8 @@
 		        <br>
 		        
 		        <!-- Studiju programmas nosaukums -->
-		<label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
-		<select id="studioProgrammTitle" name="studioProgrammTitle" required style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; margin-left: 25%;">
-		    <option value="">Izvēlieties studiju programmas nosaukumu</option>
-		    <!-- Šeit ievietojiet dinamiski iegūtos studiju programmu nosaukumus no servera -->
-		</select><br>
+		<!-- Paslēptais lauciņš ar aktuālās studiju programmas nosaukumu -->
+<input type="hidden" id="studioProgrammTitle" name="studioProgrammTitle" th:value="${programm.title}" />
 		        
 		        <br>
 		        
