@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ import lv.venta.models.Course;
 import lv.venta.models.Degree;
 
 import lv.venta.models.Documents;
-
+import lv.venta.models.Faculty;
 import lv.venta.models.Thesis;
 import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
@@ -37,6 +38,8 @@ import lv.venta.repos.IThesisRepo;
 import lv.venta.repos.IUserAuthorityRepo;
 import lv.venta.repos.IUserRepo;
 
+
+@EnableCaching
 @SpringBootApplication
 public class ProgInzCourseProjectApplication {
 
@@ -50,7 +53,10 @@ public class ProgInzCourseProjectApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, IDocumentsRepo documentRepo, IUserAuthorityRepo authorityRepo) {
+	public CommandLineRunner textModelLayer(IUserRepo userRepo, IPersonRepo personRepo, IStudentRepo studentRepo, 
+			IAcademicPersonelRepo personelRepo, ICourseRepo courseRepo, IThesisRepo thesisRepo, ICommentRepo commentRepo, 
+			IDocumentsRepo documentRepo, IUserAuthorityRepo authorityRepo, IStudioProgrammRepo studioprogrepo) {
+
 
 		return new CommandLineRunner() {
 			@Override
@@ -90,8 +96,10 @@ public class ProgInzCourseProjectApplication {
 				courseRepo.save(c2);
 				
 				// user vietā ieliku null
-				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, null, Degree.mg);
-				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, null, Degree.mg);
+				AcademicPersonel ac1 = new AcademicPersonel("Karina", "Skirmante", "121212-11111", Role.Akademiskais_personals, null, Degree.MG);
+				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, null, Degree.MG);
+
+
 				personelRepo.save(ac1);
 				personelRepo.save(ac2);
 				
@@ -149,8 +157,14 @@ public class ProgInzCourseProjectApplication {
 				File file2 = new File(filePath);
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);
-				
-
+			
+				StudioProgramm studioprogramm1 = new StudioProgramm(Faculty.ITF, Degree.PHD, "Programesanas specialists");
+				studioprogrepo.save(studioprogramm1);	
+				StudioProgramm studioprogramm2 = new StudioProgramm(Faculty.EPK, Degree.MG, "Ekanomikas fakultate");
+				studioprogrepo.save(studioprogramm2);
+				StudioProgramm studioprogramm3 = new StudioProgramm(Faculty.TSK, Degree.BSC, "Talmaciba");
+				studioprogrepo.save(studioprogramm3);
+	
 			}
 		};
 	}

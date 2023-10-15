@@ -10,14 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.LocalDate;
-import java.time.Year;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +31,7 @@ public class CalendarSchedule {
 	private long idCalendar;
 	    
 	@Column(name = "gads")
-	private Year gads;
+	private int gads;
 	    
 	@OneToMany(mappedBy = "calendarSchedule", cascade = CascadeType.ALL) // visi operācijas izmaiņas, kas tiek veiktas CalendarSchedule objektam (piemēram, dzēšana vai atjaunināšana), tiks automātiski izplatītas arī uz saistītajiem CalendarActivity objektiem
 	private List<CalendarActivity> activities = new ArrayList<>();
@@ -45,12 +41,10 @@ public class CalendarSchedule {
     private StudioProgramm studioProgramm;
 
     
-    
-    public CalendarSchedule(Year gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
+    public CalendarSchedule(int gads, List<CalendarActivity> activities, StudioProgramm studioProgramm) {
         this.gads = gads;
         this.activities = activities;
         this.studioProgramm = studioProgramm;
     }
-
 
 }
