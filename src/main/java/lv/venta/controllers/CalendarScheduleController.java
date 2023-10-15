@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
-import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
-import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.services.ICalendarScheduleService;
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
@@ -28,15 +26,13 @@ public class CalendarScheduleController {
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
-	 private final ICalendarScheduleRepo calendarScheduleRepo;
 	 
 	 @Autowired
 	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,
-			 ICalendarScheduleService calendarScheduleService,ICalendarScheduleRepo calendarScheduleRepo) {
+			 ICalendarScheduleService calendarScheduleService) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
 		 this.calendarScheduleService = calendarScheduleService;
-		 this.calendarScheduleRepo = calendarScheduleRepo;
 	 }	 
 	 
 	 @GetMapping("/studio-programms")

@@ -6,7 +6,6 @@ import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.services.ICalendarService;
-import lv.venta.services.IStudioProgrammService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
