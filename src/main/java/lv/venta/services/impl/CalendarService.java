@@ -67,7 +67,8 @@ public class CalendarService implements ICalendarService {
 	     return new ArrayList<>();
 	}
 	
-	private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
+	@Override
+	public CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
 	    for (CalendarSchedule schedule : calendarSchedules) {
 	    	
 	    	if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {

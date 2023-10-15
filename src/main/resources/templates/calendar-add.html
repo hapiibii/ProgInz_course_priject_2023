@@ -63,8 +63,11 @@
 		        <br>
 		        
 		        <!-- Studiju programmas nosaukums -->
-		<!-- Paslēptais lauciņš ar aktuālās studiju programmas nosaukumu -->
-<input type="hidden" id="studioProgrammTitle" name="studioProgrammTitle" th:value="${programm.title}" />
+		<label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
+		<select id="studioProgrammTitle" name="studioProgrammTitle" required style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; margin-left: 25%;">
+		    <option value="">Izvēlieties studiju programmas nosaukumu</option>
+		    <!-- Šeit ievietojiet dinamiski iegūtos studiju programmu nosaukumus no servera -->
+		</select><br>
 		        
 		        <br>
 		        
@@ -86,7 +89,7 @@
 		    </form>
 		</form>    
 		    <br>
-    <a href="/Calendar-schedule" class="btn-bck">Atpakaļ</a>
+    <a href="/Calendar-schedule/studio-programms" class="btn-bck">Atpakaļ</a>
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {

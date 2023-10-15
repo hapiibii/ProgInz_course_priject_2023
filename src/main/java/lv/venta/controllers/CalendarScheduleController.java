@@ -29,9 +29,9 @@ public class CalendarScheduleController {
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
 	 private final ICalendarScheduleRepo calendarScheduleRepo;
-	 
 	 @Autowired
-	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,ICalendarScheduleService calendarScheduleService,ICalendarScheduleRepo calendarScheduleRepo) {
+	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,
+			 ICalendarScheduleService calendarScheduleService,ICalendarScheduleRepo calendarScheduleRepo) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
 		 this.calendarScheduleService = calendarScheduleService;
@@ -60,26 +60,23 @@ public class CalendarScheduleController {
 	         return "error404"; // assuming you have a custom error 404 page
 	     }
 	 }
+	 
 
-	 @GetMapping("/Calendar-schedule/add-to-program/{programId}")
-	 public String addActivityToProgram(@PathVariable Long programId, Model model) {
-	     Optional<StudioProgramm> programmOptional = studioProgService.findById(programId);
-	     
-	     if (programmOptional.isPresent()) {
-	         StudioProgramm programm = programmOptional.get();
-	         model.addAttribute("programm", programm);
-	         return "calendar-schedule-add";
-	     } else {
-	         // No programm found with given ID
-	         return "error404"; // assuming you have a custom error 404 page
-	     }
+	 @GetMapping("/calendar-add")
+	 public String showCalendarAddForm(Model model) {
+		 
+	     // Jaizveido jauns CalendarScheduleDTO objekts, lai saņemtu lietotāja ievadītos datus
+	     CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
+	     model.addAttribute("calendarScheduleDTO", calendarScheduleDTO);
+	     return "calendar-add"; //  HTML, kur tiek parādīta forma datu ievadīšanai
 	 }
 
 	 @PostMapping("/calendar-add")
 	 public String addCalendarSchedule(@ModelAttribute("calendarScheduleDTO") CalendarScheduleDTO calendarScheduleDTO) {
+	     // Izsauc servisa metodi
 	     calendarScheduleService.addCalendarSchedule(calendarScheduleDTO);
-	     return "redirect:/Calendar-schedule";
-	 }	 
+	     return "redirect:/Calendar-schedule/studio-programms"; // Pēc veiksmīgas pievienošanas atgriežam lietotāju atpakaļ uz formas lapu
+	 }
 	 
 	
 	 @GetMapping("/delete/{id}")
