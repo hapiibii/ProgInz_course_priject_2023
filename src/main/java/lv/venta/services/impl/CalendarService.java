@@ -60,11 +60,8 @@ public class CalendarService implements ICalendarService {
 
 	@Override
 	public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
-	    CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
-	     if (calendarSchedule != null) {
-	         return calendarSchedule.getActivities();
-	     }
-	     return new ArrayList<>();
+	    // Atrod kalendāra sarakstu pēc gada un studiju programmas
+	    return calendarRepo.findByYearAndProgram(year, studioProgramm);
 	}
 	
 	@Override
@@ -88,23 +85,12 @@ public class CalendarService implements ICalendarService {
 	    }
 	    return null;
 	}  
-/*  	 
-	@Override  
-	public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
-		List<CalendarActivity> matchingActivities = new ArrayList<>();
-		for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) { 
-			if (program.getTitle().equals(title)) {
-				Collection<CalendarSchedule> schedules = program.getActivities();
-	                for (CalendarSchedule schedule : schedules) {
-	                    List<CalendarActivity> activities = schedule.getActivities();
-	                    matchingActivities.addAll(activities);
-	                }
-	         }
-	    }
-
-	        return matchingActivities;
+	
+	@Override
+	public List<Integer> getAllUniqueYears() {
+	    return calendarSchedulrRepo.findAllUniqueYears();
 	}
-*/	    
+	    
 	public List<CalendarActivity> getEndDates() {
 		List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
 	    List<CalendarActivity> allActivities = calendarRepo.findAll();
@@ -119,16 +105,4 @@ public class CalendarService implements ICalendarService {
 
 	        return activitiesWithEndDates;
 	 }
-/*
-	@Override
-	public void addActivity(String studioProgrammTitle, int year, String activity, LocalDate activityEndDate,String activityImplementation) {
-		StudioProgramm studioProgramm = studioProgrammService.getStudioProgrammByTitle(studioProgrammTitle);
-		CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year, studioProgramm);
-		CalendarSchedule tempCalendarSchedule = calendarSchedulrRepo.save(calendarSchedule);
-		CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, tempCalendarSchedule);
-		calendarSchedule.getActivities().add(calendarActivity);
-		
-		calendarRepo.save(calendarActivity);
-			
-	}*/
 }

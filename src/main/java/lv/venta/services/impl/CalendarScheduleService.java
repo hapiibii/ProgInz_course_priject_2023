@@ -3,6 +3,7 @@ package lv.venta.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
@@ -30,6 +31,8 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	    this.calendarRepo = calendarRepo;
 	}
 	
+	@Transactional
+	@Override
 	public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
 	    // Atrod eksistējošo studiju programmu pēc nosaukuma
 	    StudioProgramm studioProgramm = studioProgrammRepo.findByTitle(calendarScheduleDTO.getStudioProgrammTitle());
@@ -45,7 +48,7 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	            existingSchedule = new CalendarSchedule();
 	            existingSchedule.setGads(calendarScheduleDTO.getGads());
 	            existingSchedule.setStudioProgramm(studioProgramm);
-	            calendarScheduleRepo.save(existingSchedule);
+	            existingSchedule = calendarScheduleRepo.save(existingSchedule); // <- Šeit piešķiram saglabātā objekta atgriezto vērtību existingSchedule
 	        }
 
 	        // Izveido CalendarActivity objektu un iestata vērtības
@@ -54,10 +57,18 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	        calendarActivity.setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
 	        calendarActivity.setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
 	        calendarActivity.setCalendarSchedule(existingSchedule);
+	        
+	        // Saglabājiet CalendarActivity datu bāzē
+	        calendarRepo.save(calendarActivity);
 
-	        // Pievieno CalendarActivity objektu CalendarSchedule un saglabā to datu bāzē
+	        // Pievieno CalendarActivity objektu CalendarSchedule sarakstam
 	        existingSchedule.getActivities().add(calendarActivity);
+	        
+	        // Saglabājiet atjaunināto CalendarSchedule
 	        calendarScheduleRepo.save(existingSchedule);
+
+	        // Iestatiet ID vērtību calendarScheduleDTO
+	        calendarScheduleDTO.setIdCalendar(existingSchedule.getIdCalendar());
 	    }
 	}
 		
@@ -92,6 +103,7 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
 	    }
 	}
+	
 
 /*	@Override
     public CalendarScheduleDTO getCalendarScheduleById(Long id) {

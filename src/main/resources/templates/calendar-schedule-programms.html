@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Kalendārais grafiks</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
+
+    <!-- Galvenās lapas virsraksts un logo -->
     <header>
         <img src="/images/logo.png" alt="Logo" class="header-logo">
     </header>
     <h1>Izvēlieties studija programmu</h1>
+
+    <!-- Atpakaļ poga -->
     <div class="back-button">
         <a href="http://localhost:8080/home-page" class="button">Atpakaļ</a>
     </div>
+
+    <!-- Studiju programmu saraksts -->
     <ul>
+        <!-- Šis cikls ģenerēs saraksta elementus no 'programms' saraksta -->
         <li th:each="programm : ${programms}">
             <a th:href="@{'/Calendar-schedule/studio-programms/' + ${programm.idstprog}}" th:text="${programm.title}"></a>
         </li>
     </ul>
+
+    <!-- Poga, lai pievienotu jaunu aktivitāti -->
     <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
-                <h3>Pievienot aktivitāti</h3>
+        <h3>Pievienot aktivitāti</h3>
     </button>
+
 </body>
 </html>

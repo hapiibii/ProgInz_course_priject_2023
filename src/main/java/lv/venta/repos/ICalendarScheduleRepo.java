@@ -3,6 +3,7 @@ package lv.venta.repos;
 import java.time.Year;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import lv.venta.models.CalendarSchedule;
@@ -15,5 +16,8 @@ public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule,
 	List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
 
 	CalendarSchedule findByStudioProgrammAndGads(StudioProgramm studioProgramm, int gads);
+	
+	@Query("SELECT DISTINCT cs.gads FROM CalendarSchedule cs ORDER BY cs.gads DESC")
+	List<Integer> findAllUniqueYears();
 	
 }

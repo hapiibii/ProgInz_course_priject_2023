@@ -1,48 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="lv">
+
 <head>
+    <meta charset="UTF-8">
     <title>Aktivitātes studiju programmā</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
+
 <body>
     <header>
         <img src="/images/logo.png" alt="Logo" class="header-logo">
     </header>
 
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid #d8e3e0;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
-
     <div class="back-button">
         <a href="http://localhost:8080/Calendar-schedule/studio-programms" class="button">Atpakaļ</a>
     </div>
 
-    <div class="container">
-        <div class="calendar-schedule-block">
-           <h1>Aktivitātes studiju programmā: <span th:text="${programm.title}"></span></h1>
-
-            <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
-                <h3>Pievienot aktivitāti</h3>
-            </button>
-
+    <div class="wrapper">
+        <div class="sidebar">
+            <ul>
+                <li th:each="year : ${years}">
+                    <button th:text="${year}" th:onclick="'window.location.href=\'/Calendar-schedule/studio-programms/' + ${programm.idstprog} + '?year=' + ${year} + '\''"></button>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Aktivitātes studiju programmā: <span th:text="${programm.title}"></span></h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Gads</th>
                         <th>Aktivitāte</th>
-                        <th>Aktivitātes beigu datums</th>
                         <th>Aktivitātes īstenošana</th>
                         <th>Darbības</th>
                     </tr>
@@ -51,15 +38,14 @@
                     <!-- Iterēt caur sarakstu ar kalendāra ierakstiem šai programmai -->
                     <th:block th:each="schedule : ${schedules}">
                         <tr>
-                            <td th:text="${schedule.gads}"></td>
                             <td th:text="${schedule.activity}"></td>
-                            <td th:text="${schedule.activityEndDate}"></td>
                             <td th:text="${schedule.activityImplementation}"></td>
                             <td>
-                                <form method="post" th:action="@{'/Calendar-schedule/delete/' + ${schedule.idCalendar}}">                              
+                                <form method="post" th:action="@{'/Calendar-schedule/delete/' + ${schedule.idActivity}}">
                                     <button type="submit">Dzēst</button>
                                 </form>
-                                <form method="get" th:action="@{'/Calendar-schedule/edit/' + ${schedule.idCalendar}}">
+                                <form method="get" th:action="@{'/Calendar-schedule/edit/' + ${schedule.idActivity}}">
+
                                     <button type="submit">Editēt</button>
                                 </form>
                             </td>
@@ -70,4 +56,5 @@
         </div>
     </div>
 </body>
+
 </html>

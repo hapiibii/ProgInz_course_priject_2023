@@ -20,5 +20,7 @@ public interface ICalendarService {
    // List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title);
     List<CalendarActivity> getEndDates();
     public CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm);
+	public List<Integer> getAllUniqueYears();
+	
 
 }

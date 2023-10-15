@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
@@ -47,17 +48,21 @@ public class CalendarScheduleController {
 	 }
 
 	 @GetMapping("/studio-programms/{id}")
-	 public String showProgrammActivities(@PathVariable Long id, Model model) {
+	 public String showProgrammActivities(@PathVariable Long id, @RequestParam(required = false) Integer year, Model model) {
 	     Optional<StudioProgramm> programmOptional = studioProgService.findById(id);
-	     
 	     if (programmOptional.isPresent()) {
 	         StudioProgramm programm = programmOptional.get();
 	         model.addAttribute("programm", programm);
-	         // Šeit pievienojiet papildu kodu, lai izgūtu programmas aktivitātes un pievienotu tās modelim, ja nepieciešams
+	         List<Integer> years = calendarService.getAllUniqueYears();
+	         model.addAttribute("years", years);
+	         if (year != null) {
+	             List<CalendarActivity> activities = calendarService.getActivitiesByYearAndProgram(year, programm);
+	             model.addAttribute("selectedYear", year);
+	             model.addAttribute("schedules", activities);
+	         }
 	         return "calendar-schedule-program-activities";
 	     } else {
-	         // No programm found with given ID
-	         return "error404"; // assuming you have a custom error 404 page
+	         return "error404";
 	     }
 	 }
 	 
@@ -90,7 +95,7 @@ public class CalendarScheduleController {
 	         return "calendar-schedule-delete";
 	     } else {
 	         // Ieraksts nav atrasts, varat veikt atbilstošas darbības šeit, piemēram, paziņojumu par kļūdu.
-	         return "redirect:/Calendar-schedule";
+	         return "redirect:/Calendar-schedule/studio-programms";
 	     }
 	 }
 	 
@@ -98,7 +103,7 @@ public class CalendarScheduleController {
 	 public String deleteCalendarSchedule(@PathVariable Long id) {
 	     // Veiciet faktisko dzēšanas darbību šeit, izmantojot id
 	     calendarScheduleService.deleteCalendarScheduleById(id);
-	     return "redirect:/Calendar-schedule";
+	     return "redirect:/Calendar-schedule/studio-programms";
 	 }
 	 
 	 
