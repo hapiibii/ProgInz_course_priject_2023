@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jauns Komentārs noslēguma darba tēmai</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<header>
+		<img src="/images/logo.png" alt="Logo" class="header-logo">
+	</header>
+	
+	<div class="thesis-block">
+    	<h1>Jauns Komentārs noslēguma darba tēmai</h1>
+    	<div class="btn-right">
+				<a href="/itftable-page/review" ><input  class="btn-bck"
+    			type="button" value="Atpakaļ"/></a><br><br>
+    		</div>
+    
+    	<form action="#" th:action="@{/itftable-page/create-comment}" th:object="${comment}" method="post">
+        	<label for="description">Apraksts:</label>
+        	<textarea name="description" id="description" rows="8" cols="80" required></textarea><br><br>
+        	<label for="supervisor">Komentāra autors:</label>
+        	<select id="supervisor" name="supervisor" required>
+        		<option th:each="supervisor : ${supervisors}" th:value="${supervisor.getIdperson()}" th:text="${supervisor.getName()} + ' ' + ${supervisor.getSurname()}"></option>
+    		</select><br><br>
+        	<label for="thesis">Tēze:</label>
+        	<select id="thesis" name="thesis" required>
+        		<option th:each="thesis : ${thesises}" th:value="${thesis.getIdthesis()}" th:text="${thesis.getTitleLv()}"></option>
+    		</select><br><br>
+        	
+        
+        	<button type="submit" class="btn-bck"> Pievienot </button>
+    	</form>
+    </div>	
+</body>
+</html>

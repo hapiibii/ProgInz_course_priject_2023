@@ -116,4 +116,5 @@ public class Thesis extends Auditable<String> {
 		this.accStatus = AcceptanceStatus.submited;
 		this.statusFromSupervisor = true;
 	}
+	
 }

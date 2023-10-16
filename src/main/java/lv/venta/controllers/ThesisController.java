@@ -41,7 +41,7 @@ public class ThesisController {
 		this.personelService = personelService;
 	}
 	
-	//TODO all-thesises get
+	//all-thesises get
 	@GetMapping("/review")
 	public String showAllThesises(Model model) {
 		List<Thesis> allThesises = thesisService.getAllThesises();
@@ -49,7 +49,7 @@ public class ThesisController {
 		return "thesis-view-page";
 	}
 	
-	//TODO create-thesis get
+	//create-thesis get
 	@GetMapping("/create")
 	public String showCreateThesis(Model model) {
 		List<Student> students = studentService.getAllStudent();
@@ -62,7 +62,7 @@ public class ThesisController {
 		return "thesis-create-page";
 	}
 	
-	//TODO create-thesis post
+	//create-thesis post
 	@PostMapping("/create")
 	public String сreateThesis(@ModelAttribute("thesis") Thesis thesis) {
 		thesis.setAccStatus(AcceptanceStatus.submited);
@@ -111,14 +111,19 @@ public class ThesisController {
 	//TODO add-comment get
 		@GetMapping("/create-comment")
 		public String showCreateComment(Model model) {
+			List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
+	        List<Thesis> thesises = thesisService.getAllThesises();
 			model.addAttribute("comment", new Comment());
+			model.addAttribute("thesises", thesises);
+	        model.addAttribute("supervisors", supervisors);
 			return "comment-create-page";
 		}
 		
 	//TODO add-comment post
-		@PostMapping("/create-comment/{personelId}/{thesisId}")
-		public String сreateComment(Comment comment, @PathVariable("personelId") long personelId, @PathVariable("thesisId") long thesisId) {
-			commentService.createComment(comment.getDescription(), personelId, thesisId); //TODO ???? kā te rīkoties??
+		@PostMapping("/create-comment")
+		public String сreateComment(@ModelAttribute("comment") Comment comment) {
+	        comment.setDate(LocalDateTime.now());
+			commentService.createComment(comment); 
 			return "redirect:/itftable-page/review";
 		}
 		
