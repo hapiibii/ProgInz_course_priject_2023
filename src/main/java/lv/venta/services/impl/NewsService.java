@@ -23,6 +23,18 @@ public class NewsService implements INewsService {
 
     @Override
     public void createNews(News news) {
+    	LocalDate currentDate = LocalDate.now();
+
+        // Pārbauda, vai sākuma datums nav agrāks par šodienas datumu
+        if (news.getStartDate().isBefore(currentDate)) {
+            news.setStartDate(currentDate);
+        }
+
+        // Pārbauda, vai sākuma datums ir vēlāks par beigu datumu
+        if (news.getStartDate().isAfter(news.getEndDate())) {
+            news.setEndDate(news.getStartDate());
+        }
+
         newsRepo.save(news);
     }
 
@@ -31,7 +43,19 @@ public class NewsService implements INewsService {
         News existingNews = newsRepo.findById(newsId).orElse(null);
 
         if (existingNews != null) {
-            // Iestatām jaunās vērtības, ja tās ir norādītas
+            LocalDate currentDate = LocalDate.now();
+
+            // Pārbauda, vai sākuma datums nav agrāks par šodienas datumu
+            if (startDate != null && startDate.isBefore(currentDate)) {
+                startDate = currentDate;
+            }
+
+            // Pārbauda, vai sākuma datums ir vēlāks par beigu datumu
+            if (startDate != null && endDate != null && startDate.isAfter(endDate)) {
+                endDate = startDate;
+            }
+
+            // Iestat jaunās vērtības, ja tās ir
             if (title != null) {
                 existingNews.setTitle(title);
             }
