@@ -1,5 +1,6 @@
 package lv.venta.services;
 
+import java.util.Collection;
 import java.util.List;
 
 import lv.venta.models.AcceptanceStatus;

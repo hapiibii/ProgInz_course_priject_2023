@@ -18,6 +18,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lv.venta.models.Auditable;
 
 @Table(name = "person_table")
 @Entity
@@ -27,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //TODO pielikt toString ja nepieciesams
-public class Person {
+public class Person extends Auditable<String> {
 	
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "Idperson")

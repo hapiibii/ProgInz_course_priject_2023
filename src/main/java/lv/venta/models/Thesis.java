@@ -36,7 +36,7 @@ import lv.venta.models.users.Student;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Thesis {
+public class Thesis extends Auditable<String> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -105,6 +105,7 @@ public class Thesis {
 
 	public Thesis(String titleEn, String titleLv, String goal, String tasks, Student student,
 			AcademicPersonel supervisor) {
+		super();
 		this.titleEn = titleEn;
 		this.titleLv = titleLv;
 		this.goal = goal;
@@ -115,4 +116,5 @@ public class Thesis {
 		this.accStatus = AcceptanceStatus.submited;
 		this.statusFromSupervisor = true;
 	}
+	
 }

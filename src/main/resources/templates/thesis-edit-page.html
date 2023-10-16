@@ -35,7 +35,7 @@
     		</select><br><br>
     		<label for="reviewers">Recenzents:</label>
         	<select id="reviewers" name="reviewers" required>
-        		<option th:each="reviewers : ${reviewers}" th:value="${reviewers.idperson}" th:text="${reviewers.name + ' ' + reviewers.surname}"></option>
+        		<option th:each="reviewer : ${reviewers}" th:value="${reviewer.idperson}" th:text="${reviewer.name + ' ' + reviewer.surname}"></option>
     		</select><br><br>
     		<label for="accStatus">Statuss:</label>
 				<select id="accStatus" name="accStatus" required>

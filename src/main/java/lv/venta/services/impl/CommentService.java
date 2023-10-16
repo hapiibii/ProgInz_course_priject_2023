@@ -30,17 +30,7 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void createComment(String description, long personelId, long thesisId) {
-        Comment comment = new Comment();
-        comment.setDescription(description);
-        
-        AcademicPersonel supervisor = academicPersonelService.getAcademicPersonelById(personelId);
-        comment.setSupervisor(supervisor);
-        
-        Thesis thesis = thesisService.getThesisById(thesisId);
-        comment.setThesis(thesis);
-
-        comment.setDate(LocalDateTime.now());
+    public void createComment(Comment comment) {
         commentRepo.save(comment);
     }
 
