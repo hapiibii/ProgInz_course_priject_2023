@@ -50,10 +50,12 @@ public class SecurityConfig {
 		http.authorizeHttpRequests()
 		.requestMatchers("/style.css").permitAll()
 		.requestMatchers("/images/**").permitAll()
-		.requestMatchers("/Calendar-schedule").hasAnyAuthority("USER")
+		.requestMatchers("/Calendar-schedule/studio-programms").hasAnyAuthority("USER")
+		.requestMatchers("/Calendar-schedule/studio-programms/**").hasAnyAuthority("USER")
 		.requestMatchers("/Calendar-schedule/calendar-add").hasAnyAuthority("ADMIN")
-		.requestMatchers("/Calendar-schedule/remove-activity").hasAnyAuthority("ADMIN")
-		.requestMatchers("/Calendar-schedule/schedules/**").hasAnyAuthority("USER")
+		.requestMatchers("/Calendar-schedule/delete/**").hasAnyAuthority("ADMIN")
+		.requestMatchers("/Calendar-schedule/edit/**").hasAnyAuthority("ADMIN")
+		.requestMatchers("/Calendar-schedule/update/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/document-page").hasAnyAuthority("USER")
 		.requestMatchers("/document-page/all-documents").hasAnyAuthority("USER")
 		.requestMatchers("/document-page/create-documents").hasAnyAuthority("USER")
@@ -72,6 +74,8 @@ public class SecurityConfig {
 		.requestMatchers("/home-page/all-documents").hasAnyAuthority("USER")
 		.requestMatchers("/home-page/create-document").hasAnyAuthority("USER")
 		.requestMatchers("/home-page/delete-document/**").hasAnyAuthority("ADMIN")
+		.requestMatchers("/studioprogramms").hasAnyAuthority("ADMIN")
+		.requestMatchers("/studioprogramms/**").hasAnyAuthority("ADMIN")		
 		.requestMatchers("/submission").hasAnyAuthority("USER")
 		.requestMatchers("/submission/showAll").hasAnyAuthority("USER")
 		.requestMatchers("/submission/showAll/**").hasAnyAuthority("USER")
@@ -86,10 +90,10 @@ public class SecurityConfig {
 		.requestMatchers("/itftable-page/create").hasAnyAuthority("USER")
 		.requestMatchers("/itftable-page/edit/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/itftable-page/delete/**").hasAnyAuthority("ADMIN")
-		.requestMatchers("/itftable-page/create-coments").hasAnyAuthority("USER")
-		.requestMatchers("/itftable-page/create-coments/**").hasAnyAuthority("USER")
-		.requestMatchers("/itftable-page/edit-coment/**").hasAnyAuthority("USER")
-		.requestMatchers("/itftable-page/delete-coments/**").hasAnyAuthority("USER")
+		.requestMatchers("/itftable-page/create-comment").hasAnyAuthority("USER")
+		.requestMatchers("/itftable-page/create-comment/**").hasAnyAuthority("USER")
+		.requestMatchers("/itftable-page/edit-comment/**").hasAnyAuthority("USER")
+		.requestMatchers("/itftable-page/delete-comment/**").hasAnyAuthority("USER")
 		.requestMatchers("/h2-console").permitAll()
 	    .requestMatchers("/h2-console/**").permitAll()
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
@@ -108,21 +112,5 @@ public class SecurityConfig {
 	    web.ignoring()
 	       .requestMatchers("/resources/static/css/**");
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

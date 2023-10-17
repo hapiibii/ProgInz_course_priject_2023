@@ -41,7 +41,7 @@ public class ThesisController {
 		this.personelService = personelService;
 	}
 	
-	//TODO all-thesises get
+	//all-thesises get
 	@GetMapping("/review")
 	public String showAllThesises(Model model) {
 		List<Thesis> allThesises = thesisService.getAllThesises();
@@ -49,7 +49,7 @@ public class ThesisController {
 		return "thesis-view-page";
 	}
 	
-	//TODO create-thesis get
+	//create-thesis get
 	@GetMapping("/create")
 	public String showCreateThesis(Model model) {
 		List<Student> students = studentService.getAllStudent();
@@ -62,9 +62,9 @@ public class ThesisController {
 		return "thesis-create-page";
 	}
 	
-	//TODO create-thesis post
+	//create-thesis post
 	@PostMapping("/create")
-	public String сreateThesis(@ModelAttribute("thesis") Thesis thesis) {
+	public String сreateThesis(   Thesis thesis) {
 		thesis.setAccStatus(AcceptanceStatus.submited);
 		thesis.setSubmitDateTime(LocalDateTime.now());
 		thesisService.createThesis(thesis);
@@ -109,21 +109,26 @@ public class ThesisController {
 	
 	//
 	//TODO add-comment get
-		@GetMapping("/create-coments")
+		@GetMapping("/create-comment")
 		public String showCreateComment(Model model) {
+			List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
+	        List<Thesis> thesises = thesisService.getAllThesises();
 			model.addAttribute("comment", new Comment());
-			return "thesis-edit-page";
+			model.addAttribute("thesises", thesises);
+	        model.addAttribute("supervisors", supervisors);
+			return "comment-create-page";
 		}
 		
 	//TODO add-comment post
-		@PostMapping("/create-coments/{personelId}/{thesisId}")
-		public String сreateComment(Comment comment, @PathVariable("personelId") long personelId, @PathVariable("thesisId")long thesisId) {
-			commentService.createComment(comment.getDescription(), personelId, thesisId); //TODO ???? kā te rīkoties??
+		@PostMapping("/create-comment")
+		public String сreateComment(@ModelAttribute("comment") Comment comment) {
+	        comment.setDate(LocalDateTime.now());
+			commentService.createComment(comment); 
 			return "redirect:/itftable-page/review";
 		}
 		
 	//TODO edit-comment get
-		@GetMapping("/edit-coment/{idcom}")
+		@GetMapping("/edit-comment/{idcom}")
 		public String showEditComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -131,13 +136,13 @@ public class ThesisController {
 		}
 		
 	//TODO edit-comment post
-		@PostMapping("/edit-coment/{idcom}")
+		@PostMapping("/edit-comment/{idcom}")
 		public String editComment(@PathVariable("idcom") long idcom, @ModelAttribute("comment") Comment comment) throws Exception {
 			commentService.updateComment(idcom, comment.getDescription());
 			return "redirect:/itftable-page/review";
 		}
 	//TODO delete-comment get
-		@GetMapping("/delete-coments/{idcom}")
+		@GetMapping("/delete-comment/{idcom}")
 		public String showDeleteComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
 			model.addAttribute("comment", comment);
@@ -145,7 +150,7 @@ public class ThesisController {
 		}
 		
 	//TODO delete-comment post
-		@PostMapping("/delete-coments/{idcom}")
+		@PostMapping("/delete-comment/{idcom}")
 		public String deleteComment(@PathVariable("idcom") long idcom) throws Exception {
 			commentService.deleteComment(idcom);
 			return "redirect:/itftable-page/review";

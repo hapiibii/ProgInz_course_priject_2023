@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pievienot kalendāra grafiku</title>
+</head>
+<body>
+    <h1>Pievienot kalendāra grafiku</h1>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <form action="/home-page/add-activity" method="post">
+         <label for="gads">Gads:</label>
+        <input type="text" name="gads" id="gads" required><br><br>
+        
+<<<<<<< HEAD
+         <label for="studioProgramm">Studiju programma ID:</label>
+        
+		
+		<select id="studioProgramm" name="studioProgramm" required>
+            <option th:each="studioProgramm : ${allStudioProgramms}" th:value="${studioProgramm.getIdstprog()}" th:text="${studioProgramm.getTitle()} "></option>
+        </select><br><br>
+        
+        
+=======
+        <label for="studioProgrammId">Studiju programma ID:</label>
+        <select id="studioProgramm" name="studioProgramm" required>
+            <option th:each="studioProgramm : ${allStudioProgramms}" th:value="${studioProgramm.getIdstprog()}" th:text="${studioProgramm.getTitle()} "></option>
+        </select>
+        <br><br>
+>>>>>>> alina
+        
+        <label for="activity">Aktivitāte:</label>
+        <input type="text" name="activity" id="activity" required><br><br>
+        
+        <label for="activityEndDate">Beigu datums:</label>
+        <input type="date" name="activityEndDate" id="activityEndDate" required><br><br>
+        
+        <label for="activityImplementation">Realizācija:</label>
+        <textarea name="activityImplementation" id="activityImplementation" rows="4" cols="50" required></textarea><br><br>
+        
+        <input type="submit" value="Pievienot">
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Iesniegumi</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+	<form action="#"  th:action="@{/submission/update/__${idsubmission}__}"  th:object="${submission}"   method="post">
+		<table>
+			<tr>
+				<td>Submission date: </td>
+				<td><input type="text" th:field="*{submissionDate}"   />  </td>
+				<td th:if="${#fields.hasErrors('submissionDate')}" th:errors="*{submissionDate}"> </td>
+			</tr>
+			
+			<tr>
+				<td>Document File file:</td>
+				<td><input type="file" name="file" /></td>
+			</tr>
+			
+		
+			<tr>
+				<td> <button type="submit"> Save submission </button> </td>
+			</tr>	
+		</table>
+		
+		
+	</form>
+	
+	
+</html>

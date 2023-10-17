@@ -37,15 +37,13 @@ public class HomepageController {
 
 	 private final INewsService newsService;
 	 private final ICalendarService calendarService;
-	 private final IStudioProgrammService studioProgService;
 	 private final IDocumentsService documentService;
 	 private final IActivitiesService activitiesService;
 
 	 @Autowired
-	 public HomepageController(INewsService newsService, ICalendarService calendarService, IStudioProgrammService studioProgService, IDocumentsService documentService,  IActivitiesService activitiesService) {
+	 public HomepageController(INewsService newsService, ICalendarService calendarService, IDocumentsService documentService,  IActivitiesService activitiesService) {
 		 this.newsService = newsService;
 	     this.calendarService = calendarService;
-	     this.studioProgService = studioProgService;
 	     this.documentService = documentService;
 	     this.activitiesService = activitiesService;
 	 }

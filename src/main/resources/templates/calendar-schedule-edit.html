@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Calendar Activity</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+
+    <h1>Edit Calendar Activity</h1>
+
+    <form th:action="@{'/Calendar-schedule/update/' + ${activity.idActivity}}" th:object="${activity}" method="post">
+       
+        <div>
+            <label for="activity">Aktivitāte:</label>
+            <input type="text" th:field="*{activity}" id="activity" />
+        </div>
+
+        <div>
+            <label for="activityEndDate">Aktivitātes beigu datums:</label>
+            <input type="date" th:field="*{activityEndDate}" id="activityEndDate" />
+        </div>
+
+        <div>
+            <label for="activityImplementation">Aktivitātes īstenošana:</label>
+            <input type="text" th:field="*{activityImplementation}" id="activityImplementation" />
+        </div>
+
+        <div>
+            <input type="submit" value="Update" />
+        </div>
+
+    </form>
+
+</body>
+
+</html>

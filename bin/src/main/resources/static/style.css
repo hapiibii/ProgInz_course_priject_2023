@@ -1,0 +1,280 @@
+/* Kopējie stili */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ccdcd6;
+}
+
+/* Hederis */
+header {
+  position: relative;
+  background: linear-gradient(to right, #155741, #278964);
+  color: #3b986d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 20px; /* Pievienojiet atstarpi starp header un nākamo bloku */
+}
+
+.header-logo {
+  background: none;
+  padding: 0;
+  margin: 0;
+  width: 100px;
+  height: auto;
+}
+
+/* Bloku krāsa */
+table,
+th,
+td {
+  background-color: #ffffff;
+}
+
+/* H1 krāsa */
+h1 {
+  color: #3b986d;
+}
+
+/* Pārējā teksta krāsa */
+body,
+a,
+th,
+td {
+  color: #000000;
+}
+
+/* Svītru un tabulu rāmju krāsa */
+hr,
+table {
+  border-color: #d8e3e0;
+}
+
+/* Menu teksta krāsa */
+header h1,
+a {
+  color: #3b986d;
+}
+
+/* saites bloka stili */
+.saites-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 0 10px 50px 0;
+  width: calc(16.66% - 10px); /* 1/6 no lapas platuma */
+  text-align: left;
+  border-radius: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.saites-block h1 {
+  color: #3b986d;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d8e3e0;
+  padding-bottom: 10px;
+  text-align: left;
+  margin-left: 0;
+  margin-top: 0px;
+}
+
+.saites-block .saites-links {
+  text-align: left;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid #d8e3e0;
+}
+
+.saites-block .saites-links a {
+  display: block;
+  color: #3b986d;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.saites-block .saites-links a:last-child {
+  margin-bottom: 0;
+}
+
+.saites-block .saites-links a:before {
+  content: "\2022"; /* Ievieto punktu pirms katras saites */
+  margin-right: 8px;
+}
+
+.saites-block .saites-links a:first-child:before {
+  content: ""; /* Nepievieno punktu pirms pirmās saites */
+}
+
+.saites-block .saites-links a:hover {
+  text-decoration: underline;
+}
+.menu-button {
+  background-color: transparent;
+  border: none;
+  padding-bottom: 10px;
+  margin-bottom: 0 px;
+  color: #3b986d;
+}
+
+.menu-button::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #d8e3e0;
+  margin-top: 10px;
+}
+/* Pielāgojumi */
+.saites-block {
+  margin-right: 20px; /* Atstarpe starp blokiem */
+  margin-left: 0; /* Pielīdzina kreisai malai */
+}
+
+/* Jaunumu bloka stili */
+.news-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 20px 0; /* Atstarpe starp blokiem */
+  width: calc(50% - 10px); /* 1/2 no lapas platuma */
+  text-align: center;
+  border-radius: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.news-block h1 {
+  color: #3b986d;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d8e3e0;
+  padding-bottom: 10px;
+  text-align: left;
+  margin-left: 0;
+  margin-top: 0px;
+}
+
+.news-table{
+ text-align:auto;
+}
+.news-title {
+  text-align: left;
+  margin: 0;
+}
+
+.news-description {
+  text-align: left;
+  margin: 0;
+}
+
+.action-buttons {
+  text-align: right;
+}
+
+.news-table {
+  margin-top: 20px;
+}
+
+/* Kalendarārā acrivas dienas bloka stili */
+.calendar-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 0 0 50px;
+  width: calc(16.66% - 10px); /* 1/6 no lapas platuma */
+  text-align: left;
+  border-radius: 20px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #d8e3e0; /* Pievienotā līnija apkārt blokam */
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
+}
+
+.calendar-block h1 {
+  color: #3b986d;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d8e3e0;
+  padding-bottom: 10px;
+  text-align: left;
+  margin-left: 0;
+  margin-top: 0px;
+}
+
+.calendar-block table {
+  margin-top: 20px;
+  width: 100%;
+  
+}
+
+/* Atstarpes starp blokiem */
+.news-block:not(:last-child),
+.calendar-block:not(:last-child) {
+  margin-right: 20px;
+}
+
+
+/*KALENDARAIS GRAFIKS*/
+.calendar-schedule-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 0 auto 50px;
+  width: calc(80% - 10px); /* 2/3 no lapas platuma */
+  text-align: left;
+  border-radius: 20px;
+  display: block;
+  vertical-align: top;
+  padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
+}
+
+/* Iesniegumu bloks */
+.submission-title {
+  text-align: left;
+  margin-right: 10px;
+}
+
+.submission-button {
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+/*THESIS*/
+.thesis-block {
+  background-color: #ffffff;
+  padding: 30px;
+  margin: 20px 0; /* Atstarpe starp blokiem */
+  width: calc(80% - 10px); 
+  text-align: center;
+  border-radius: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.thesis-block h1 {
+  color: #3b986d;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d8e3e0;
+  padding-bottom: 10px;
+  text-align: left;
+  margin-left: 0;
+  margin-top: 0px;
+}
+
+.thesis-table{
+ text-align:auto;
+}
+.thesis-title {
+  text-align: left;
+  margin: 0;
+}
+
+.btn-bck {
+
+  background-color: #3b986d; 
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+

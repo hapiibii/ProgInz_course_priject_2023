@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dzēst Studiju Programmu</title>
+</head>
+<body>
+<h3>Apstiprināt dzēšanu</h3>
+<p>Vai tiešām vēlaties dzēst šo programmu?</p>
+<p th:text="${programm.title}"></p>
+
+<!-- Izmantojiet formu, lai dzēstu studiju programmu -->
+<form th:action="@{'/studioprogramms/deleteConfirmed/' + ${programm.idstprog}}" method="post">
+    <input type="submit" value="Jā, dzēst">
+</form>
+
+&nbsp;&nbsp;&nbsp;
+<a href="/studioprogramms">Nē, atcelt</a>
+</body>
+</html>

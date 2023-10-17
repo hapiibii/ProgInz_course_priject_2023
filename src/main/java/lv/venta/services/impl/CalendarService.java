@@ -1,20 +1,17 @@
 package lv.venta.services.impl;
 
-import lv.venta.models.Activities;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
+import lv.venta.repos.ICalendarScheduleRepo;
 import lv.venta.services.ICalendarService;
-import lv.venta.services.IStudioProgrammService;
 
 import java.time.LocalDate;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +19,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CalendarService implements ICalendarService {
+	
 	private List<CalendarSchedule> calendarSchedules = new ArrayList<>();
 	
 	private ICalendarRepo calendarRepo;
-	private IStudioProgrammService studioProgrammService;
+	private ICalendarScheduleRepo calendarSchedulrRepo;
 
 	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo, IStudioProgrammService studioProgrammService) {
+    public CalendarService(ICalendarRepo calendarRepo, ICalendarScheduleRepo calendarSchedulrRepo) {
         this.calendarRepo = calendarRepo;
-		this.studioProgrammService = studioProgrammService;
+		this.calendarSchedulrRepo = calendarSchedulrRepo;
     }
 
 	@Override
@@ -38,16 +36,16 @@ public class CalendarService implements ICalendarService {
 	    return calendarSchedules;
 	}
 	
-	 @Override
-	 public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
+	@Override
+	public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
 		    CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
 		    if (calendarSchedule != null) { 
 		        calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
 		    }
 	}
 
-	 @Override
-	 public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
+	@Override
+	public List<CalendarActivity> getActivitiesEndingWithinTwoWeeks() {
 		 LocalDate currentDate = LocalDate.now();
 		 LocalDate twoWeeksLater = currentDate.plus(2, ChronoUnit.WEEKS);
 
@@ -55,83 +53,57 @@ public class CalendarService implements ICalendarService {
 				 .flatMap(schedule -> schedule.getActivities().stream())
 				 .filter(activity -> activity.getActivityEndDate().isBefore(twoWeeksLater))
 				 .collect(Collectors.toList());
-	    }
+	 }
 
-	    @Override
-	    public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
-	        CalendarSchedule calendarSchedule = getCalendarSchedule(year, studioProgramm);
-	        if (calendarSchedule != null) {
-	            return calendarSchedule.getActivities();
-	        }
-	        return new ArrayList<>();
+	@Override
+	public List<CalendarActivity> getActivitiesByYearAndProgram(int year, StudioProgramm studioProgramm) {
+	    return calendarRepo.findByYearAndProgram(year, studioProgramm);
+	}
+	
+	private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
+	    for (CalendarSchedule schedule : calendarSchedules) {
+	       if (schedule.getGads() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
+	           return schedule;
+	       }
 	    }
-
-	    private CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm) {
-	        for (CalendarSchedule schedule : calendarSchedules) {
-	            if (schedule.getGads().getValue() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
-	                return schedule;
-	            }
-	        }
-	        CalendarSchedule newSchedule = new CalendarSchedule(Year.of(year), new ArrayList<>(), studioProgramm);
-	        calendarSchedules.add(newSchedule);
-	        return newSchedule;
-	    }
-
-	    private CalendarSchedule getCalendarSchedule(int year, StudioProgramm studioProgramm) {
-	        for (CalendarSchedule schedule : calendarSchedules) {
-	            if (schedule.getGads().getValue() == year && schedule.getStudioProgramm().equals(studioProgramm)) {
-	                return schedule;
-	            }
-	        }
-	        return null;
-	    }  
+	    return null;
+	}  
+	
+	@Override
+	public List<Integer> getAllUniqueYears() {
+	    return calendarSchedulrRepo.findAllUniqueYears();
+	}
 	    
-	    
-	    @Override
-	    public List<CalendarActivity> getActivitiesByStudyProgrammTitle(String title) {
-	        List<CalendarActivity> matchingActivities = new ArrayList<>();
+	public List<CalendarActivity> getEndDates() {
+		List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
+	    List<CalendarActivity> allActivities = calendarRepo.findAll();
 
-	        for (StudioProgramm program : studioProgrammService.getAllStudioProgramms()) {
-	            if (program.getTitle().equals(title)) {
-	                Collection<CalendarSchedule> schedules = program.getActivities();
-	                for (CalendarSchedule schedule : schedules) {
-	                    List<CalendarActivity> activities = schedule.getActivities();
-	                    matchingActivities.addAll(activities);
-	                }
-	            }
+	    // Iterē caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
+	    for (CalendarActivity activity : allActivities) {
+	    	LocalDate endDate = activity.getActivityEndDate();
+	    	if (endDate != null) {
+	    		activitiesWithEndDates.add(activity);
 	        }
-
-	        return matchingActivities;
 	    }
-	    
-	    public List<CalendarActivity> getEndDates() {
-	        List<CalendarActivity> activitiesWithEndDates = new ArrayList<>();
-
-	        // Izmantojiet metodi "findAll" no "ICalendarRepo", lai iegūtu visus CalendarActivity objektus
-	        List<CalendarActivity> allActivities = calendarRepo.findAll();
-
-	        // Iterējiet caur visiem aktivitāšu objektiem un pārbaudiet, vai beigu datums ir definēts
-	        for (CalendarActivity activity : allActivities) {
-	            LocalDate endDate = activity.getActivityEndDate();
-	            if (endDate != null) {
-	                activitiesWithEndDates.add(activity);
-	            }
-	        }
 
 	        return activitiesWithEndDates;
-	    }
-
-		@Override
-		public void addActivity(StudioProgramm studioProgramm, Year year, String activity, LocalDate activityEndDate,
-				String activityImplementation) {
-		    CalendarSchedule calendarSchedule = getOrCreateCalendarSchedule(year.getValue(), studioProgramm);
-		    CalendarActivity calendarActivity = new CalendarActivity(activity, activityEndDate, activityImplementation, calendarSchedule);
-		    calendarSchedule.getActivities().add(calendarActivity);
-			
-		}
-
+	 }
 	
-
-
+	@Override
+	public Optional<CalendarActivity> findActivityById(Long idActivity) {
+	    return calendarRepo.findById(idActivity);
+	}
+	
+	@Override
+	public void updateActivity(Long idActivity, CalendarActivity updatedActivity) {
+	    Optional<CalendarActivity> existingActivityOptional = calendarRepo.findById(idActivity);
+	    if (existingActivityOptional.isPresent()) {
+	        CalendarActivity existingActivity = existingActivityOptional.get();
+	        
+	        existingActivity.setActivity(updatedActivity.getActivity());
+	        existingActivity.setActivityImplementation(updatedActivity.getActivityImplementation());
+	        
+	        calendarRepo.save(existingActivity);
+	    }
+	}
 }
-

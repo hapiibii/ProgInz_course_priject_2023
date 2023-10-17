@@ -55,14 +55,19 @@
 							</li>
 						</ul>
 					</td>
-					<td class="action-buttons"><a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" ><input  class="btn-bck"
-    					type="button" value="Rediģēt"/></a>
-    					<a href="@{/itftable-page/delete/{idthesis}(idthesis=${temp.getIdthesis()})}" ><input  class="btn-bck"
-    					type="button" value="Dzēst"/></a>
+					<td class="action-buttons">
+						<a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" >
+							<input  class="btn-bck" type="button" value="Rediģēt"/></a>
+    					<a href="@{/itftable-page/delete/__${thesis.idthesis}__}">
+    						<input  class="btn-bck" type="button" value="Dzēst"/></a>
     				</td>
     				
 				</tr>
 			</table>
+			<div class="btn-right">
+				<a href="/itftable-page/create-comment" ><input  class="btn-bck"
+    			type="button" value="Pievienot komentāru"/></a><br><br>
+    		</div>
 			<!-- Poga Atpakaļ -->
 			<a href="/home-page" class="btn-bck">Atpakaļ</a>
 		</div>

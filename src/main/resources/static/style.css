@@ -211,6 +211,64 @@ a {
 
 
 /*KALENDARAIS GRAFIKS*/
+table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #d8e3e0;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .container {
+		    display: flex;
+		}
+		
+		.sidebar {
+		    width: 20%; /* Jūsu izvēle */
+		    padding: 20px;
+		}
+		
+		.container .calendar-schedule-block {
+		    width: 80%; /* Jūsu izvēle */
+		    padding: 20px;
+		}
+		.wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .sidebar {
+            flex: 0 0 20%;
+            max-width: 20%;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        /* Optional: styling the year buttons */
+        .sidebar button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            border: none;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #e0e0e0;
+        }
 .calendar-schedule-block {
   background-color: #ffffff;
   padding: 30px;
@@ -221,6 +279,18 @@ a {
   display: block;
   vertical-align: top;
   padding: 10px; /* Pievienotā atstarpe bloka iekšpusē */
+}
+.btn-back {
+  background-color: #3b986d;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 12px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 20px;
 }
 
 /* Iesniegumu bloks */
@@ -277,4 +347,3 @@ a {
   display: inline-block;
   font-size: 12px;
 }
-

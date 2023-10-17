@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>One Document</title>
+</head>
+
+	<body>
+		<h1>Information about one document</h1>
+		
+		<table>
+			<tr>
+				<th>ID<th>
+				<th>Document Name<th>
+				<th>File<th>
+			</tr>
+			
+			<tr th:if="${myAllDocuments != null}">
+				<td th:text="${document.iddocument}"></td>
+				<td th:text="${document.documentName}"></td>
+				<td th:text="${document.file}"></td>
+			</tr>
+		</table>
+	</body>
+</html>

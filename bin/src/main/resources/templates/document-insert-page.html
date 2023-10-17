@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dokumenta pievienošana</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+
+<head>
+		<title>Dokumenta pievienošana</title>
+		<link rel="stylesheet" type="text/css" href="/style.css">
+	</head>
+	
+	<body>
+		<header>
+			<img src="/images/logo.png" alt="Logo" class="header-logo">
+		</header>
+		<div class="back-button">
+    	<a href="/document-page" class="button">Atpakaļ</a>
+		</div>
+		<h1>Dokumenta pievienošana</h1>
+
+	<form action="/document-page/create-documents"  th:action="@{/document/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
+
+		<table>
+			<tr>
+				<td>Iesnieguma nosaukums:</td>
+				<td><input type="text" th:field="*{documentName}"   />  </td>
+				<td th:if="${#fields.hasErrors('documentName')}" th:errors="*{documentName}"> Invalid Title </td>
+			</tr>
+			
+			<tr>
+				<td>Dokumenta fails:</td>
+				<td><input type="file" name="file" /></td>
+			</tr>
+			
+			<tr>
+				<td> <button type="submit"> Save document </button> </td>
+			</tr>	
+		</table>
+		
+		
+	</form>
+	
+	</body>
+</html>
