@@ -2,11 +2,13 @@ package lv.venta.services.impl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.AcceptanceStatus;
+import lv.venta.models.CalendarSchedule;
 import lv.venta.models.Thesis;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Student;
@@ -29,13 +31,13 @@ public class ThesisService implements IThesisService {
 	}
 
 	@Override
-	public void deleteThesis(long idthesis) throws Exception {
-		try {
-			thesisRepo.deleteById(idthesis);
-		}
-		catch (Exception e) {
-			throw new Exception("Could not delete the thesis with this ID", e);
-		}
+	public void deleteThesisById(long idthesis) {
+		Optional<Thesis> thesis = thesisRepo.findById(idthesis);
+	    if (thesis.isPresent()) {
+	        thesisRepo.delete(thesis.get());
+	    } else {
+	        throw new IllegalArgumentException("Thesis with such ID can not be found.");
+	    }
 		
 	}
 

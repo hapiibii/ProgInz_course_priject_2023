@@ -19,19 +19,18 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public abstract class Auditable<U> {
+public abstract class Auditable {
 	
-	// ---------- TO CHECK AUDIT YOU NEED A DATABASE. ALL THESE ROWS FOR NOW ARE SHOWED IN THERE ----------
 	
 	@CreatedBy
-	private U createdBy;
+	private String createdBy;
 	
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
 	
 	@LastModifiedBy
-	private U lastModifiedBy;
+	private String lastModifiedBy;
 	
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)

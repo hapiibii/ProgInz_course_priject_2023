@@ -94,18 +94,23 @@ public class ThesisController {
 	
 	//TODO delete-thesis get
 	@GetMapping("/delete/{idthesis}")
-	public String showDeleteThesis(@PathVariable("idthesis") long idthesis, Model model) {
-		Thesis thesis = thesisService.getThesisById(idthesis);
-		model.addAttribute("thesis", thesis);
-		return "thesis-delete-page";
+	public String showDeleteThesisById(@PathVariable("idthesis") long idthesis, Model model) {
+		try {
+			thesisService.deleteThesisById(idthesis);
+			model.addAttribute("thesis", thesisService.getAllThesises());
+			return "redirect:/itftable-page/review";
+		}
+		catch (Exception e) {
+			return "error-page";
+		}
 	}
 	
 	//TODO delete-thesis post
-	@PostMapping("/delete/{idthesis}")
-	public String deleteThesis(@PathVariable("idthesis") long idthesis) throws Exception {
-		thesisService.deleteThesis(idthesis);
+	/*@PostMapping("/delete/{idthesis}")
+	public String deleteThesisById(@PathVariable long idthesis) {
+		thesisService.deleteThesisById(idthesis);
 		return "redirect:/itftable-page/review";
-	}
+	}*/
 	
 	//
 	//TODO add-comment get

@@ -28,7 +28,7 @@ import lv.venta.models.Auditable;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //TODO pielikt toString ja nepieciesams
-public class Person extends Auditable<String> {
+public class Person extends Auditable {
 	
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "Idperson")

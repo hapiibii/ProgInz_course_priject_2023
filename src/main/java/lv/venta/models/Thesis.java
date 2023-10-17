@@ -36,7 +36,7 @@ import lv.venta.models.users.Student;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Thesis extends Auditable<String> {
+public class Thesis extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

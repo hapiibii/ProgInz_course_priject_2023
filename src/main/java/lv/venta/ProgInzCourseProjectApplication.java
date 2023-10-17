@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lv.venta.models.Comment;
 import lv.venta.models.News;
-import lv.venta.models.SpringSecurityAuditorAware;
 import lv.venta.models.Course;
 import lv.venta.models.Degree;
 
@@ -41,22 +40,17 @@ import lv.venta.repos.IStudioProgrammRepo;
 import lv.venta.repos.IThesisRepo;
 import lv.venta.repos.IUserAuthorityRepo;
 import lv.venta.repos.IUserRepo;
+import lv.venta.services.impl.AuditorAwareImpl;
 
 
 @EnableCaching
 @SpringBootApplication
-@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class ProgInzCourseProjectApplication {
 	
-	@Bean
-	public AuditorAware<String> auditorAware() {
-		return new SpringSecurityAuditorAware();
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProgInzCourseProjectApplication.class, args);
 	}
-	
 	
 	@Bean
 	public PasswordEncoder passwordEncoderSimple() {
@@ -111,8 +105,8 @@ public class ProgInzCourseProjectApplication {
 				AcademicPersonel ac2 = new AcademicPersonel("Karlis", "Immers", "121213-11151", Role.Akademiskais_personals, null, Degree.MG);
 
 
-				personelRepo.save(ac1);
-				personelRepo.save(ac2);
+				//personelRepo.save(ac1);
+				//personelRepo.save(ac2);
 				
 				//create a person to add it to DB to check if Created date/last modified date and created by/last modified by shows correctly
 				Person pers1 = new Person("Testname", "Testsurname", "111111-11111", Role.God, user1);
@@ -172,7 +166,7 @@ public class ProgInzCourseProjectApplication {
 				File file2 = new File(filePath);
 				Documents doc2 = new Documents("Test", file2);
 
-				documentRepo.save(doc2);
+				//documentRepo.save(doc2);
 			
 			}
 		};
