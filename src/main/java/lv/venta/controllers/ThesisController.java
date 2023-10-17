@@ -72,6 +72,7 @@ public class ThesisController {
 	}
 	
 	//TODO edit-thesis get
+	//TODO add comment section for edit, so edit-comment will be as well here. If it is not possible, add a button to every thesis with "edit comment"
 	@GetMapping("/edit/{idthesis}")
 	public String showEditThesis(@PathVariable("idthesis") long idthesis, Model model) {
 		Thesis thesis = thesisService.getThesisById(idthesis);
@@ -92,7 +93,8 @@ public class ThesisController {
 		return "redirect:/itftable-page/review";
 	}
 	
-	//TODO delete-thesis get
+	//delete-thesis get
+	//TODO delete thesis-delete-page
 	@GetMapping("/delete/{idthesis}")
 	public String showDeleteThesisById(@PathVariable("idthesis") long idthesis, Model model) {
 		try {
@@ -105,7 +107,7 @@ public class ThesisController {
 		}
 	}
 	
-	//TODO delete-thesis post
+	//delete-thesis post
 	/*@PostMapping("/delete/{idthesis}")
 	public String deleteThesisById(@PathVariable long idthesis) {
 		thesisService.deleteThesisById(idthesis);
@@ -113,7 +115,7 @@ public class ThesisController {
 	}*/
 	
 	//
-	//TODO add-comment get
+	//add-comment get
 		@GetMapping("/create-comment")
 		public String showCreateComment(Model model) {
 			List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
@@ -124,7 +126,7 @@ public class ThesisController {
 			return "comment-create-page";
 		}
 		
-	//TODO add-comment post
+	//add-comment post
 		@PostMapping("/create-comment")
 		public String сreateComment(@ModelAttribute("comment") Comment comment) {
 	        comment.setDate(LocalDateTime.now());
