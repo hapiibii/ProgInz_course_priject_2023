@@ -20,6 +20,13 @@
 		<td th:text="${document.getIddocument()}"></td>
 		<td th:text="${document.getDocumentName()}"></td>
 		<td th:text="${document.getFile()}"></td>
+		<td>
+            <a th:href="@{'/document/update/' + ${document.getIddocument()}}" class="button">Labot</a>
+        </td>
+        <td>
+            <a th:href="@{'/document/delete/' + ${document.getIddocument()}}" class="button">Dzēst</a>
+        </td>
+		
 	</tr>
 	
 	

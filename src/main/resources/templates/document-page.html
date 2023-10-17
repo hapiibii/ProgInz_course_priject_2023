@@ -38,15 +38,13 @@
             <table>
             
             	<tr>
-	                <th>ID</th>
 	                <th>Nosaukums</th>
 	                <th>Faila nosaukums</th>
             	</tr>
             
-				<tr th:each="document : ${myAllDocuments}">
-					<td th:text="${document.iddocument}"></td>
-	                <td th:text="${document.documentName}"></td>
-	                <td th:text="${document.file?.name}"></td>
+				<tr th:each="document : ${myAllDoc}">
+					<td th:text="${document.getDocumentName()}"></td>
+					<td th:text="${document.getFile()}"></td>
 				</tr>
 	
 	

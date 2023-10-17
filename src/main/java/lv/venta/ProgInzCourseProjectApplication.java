@@ -141,7 +141,7 @@ public class ProgInzCourseProjectApplication {
 
 				
 				
-				
+			
 				String filePath = "files/iesniegums1.odt";
 				File file = new File(filePath);
 				Documents doc1 = new Documents("Test", file);
@@ -151,6 +151,7 @@ public class ProgInzCourseProjectApplication {
 				File file2 = new File(filePath);
 				Documents doc2 = new Documents("Test", file2);
 				documentRepo.save(doc2);
+				
 				
 				
 				
