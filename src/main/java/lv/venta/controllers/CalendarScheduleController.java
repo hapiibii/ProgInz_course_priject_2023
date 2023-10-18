@@ -1,9 +1,16 @@
 package lv.venta.controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.io.FileOutputStream;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
@@ -96,5 +105,33 @@ public class CalendarScheduleController {
 	     calendarService.updateActivity(idActivity, activity);
 	     return "redirect:/Calendar-schedule/studio-programms"; 
 	 }
+	 
+	    @GetMapping("/export")
+	    public ResponseEntity<InputStreamResource> exportCalendarScheduleToExcel() throws IOException {
+	        //tiek iegūti dati no DB
+	        Workbook workbook = calendarScheduleService.exportCalendarScheduleToExcel();
+
+	        // Tiek izveidots pagaidu fails, kurā saglabāsies Excel dati
+	        File tempFile = File.createTempFile("kalendarais_grafiks", ".xlsx");
+
+	        //Tiek izveidots fileoutputstream, lai excel datus saglabātu pagaidu failā
+	        FileOutputStream fos = new FileOutputStream(tempFile);
+
+	        //excel dati tiek saglabāti pagaidu failā
+	        workbook.write(fos);
+	        fos.close();
+
+	        //Tiek izveidotas HTTP galvenes
+	        HttpHeaders headers = new HttpHeaders();
+
+	        //Pievieno "Content-Disposition" galveni, lai norādītu, ka saturs būs kā pielikums
+	        headers.add("Content-Disposition", "attachment; filename=kalendarais_grafiks.xlsx");
+
+	        return ResponseEntity
+	                .ok()
+	                .headers(headers)
+	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+	                .body(new InputStreamResource(new FileInputStream(tempFile)));
+	    }
 
 }

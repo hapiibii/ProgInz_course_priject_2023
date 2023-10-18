@@ -1,7 +1,11 @@
 package lv.venta.services.impl;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import jakarta.transaction.Transactional;
 import lv.venta.dto.CalendarScheduleDTO;
@@ -104,45 +108,42 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	    }
 	}
 	
+    @Override
+    public Workbook exportCalendarScheduleToExcel() {
+        List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules ();
 
-/*	@Override
-    public CalendarScheduleDTO getCalendarScheduleById(Long id) {
-        Optional<CalendarSchedule> schedule = calendarScheduleRepo.findById(id);
+        //Tiek izveidota jauna Excel darba grāmata
+        Workbook workbook = new XSSFWorkbook();
 
-        if (schedule.isPresent()) {
-            CalendarSchedule calendarSchedule = schedule.get();
-            CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
-            
-            calendarScheduleDTO.setIdCalendar(calendarSchedule.getIdCalendar());
-            calendarScheduleDTO.setGads(calendarSchedule.getGads());
-            calendarScheduleDTO.setStudioProgrammTitle(calendarSchedule.getStudioProgramm().getTitle());
-            calendarScheduleDTO.setActivity(calendarSchedule.getActivities().get(0).getActivity());
-            calendarScheduleDTO.setActivityEndDate(calendarSchedule.getActivities().get(0).getActivityEndDate());
-            calendarScheduleDTO.setActivityImplementation(calendarSchedule.getActivities().get(0).getActivityImplementation());
+        //Tiek izveidota jauna Excel darba lapa
+        Sheet sheet = workbook.createSheet("Kalendarais grafiks");
 
-            return calendarScheduleDTO;
-        } else {
-            throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + id + " nav atrasts.");
+        // Tiek izveidoti rindu nosaukumi
+        String[] headers = {"GADS", "STUDIJU PROGRAMMA", "AKTIVITĀTE",  "AKTIVITĀTES REALIZĒŠANAS DATUMS"};
+
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            headerRow.createCell(i).setCellValue(headers[i]);
         }
-    }*/
-	/*@Override
-	public void editCalendarSchedule(Long id, CalendarScheduleDTO calendarScheduleDTO) {
-	    Optional<CalendarSchedule> schedule = calendarScheduleRepo.findById(id);
 
-	    if (schedule.isPresent()) {
-	        CalendarSchedule calendarSchedule = schedule.get();
+        // Tiek inicializēts rindas numurs
+        int rowNum = 1;
 
-	        // Veiciet izmaiņas no DTO objekta uz esošo ierakstu
-	        calendarSchedule.setGads(calendarScheduleDTO.getGads());
-	        calendarSchedule.getActivities().get(0).setActivity(calendarScheduleDTO.getActivity());
-	        calendarSchedule.getActivities().get(0).setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
-	        calendarSchedule.getActivities().get(0).setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
+        // Tiek aizpildīts Excel fails ar datiem par tēzēm
+        for (CalendarScheduleDTO calendarScheduleDTO : calendarSchedule) {
 
-	        // Saglabājiet izmaiņas datubāzē
-	        calendarScheduleRepo.save(calendarSchedule);
-	    } else {
-	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + id + " nav atrasts.");
-	    }
-	}*/
+            Row dataRow = sheet.createRow(rowNum++);
+            dataRow.createCell(0).setCellValue(calendarScheduleDTO.getGads());
+            dataRow.createCell(1).setCellValue(calendarScheduleDTO.getStudioProgrammTitle());
+            dataRow.createCell(2).setCellValue(calendarScheduleDTO.getActivity());
+            dataRow.createCell(3).setCellValue(calendarScheduleDTO.getActivityImplementation());    
+        }
+
+        // Tiek uzstādīts kolonnu platums
+        for (int i = 0; i < 4; i++) {
+            sheet.setColumnWidth(i, 8000);
+        }
+        return workbook;
+    }	
 
 }
