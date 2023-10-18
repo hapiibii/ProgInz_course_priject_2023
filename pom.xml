@@ -58,6 +58,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
+		<!-- Atkarības darbam ar Excel failiem -->
+	    <!-- Darbam ar Excel xls formātu -->
+	    <dependency>
+	      <groupId>org.apache.poi</groupId>
+	      <artifactId>poi</artifactId>
+	      <version>5.2.4</version>
+	    </dependency>
+	    <!-- Darbam ar Excel xlsx formātu -->
+	    <dependency>
+	      <groupId>org.apache.poi</groupId>
+	      <artifactId>poi-ooxml</artifactId>
+	      <version>5.2.4</version>
+	    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
