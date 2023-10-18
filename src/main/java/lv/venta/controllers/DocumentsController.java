@@ -1,10 +1,15 @@
 package lv.venta.controllers;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lv.venta.models.Documents;
 import lv.venta.services.impl.DocumentsServiceImpl;
@@ -142,11 +150,66 @@ public class DocumentsController {
 		
 	}
 	
+	/*
+	@GetMapping("/download/{iddocument}")
+	public ResponseEntity<byte[]> downloadDocumentById(@PathVariable long iddocument) {
+	    try {
+	        Documents document = documentsService.retrieveDocumentById(iddocument);
+
+	        if (document == null) {
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        // Iegūst faila nosaukumu un MIME tipu no dokumenta
+	        String fileName = document.getFile().getName();
+	        String mimeType = "application/octet-stream"; // Jūsu konkrētais MIME tips
+
+	        byte[] fileData = Files.readAllBytes(document.getFile().toPath());
+
+	        return ResponseEntity.ok()
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+	                .contentType(MediaType.parseMediaType(mimeType))
+	                .body(fileData);
+	    } catch (Exception e) {
+	        return ResponseEntity.badRequest().build(); // Vai jebkura cita piemērota atbilde
+	    }
+	}
+	*/
 	
 	
-	
-	
-	
+	@RequestMapping(value = "/download/{iddocument}", method = RequestMethod.GET)
+    public void downloadDocumentByDocumentsName(@PathVariable("iddocument") long iddocument, HttpServletResponse response) {
+        try {
+            Documents document = documentsService.retrieveDocumentById(iddocument);
+
+            File file = document.getFile();
+
+            // Iegūst faila nosaukumu no dokumenta
+            String fileName = file.getName();
+
+            // Nosūta atbildi 
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+            response.setHeader("Content-Type", "application/octet-stream");
+            response.setHeader("Content-Length", String.valueOf(file.length()));
+
+            // Izveido ievades un izvades straumes
+            FileInputStream inputStream = new FileInputStream(file);
+            ServletOutputStream outputStream = response.getOutputStream();
+
+            // Nokopē faila saturu no ievades uz izvades straumi
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            // Attālina straumes
+            inputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+    }
 	
 	
 	

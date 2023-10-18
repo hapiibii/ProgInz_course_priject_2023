@@ -101,7 +101,7 @@ public class SubmissionController {
 	}
 	
 	@PostMapping("/insert")
-	public String insertSubmissionPostFunction (@Valid Submission submission, BindingResult result, @RequestParam("file") MultipartFile file) {
+	public String insertSubmissionPostFunction (@Valid Submission submission, BindingResult result, @RequestParam("file") MultipartFile file, Model model) {
 		System.out.println(submission.getSubmissionDate());
 		System.out.println(result.getErrorCount());
 	//	if (!result.hasErrors()) {
@@ -109,11 +109,18 @@ public class SubmissionController {
 				if (!file.isEmpty()) {
 					//Iegūst faila nosaukumu un saglabāšanas ceļu
 					String fileName = file.getOriginalFilename();
-					String filePath = "/" + fileName;
-					//Saglabā failu vietējā failu sistēmā
-					file.transferTo(new File(filePath));
-					//Iesaista faila objektu ievades parametrā
-					submission.setFile(new File(filePath));
+					if(fileName.endsWith(".pdf") || fileName.endsWith(".odt")) {
+						String filePath = "/" + fileName;
+						//Saglabā failu vietējā failu sistēmā
+						file.transferTo(new File(filePath));
+						//Iesaista faila objektu ievades parametrā
+						submission.setFile(new File(filePath));
+					}
+					else {
+	                    result.rejectValue("file", "file.invalidType", "Only .pdf and .odt files are allowed.");
+	                    model.addAttribute("submission", submission);
+	                    return "submission-insert-page";
+	                }
 				}
 				submissionService.insertSubmission(submission.getSubmissionDate(), submission.getFile());
 				return "redirect:/submission/showAll";
