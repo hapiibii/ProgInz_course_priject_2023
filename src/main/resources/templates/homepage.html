@@ -11,7 +11,7 @@
 
     <header class="header">
 	    <img src="/images/logo.png" alt="Logo" class="header-logo">
-	    <a href="/studioprogramms" class="button">Studiju Programmas</a>
+	    <a href="/studioprogramms" class="button" data-translation="Studiju Programmas">Studiju Programmas</a>
 	    
 	</header>
 
@@ -51,16 +51,16 @@
                         <p class="news-description" th:text="${news.description}"></p>
                     </td>
                     <td class="action-buttons">
-                        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">Labot</a>
-                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a>
+                        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}" data-translation="Labot">Labot</a>
+                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a>
                     </td>
                 </tr>
             </table>
             <!-- Izveidot pogu, kas noved uz jaunu jaunumu pievienošanas formu -->
-            <a href="/home-page/create-news">Izveidot jaunumu</a>
+            <a href="/home-page/create-news" data-translation="Izveidot jaunumu">Izveidot jaunumu</a>
             <br>
             <!-- Visi jaunumi -->
-            <a href="/home-page/all-news">Visi jaunumi</a>
+            <a href="/home-page/all-news" data-translation="Visi jaunumi">Visi jaunumi</a>
         </div>
 
         <div class="calendar-block">
@@ -68,8 +68,8 @@
             <hr>
             <table>
                 <tr>
-                    <th>End Date</th>
-                    <th>Activity</th>
+                    <th data-translation="Beigu datums">Beigu datums</th>
+                    <th data-translation="Aktivitāte">Aktivitāte</th>
                 </tr>
                 <!-- Iterēt caur activeDates un attēlot aktivitātes -->
                 <tr th:each="activities : ${activeDatesList}">
