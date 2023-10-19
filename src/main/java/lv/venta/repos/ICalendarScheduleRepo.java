@@ -1,6 +1,5 @@
 package lv.venta.repos;
 
-import java.time.Year;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;

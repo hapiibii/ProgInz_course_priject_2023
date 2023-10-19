@@ -1,6 +1,5 @@
 package lv.venta.services.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

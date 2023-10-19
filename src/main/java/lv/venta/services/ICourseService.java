@@ -1,7 +1,6 @@
 package lv.venta.services;
 
 import lv.venta.models.Course;
-import lv.venta.repos.ICourseRepo;
 
 public interface ICourseService {
 

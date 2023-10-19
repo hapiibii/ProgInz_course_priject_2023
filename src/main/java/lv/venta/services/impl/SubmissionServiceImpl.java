@@ -1,14 +1,11 @@
 package lv.venta.services.impl;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import lv.venta.models.Documents;
 import lv.venta.models.Submission;
 import lv.venta.services.ISubmissionService;
 

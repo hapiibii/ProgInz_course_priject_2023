@@ -1,16 +1,10 @@
 package lv.venta.controllers;
 
 import lv.venta.models.News;
-import lv.venta.models.StudioProgramm;
 import lv.venta.services.INewsService;
-import lv.venta.services.IStudioProgrammService;
-import lv.venta.services.impl.NewsService;
 import lv.venta.models.Activities;
-import lv.venta.models.CalendarActivity;
-import lv.venta.models.CalendarSchedule;
 import lv.venta.models.Documents;
 import lv.venta.services.IActivitiesService;
-import lv.venta.services.ICalendarService;
 import lv.venta.services.IDocumentsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +15,19 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.print.Doc;
 
 @Controller
 @RequestMapping("/home-page")
 public class HomepageController {
 
 	 private final INewsService newsService;
-	 private final ICalendarService calendarService;
+
 	 private final IDocumentsService documentService;
 	 private final IActivitiesService activitiesService;
 
 	 @Autowired
-	 public HomepageController(INewsService newsService, ICalendarService calendarService, IDocumentsService documentService,  IActivitiesService activitiesService) {
+	 public HomepageController(INewsService newsService, IDocumentsService documentService,  IActivitiesService activitiesService) {
 		 this.newsService = newsService;
-	     this.calendarService = calendarService;
 	     this.documentService = documentService;
 	     this.activitiesService = activitiesService;
 	 }

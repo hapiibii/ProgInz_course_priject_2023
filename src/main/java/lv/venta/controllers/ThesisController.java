@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.models.AcceptanceStatus;
 import lv.venta.models.Comment;
@@ -22,7 +21,6 @@ import lv.venta.services.IAcademicPersonelService;
 import lv.venta.services.ICommentService;
 import lv.venta.services.IStudentService;
 import lv.venta.services.IThesisService;
-import lv.venta.services.IUserService;
 
 @Controller
 @RequestMapping("/itftable-page")

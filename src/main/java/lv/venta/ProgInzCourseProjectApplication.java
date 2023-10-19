@@ -20,9 +20,7 @@ import lv.venta.models.Course;
 import lv.venta.models.Degree;
 
 import lv.venta.models.Documents;
-import lv.venta.models.Faculty;
 import lv.venta.models.Thesis;
-import lv.venta.models.StudioProgramm;
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Person;
 import lv.venta.models.users.Role;

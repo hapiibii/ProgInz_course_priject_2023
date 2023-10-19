@@ -1,13 +1,8 @@
 package lv.venta.services.impl;
 
 import lv.venta.models.Comment;
-import lv.venta.models.Thesis;
-import lv.venta.models.users.AcademicPersonel;
-import lv.venta.repos.IAcademicPersonelRepo;
 import lv.venta.repos.ICommentRepo;
 import lv.venta.services.ICommentService;
-import lv.venta.services.IAcademicPersonelService;
-import lv.venta.services.IThesisService;
 
 import java.time.LocalDateTime;
 
@@ -18,15 +13,13 @@ import org.springframework.stereotype.Service;
 public class CommentService implements ICommentService {
 
 	private ICommentRepo commentRepo;
-	private IAcademicPersonelService academicPersonelService;
-	private IThesisService thesisService;
+
 	
 
     @Autowired
-    public CommentService(ICommentRepo commentRepo, IAcademicPersonelService academicPersonelService, IThesisService thesisService) {
+    public CommentService(ICommentRepo commentRepo) {
         this.commentRepo = commentRepo;
-        this.academicPersonelService = academicPersonelService;
-        this.thesisService = thesisService;
+
     }
 
     @Override

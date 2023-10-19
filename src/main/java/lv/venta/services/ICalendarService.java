@@ -4,8 +4,6 @@ import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 
-import java.time.LocalDate;
-import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
