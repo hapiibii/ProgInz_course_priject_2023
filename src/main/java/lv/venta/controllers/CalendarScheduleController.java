@@ -5,11 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-
-import java.io.IOException;
-import java.time.LocalDate;
-
-
 import java.util.List;
 import java.util.Optional;
 import java.io.FileOutputStream;
@@ -34,8 +29,6 @@ import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
-
-import lv.venta.models.Translate;
 
 import lv.venta.services.ICalendarScheduleService;
 

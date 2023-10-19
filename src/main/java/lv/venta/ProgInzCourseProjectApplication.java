@@ -24,7 +24,6 @@ import lv.venta.models.Documents;
 import lv.venta.models.Thesis;
 
 import lv.venta.models.Translate;
-import lv.venta.models.StudioProgramm;
 
 import lv.venta.models.users.AcademicPersonel;
 import lv.venta.models.users.Person;

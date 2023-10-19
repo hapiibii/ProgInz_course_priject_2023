@@ -2,7 +2,6 @@ package lv.venta.controllers;
 
 import lv.venta.models.News;
 
-import lv.venta.models.StudioProgramm;
 import lv.venta.models.Translate;
 
 import lv.venta.services.INewsService;
@@ -11,9 +10,6 @@ import lv.venta.models.Documents;
 import lv.venta.services.IActivitiesService;
 import lv.venta.services.IDocumentsService;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
