@@ -10,74 +10,7 @@
 			<img src="/images/logo.png" alt="Logo" class="header-logo">
 		</header>
 		
-		<div class="thesis-block">
-			<h1 class="thesis-title" data-translation="ITF Domes Tabula">ITF Domes Tabula</h1>
-			<div class="btn-right">
-				<a href="/itftable-page/create" ><input  class="btn-bck"
-    			type="button" value="Pievienot"/></a><br><br>
-    		</div>
-			<table class="thesis-table">
-				<tr>
-					<th data-translation="ID">ID</th>
-					<th data-translation="Students">Students</th>
-					<th data-translation="Nosaukums EN">Nosaukums EN</th>
-					<th data-translation="Nosaukums LV">Nosaukums LV</th>
-					<th data-translation="Darba Vadītājs">Darba Vadītājs</th>
-					<th data-translation="Recenzents">Recenzents</th>
-					<th data-translation="Mērķis">Mērķis</th>
-					<th data-translation="Uzdevumi">Uzdevumi</th>
-					<th data-translation="Statuss no DV">Statuss no DV</th>
-					<th data-translation="Statuss">Statuss</th>
-					<th:block th:if="${temp != null}">
-						<ul>
-							<li th:each="comment : ${temp.getComments() }">
-								<span th:text="${comment.getSupervisor().getName() + ' ' + comment.getSupervisor().getSurname()}">Supervisor</span>
-							</li>
-						</ul>
-					</th:block>
-					<th> </th>
-				</tr>
-				<tr th:each="temp : ${allThesises}">
-					<td th:text="${temp.getIdthesis()}"> </td>
-					<td th:text="${temp.getStudent().getName() + ' ' + temp.getStudent().getSurname()}"> </td>
-					<td th:text="${temp.getTitleEn()}"> </td>
-					<td th:text="${temp.getTitleLv()}"> </td>
-					<td th:text="${temp.getSupervisor().getName() + ' ' + temp.getSupervisor().getSurname()}"> </td>
-					<td th:text="${temp.getReviewers().isEmpty() ? '' : temp.getReviewers().iterator().next().getName() + ' ' + temp.getReviewers().iterator().next().getSurname()}"> </td>
-					<td th:text="${temp.getGoal()}"> </td>
-					<td th:text="${temp.getTasks()}"> </td>
-					<td th:text="${temp.isStatusFromSupervisor()}"> </td>
-					<td th:text="${temp.getAccStatus()}"> </td>
-					<td>
-						<ul>
-							<li th:each="comment : ${temp.getComments() }">
-								<span th:text="${comment.getDescription() }">Description</span><br>
-								<a th:href="@{/itftable-page/delete-comment/{idcom}(idcom=${comment.getIdcom()})}">
-    						<input type="button" value="Dzēst"/></a>
-    						<a th:href="@{/itftable-page/edit-comment/{idcom}(idcom=${comment.getIdcom()})}">
-    						<input type="button" value="Rediģēt"/></a>
-							</li>
-						</ul>
-					</td>
-					<td class="action-buttons">
-						<a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" >
-							<input  class="btn-bck" type="button" value="Rediģēt"/></a>
-    					<a th:href="@{/itftable-page/delete/{idthesis}(idthesis=${temp.getIdthesis()})}">
-    						<input  class="btn-bck" type="button" value="Dzēst"/></a>
-    				</td>
-    				
-				</tr>
-			</table>
-			<div class="btn-right">
-				<a href="/itftable-page/create-comment" ><input  class="btn-bck"
-    			type="button" value="Pievienot komentāru"/></a><br><br>
-    		</div>
-			<!-- Poga Atpakaļ -->
-			<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
-		</div>
-		
-		
-	<button id="translateToEnglishButton">Tulkot uz EN</button>
+		<button id="translateToEnglishButton">Tulkot uz EN</button>
     <button id="translateToLatvianButton">Tulkot uz LV</button>
     
     <div id="translatedContent"></div>
@@ -137,9 +70,77 @@
             });
         }
     </script>
-		
-		
-		
+    
+		<div class="thesis-block">
+			<h1 class="thesis-title" data-translation="ITF Domes Tabula">ITF Domes Tabula</h1>
+			<div class="btn-right">
+				<a href="/itftable-page/create" ><input  class="btn-bck"
+    			type="button" value="Pievienot"/></a><br><br>
+    		</div>
+			<table class="thesis-table">
+				<tr>
+					<th data-translation="ID">ID</th>
+					<th data-translation="Students">Students</th>
+					<th data-translation="Nosaukums EN">Nosaukums EN</th>
+					<th data-translation="Nosaukums LV">Nosaukums LV</th>
+					<th data-translation="Darba Vadītājs">Darba Vadītājs</th>
+					<th data-translation="Recenzents">Recenzents</th>
+					<th data-translation="Mērķis">Mērķis</th>
+					<th data-translation="Uzdevumi">Uzdevumi</th>
+					<th data-translation="Statuss no DV">Statuss no DV</th>
+					<th data-translation="Statuss">Statuss</th>
+					<th:block th:if="${temp != null}">
+						<ul>
+							<li th:each="comment : ${temp.getComments() }">
+								<span th:text="${comment.getSupervisor().getName() + ' ' + comment.getSupervisor().getSurname()}">Supervisor</span>
+							</li>
+						</ul>
+					</th:block>
+					<th> </th>
+					<th> </th>
+					<th data-translation="Pēdējo reizi mainīts">Pēdējo reizi mainīts</th>
+					<th data-translation="Pēdējo reizi mainīja">Pēdējo reizi mainīja</th>
+				</tr>
+				<tr th:each="temp : ${allThesises}">
+					<td th:text="${temp.getIdthesis()}"> </td>
+					<td th:text="${temp.getStudent().getName() + ' ' + temp.getStudent().getSurname()}"> </td>
+					<td th:text="${temp.getTitleEn()}"> </td>
+					<td th:text="${temp.getTitleLv()}"> </td>
+					<td th:text="${temp.getSupervisor().getName() + ' ' + temp.getSupervisor().getSurname()}"> </td>
+					<td th:text="${temp.getReviewers().isEmpty() ? '' : temp.getReviewers().iterator().next().getName() + ' ' + temp.getReviewers().iterator().next().getSurname()}"> </td>
+					<td th:text="${temp.getGoal()}"> </td>
+					<td th:text="${temp.getTasks()}"> </td>
+					<td th:text="${temp.isStatusFromSupervisor()}"> </td>
+					<td th:text="${temp.getAccStatus()}"> </td>
+					<td>
+						<ul>
+							<li th:each="comment : ${temp.getComments() }">
+								<span th:text="${comment.getDescription() }">Description</span><br>
+								<a th:href="@{/itftable-page/delete-comment/{idcom}(idcom=${comment.getIdcom()})}">
+    						<input type="button" value="Dzēst"/></a> <br>
+    						<a th:href="@{/itftable-page/edit-comment/{idcom}(idcom=${comment.getIdcom()})}">
+    						<input type="button" value="Rediģēt"/></a>
+							</li>
+						</ul>
+					</td>
+					<td class="action-buttons">
+						<a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" >
+							<input  class="btn-bck" type="button" value="Rediģēt"/></a> <br>
+    					<a th:href="@{/itftable-page/delete/{idthesis}(idthesis=${temp.getIdthesis()})}">
+    						<input  class="btn-bck" type="button" value="Dzēst"/></a>
+    				</td>
+    				<td th:text="${temp.getLastModifiedDate()}"> </td>
+    				<td th:text="${temp.getLastModifiedBy()}"> </td>
+    				
+				</tr>
+			</table>
+			<div class="btn-right">
+				<a href="/itftable-page/create-comment" ><input  class="btn-bck"
+    			type="button" value="Pievienot komentāru"/></a><br><br>
+    		</div>
+			<!-- Poga Atpakaļ -->
+			<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
+		</div>
 		
 	</body>
 </html>

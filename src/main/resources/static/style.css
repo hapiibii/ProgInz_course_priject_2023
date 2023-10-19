@@ -309,8 +309,11 @@ table {
 .thesis-block {
   background-color: #ffffff;
   padding: 30px;
-  margin: 20px 0; /* Atstarpe starp blokiem */
-  width: calc(80% - 10px); 
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  width: flex; 
   text-align: center;
   border-radius: 20px;
   display: inline-block;
@@ -329,10 +332,19 @@ table {
 
 .thesis-table{
  text-align:auto;
+ margin-left: 0px;
+ margin-bottom: 20px;
+ margin-right: 0px;
+ margin-top: 0px;
 }
 .thesis-title {
   text-align: left;
   margin: 0;
+}
+
+.scroll {
+	width: 100%;
+	overflow-x: scroll;
 }
 
 .btn-bck {
