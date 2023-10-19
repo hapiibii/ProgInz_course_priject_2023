@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lv.venta.models.Comment;
-import lv.venta.models.Course;
 import lv.venta.models.Degree;
 import lv.venta.models.Thesis;
 

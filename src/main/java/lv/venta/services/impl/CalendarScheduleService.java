@@ -1,7 +1,16 @@
 package lv.venta.services.impl;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import jakarta.transaction.Transactional;
 import lv.venta.dto.CalendarScheduleDTO;
@@ -104,45 +113,87 @@ public class CalendarScheduleService implements ICalendarScheduleService{
 	    }
 	}
 	
+    @Override
+    public Workbook exportCalendarScheduleToExcel() {
+        List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules ();
 
-/*	@Override
-    public CalendarScheduleDTO getCalendarScheduleById(Long id) {
-        Optional<CalendarSchedule> schedule = calendarScheduleRepo.findById(id);
+        //Tiek izveidota jauna Excel darba grāmata
+        Workbook workbook = new XSSFWorkbook();
 
-        if (schedule.isPresent()) {
-            CalendarSchedule calendarSchedule = schedule.get();
-            CalendarScheduleDTO calendarScheduleDTO = new CalendarScheduleDTO();
-            
-            calendarScheduleDTO.setIdCalendar(calendarSchedule.getIdCalendar());
-            calendarScheduleDTO.setGads(calendarSchedule.getGads());
-            calendarScheduleDTO.setStudioProgrammTitle(calendarSchedule.getStudioProgramm().getTitle());
-            calendarScheduleDTO.setActivity(calendarSchedule.getActivities().get(0).getActivity());
-            calendarScheduleDTO.setActivityEndDate(calendarSchedule.getActivities().get(0).getActivityEndDate());
-            calendarScheduleDTO.setActivityImplementation(calendarSchedule.getActivities().get(0).getActivityImplementation());
+        //Tiek izveidota jauna Excel darba lapa
+        Sheet sheet = workbook.createSheet("Kalendarais grafiks");
 
-            return calendarScheduleDTO;
-        } else {
-            throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + id + " nav atrasts.");
+        // Tiek izveidoti rindu nosaukumi
+        String[] headers = {"GADS", "STUDIJU PROGRAMMA", "AKTIVITĀTE",  "AKTIVITĀTES REALIZĒŠANAS DATUMS"};
+
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            headerRow.createCell(i).setCellValue(headers[i]);
         }
-    }*/
-	/*@Override
-	public void editCalendarSchedule(Long id, CalendarScheduleDTO calendarScheduleDTO) {
-	    Optional<CalendarSchedule> schedule = calendarScheduleRepo.findById(id);
 
-	    if (schedule.isPresent()) {
-	        CalendarSchedule calendarSchedule = schedule.get();
+        // Tiek inicializēts rindas numurs
+        int rowNum = 1;
 
-	        // Veiciet izmaiņas no DTO objekta uz esošo ierakstu
-	        calendarSchedule.setGads(calendarScheduleDTO.getGads());
-	        calendarSchedule.getActivities().get(0).setActivity(calendarScheduleDTO.getActivity());
-	        calendarSchedule.getActivities().get(0).setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
-	        calendarSchedule.getActivities().get(0).setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
+        // Tiek aizpildīts Excel fails ar datiem par tēzēm
+        for (CalendarScheduleDTO calendarScheduleDTO : calendarSchedule) {
 
-	        // Saglabājiet izmaiņas datubāzē
-	        calendarScheduleRepo.save(calendarSchedule);
-	    } else {
-	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + id + " nav atrasts.");
-	    }
-	}*/
+            Row dataRow = sheet.createRow(rowNum++);
+            dataRow.createCell(0).setCellValue(calendarScheduleDTO.getGads());
+            dataRow.createCell(1).setCellValue(calendarScheduleDTO.getStudioProgrammTitle());
+            dataRow.createCell(2).setCellValue(calendarScheduleDTO.getActivity());
+            dataRow.createCell(3).setCellValue(calendarScheduleDTO.getActivityImplementation());    
+        }
+
+        // Tiek uzstādīts kolonnu platums
+        for (int i = 0; i < 4; i++) {
+            sheet.setColumnWidth(i, 8000);
+        }
+        return workbook;
+    }	
+    
+    @Override
+    public XWPFDocument exportCalendarScheduleToWord() {
+        List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules();
+
+        XWPFDocument document = new XWPFDocument();
+
+        // Create a paragraph with the document title
+        XWPFParagraph titleParagraph = document.createParagraph();
+        XWPFRun titleRun = titleParagraph.createRun();
+        
+        // Assuming the first entry's year is representative for the title
+        int currentYear = calendarSchedule.get(0).getGads();
+        String academicYearTitle = currentYear + "./" + (currentYear+1) + ". akadēmiskajam gadam";
+        titleRun.setText("ITF noslēguma darbu izstrādes aktivitāšu kalendārais grafiks " + academicYearTitle);
+
+        // Create a paragraph for the degree
+        XWPFParagraph degreeParagraph = document.createParagraph();
+        XWPFRun degreeRun = degreeParagraph.createRun();
+        // Assuming the first entry's degree is representative for the degree paragraph
+        degreeRun.setText(calendarSchedule.get(0).getStudioProgrammTitle());
+
+        // Create a table to display the data
+        XWPFTable table = document.createTable(calendarSchedule.size() + 1, 3); 
+
+        // Set column names
+        XWPFTableRow headerRow = table.getRow(0);
+        String[] headers = {"Nr. p.k.", currentYear + "./" + (currentYear+1) + ". ak. gada aktivitāte", "Aktivitātes realizēšanas datums"};
+
+        for (int i = 0; i < headers.length; i++) {
+            headerRow.getCell(i).setText(headers[i]);
+        }
+
+        // Fill the table with data
+        for (int i = 0; i < calendarSchedule.size(); i++) {
+            CalendarScheduleDTO calendarScheduleDTO = calendarSchedule.get(i);
+            XWPFTableRow dataRow = table.getRow(i + 1);
+            dataRow.getCell(0).setText(String.valueOf(i+1));  // Activity number
+            dataRow.getCell(1).setText(calendarScheduleDTO.getActivity());
+            dataRow.getCell(2).setText(calendarScheduleDTO.getActivityImplementation());
+        }
+
+        return document;
+    }
+    
 
 }

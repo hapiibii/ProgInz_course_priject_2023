@@ -1,10 +1,7 @@
 package lv.venta.services;
 
-import java.util.List;
 import java.util.Optional;
 
-import lv.venta.models.Degree;
-import lv.venta.models.Faculty;
 import lv.venta.models.StudioProgramm;
 
 public interface IStudioProgrammService {

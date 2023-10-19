@@ -60,6 +60,8 @@ public class SecurityConfig {
 		.requestMatchers("/Calendar-schedule/delete/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/Calendar-schedule/edit/**").hasAnyAuthority("ADMIN")
 		.requestMatchers("/Calendar-schedule/update/**").hasAnyAuthority("ADMIN")
+		.requestMatchers("/Calendar-schedule/export").permitAll()
+		.requestMatchers("/Calendar-schedule/export/**").permitAll()
 		.requestMatchers("/document-page").hasAnyAuthority("USER")
 		.requestMatchers("/document-page/all-documents").hasAnyAuthority("USER")
 		.requestMatchers("/document-page/create-documents").hasAnyAuthority("USER")
@@ -100,6 +102,7 @@ public class SecurityConfig {
 		.requestMatchers("/itftable-page/delete-comment/**").hasAnyAuthority("USER")
 		.requestMatchers("/h2-console").permitAll()
 	    .requestMatchers("/h2-console/**").permitAll()
+	    ///document/download/**
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()

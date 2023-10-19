@@ -5,6 +5,7 @@ import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 import lv.venta.repos.ICalendarRepo;
 import lv.venta.repos.ICalendarScheduleRepo;
+import lv.venta.repos.IStudioProgrammRepo;
 import lv.venta.services.ICalendarService;
 
 import java.time.LocalDate;
@@ -24,11 +25,13 @@ public class CalendarService implements ICalendarService {
 	
 	private ICalendarRepo calendarRepo;
 	private ICalendarScheduleRepo calendarSchedulrRepo;
+	private IStudioProgrammRepo programmRepo;
 
 	@Autowired
-    public CalendarService(ICalendarRepo calendarRepo, ICalendarScheduleRepo calendarSchedulrRepo) {
+    public CalendarService(ICalendarRepo calendarRepo, ICalendarScheduleRepo calendarSchedulrRepo, IStudioProgrammRepo programmRepo) {
         this.calendarRepo = calendarRepo;
 		this.calendarSchedulrRepo = calendarSchedulrRepo;
+		this.programmRepo = programmRepo;
     }
 
 	@Override
@@ -37,11 +40,8 @@ public class CalendarService implements ICalendarService {
 	}
 	
 	@Override
-	public void removeActivity(StudioProgramm studioProgramm, int gads, long activityId) {
-		    CalendarSchedule calendarSchedule = getCalendarSchedule(gads, studioProgramm);
-		    if (calendarSchedule != null) { 
-		        calendarSchedule.getActivities().removeIf(activity -> activity.getIdActivity() == activityId);
-		    }
+	public void removeActivity(long activityId) {
+		calendarRepo.deleteById(activityId);		    
 	}
 
 	@Override

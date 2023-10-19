@@ -11,32 +11,37 @@
 
     <header class="header">
 	    <img src="/images/logo.png" alt="Logo" class="header-logo">
-	    <a href="/studioprogramms" class="button">Studiju Programmas</a>
+	    <a href="/studioprogramms" class="button" data-translation="Studiju Programmas">Studiju Programmas</a>
+	    
 	</header>
 
     <div class="container">
         <div class="saites-block">
-        	 <!-- /*janorada buspectam saites kur pogas aizved*/ -->
-        	
-        	
-            <a href="/document-page" class="menu-button"><h3>Dokumenti</h3></a>
+            <!-- /*janorada buspectam saites kur pogas aizved*/ -->
+
+            <a href="/document-page" class="menu-button"><h3 data-translation="Dokumenti">Dokumenti</h3></a>
             <br>
-            <a href="/submission-page" class="menu-button"><h3>Iesniegšana</h3></a>
+            <a href="/submission-page" class="menu-button"><h3 data-translation="Iesniegumi">Iesniegumi</h3></a>
             <br>
-            <button class="menu-button"><h3>Aizstāvēšana</h3></button>
+            <button class="menu-button"><h3 data-translation="Aizstāvēšana">Aizstāvēšana</h3></button>
             <br>
-            <a href="/itftable-page/review" class="menu-button"><h3>ITD Dome</h3></a>
+            <a href="/itftable-page/review" class="menu-button"><h3 data-translation="ITF Dome">ITF Dome</h3></a>
             <br>
-            <button class="menu-button"><h3>Darbu izstrāde</h3></button>
-            <br>            
-            <a href="/Calendar-schedule/studio-programms" class="menu-button"><h3>Kalendārais grafiks</h3></a>
+
+            <button class="menu-button"><h3 data-translation="Darbu Izstrade">Darbu Izstrade</h3></button>
             <br>
-            <button class="menu-button"><h3>Arhīvs</h3></button>
+
+            <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule/studio-programms'">
+                <h3 data-translation="Kalendarais Grafiks">Kalendarais Grafiks</h3>
+            </button>
+
+            <br>
+            <button class="menu-button"><h3 data-translation="Arhivs">Arhivs</h3></button>
         </div>
 
         <div class="news-block">
-            <h1>Jaunumi</h1>
-            <table class="news-table" style = "width: 100%;">
+            <h1 data-translation="Jaunumi">Jaunumi</h1>
+            <table class="news-table" style="width: 100%;">
                 <!-- Iterēt caur newsList un attēlot jaunumus -->
                 <tr th:each="news : ${activeNewsList}">
                     <th>
@@ -46,25 +51,25 @@
                         <p class="news-description" th:text="${news.description}"></p>
                     </td>
                     <td class="action-buttons">
-                        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">Labot</a>
-                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a>
+                        <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}" data-translation="Labot">Labot</a>
+                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a>
                     </td>
                 </tr>
             </table>
             <!-- Izveidot pogu, kas noved uz jaunu jaunumu pievienošanas formu -->
-            <a href="/home-page/create-news">Izveidot jaunumu</a>
+            <a href="/home-page/create-news" data-translation="Izveidot jaunumu">Izveidot jaunumu</a>
             <br>
             <!-- Visi jaunumi -->
-            <a href="/home-page/all-news">Visi jaunumi</a>
+            <a href="/home-page/all-news" data-translation="Visi jaunumi">Visi jaunumi</a>
         </div>
 
         <div class="calendar-block">
-            <h1>Kalendārais grafiks</h1>
+            <h1 data-translation="Kalendārais grafiks">Kalendārais grafiks</h1>
             <hr>
             <table>
                 <tr>
-                    <th>End Date</th>
-                    <th>Activity</th>
+                    <th data-translation="Beigu datums">Beigu datums</th>
+                    <th data-translation="Aktivitāte">Aktivitāte</th>
                 </tr>
                 <!-- Iterēt caur activeDates un attēlot aktivitātes -->
                 <tr th:each="activities : ${activeDatesList}">
@@ -72,10 +77,69 @@
                     <td th:text="${activities.activiti}"></td>
                 </tr>
             </table>
-           
         </div>
     </div>
 
+    <button id="translateToEnglishButton">Tulkot uz EN</button>
+    <button id="translateToLatvianButton">Tulkot uz LV</button>
+    
+    <div id="translatedContent"></div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var translateButton = document.getElementById("translateToEnglishButton");
+            translateToEnglishButton.addEventListener("click", function() {
+                translatePage("lv", "en");
+            });
+            var translateToLatvianButton = document.getElementById("translateToLatvianButton");
+            translateToLatvianButton.addEventListener("click", function() {
+                translatePage("en", "lv");
+            });
+        });
+
+        function translatePage(langFrom, langTo) {
+            
+            var translatedContent = document.getElementById("translatedContent");
+            
+            // Atrodam visus elementus ar data-translation atribūtu
+            var elementsToTranslate = document.querySelectorAll("[data-translation]");
+
+            elementsToTranslate.forEach(function(element) {
+                var textToTranslate = element.getAttribute("data-translation");
+                translate(langFrom, langTo, textToTranslate)
+                    .then(function (translatedText) {
+                        // Aizstājam esošo tekstu ar tulkojumu
+                        element.innerText = translatedText;
+                    })
+                    .catch(function (error) {
+                        console.error("Kļūda tulkojot: " + error);
+                    });
+            });
+        }
+
+        function translate(langFrom, langTo, text) {
+            return new Promise(function (resolve, reject) {
+                var apiURL = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
+                var data = new FormData();
+                data.append("q", text);
+                data.append("source", langFrom);
+                data.append("target", langTo);
+
+                fetch(apiURL, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resolve(data.data.translations[0].translatedText);
+                })
+                .catch(error => {
+                    reject("HTTP pieprasījuma kļūda");
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

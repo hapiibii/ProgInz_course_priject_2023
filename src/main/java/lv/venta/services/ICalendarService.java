@@ -4,8 +4,6 @@ import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 
-import java.time.LocalDate;
-import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +11,7 @@ public interface ICalendarService {
 	
 	List<CalendarSchedule> getCalendarSchedules();
 	
-    void removeActivity(StudioProgramm studioProgramm, int year, long activityId);
+	void removeActivity(long activityId);
     
     List<CalendarActivity> getActivitiesEndingWithinTwoWeeks();
     
@@ -21,9 +19,7 @@ public interface ICalendarService {
     
     List<CalendarActivity> getEndDates();
     
-    //public CalendarSchedule getOrCreateCalendarSchedule(int year, StudioProgramm studioProgramm);
-    
-	public List<Integer> getAllUniqueYears();
+	List<Integer> getAllUniqueYears();
 	
 	Optional<CalendarActivity> findActivityById(Long idActivity);
 	
