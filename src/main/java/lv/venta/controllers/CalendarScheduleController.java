@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.io.FileOutputStream;
 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
@@ -83,9 +84,9 @@ public class CalendarScheduleController {
 	     return "redirect:/Calendar-schedule/studio-programms";
 	 }	 
 	
-	 @PostMapping("/delete/{id}")
-	 public String deleteCalendarSchedule(@PathVariable Long id) {
-	     calendarScheduleService.deleteCalendarScheduleById(id);
+	 @PostMapping("/delete/{idActivity}")
+	 public String deleteCalendarSchedule(@PathVariable Long idActivity) {
+	     calendarScheduleService.deleteCalendarScheduleById(idActivity);
 	     return "redirect:/Calendar-schedule/studio-programms";
 	 }
 	 
@@ -131,6 +132,26 @@ public class CalendarScheduleController {
 	                .ok()
 	                .headers(headers)
 	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+	                .body(new InputStreamResource(new FileInputStream(tempFile)));
+	    }
+	    
+	    @GetMapping("/export/word")
+	    public ResponseEntity<InputStreamResource> exportCalendarScheduleToWord() throws IOException {
+	        XWPFDocument document = calendarScheduleService.exportCalendarScheduleToWord();
+
+	        File tempFile = File.createTempFile("kalendaraisGrafiks", ".docx");
+
+	        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+	            document.write(fos);
+	        }
+
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.add("Content-Disposition", "attachment; filename=kalendaraisGrafiks.docx");
+
+	        return ResponseEntity
+	                .ok()
+	                .headers(headers)
+	                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
 	                .body(new InputStreamResource(new FileInputStream(tempFile)));
 	    }
 

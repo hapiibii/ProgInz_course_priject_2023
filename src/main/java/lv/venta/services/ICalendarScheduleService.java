@@ -13,6 +13,5 @@ public interface ICalendarScheduleService {
 	List<CalendarScheduleDTO> getAllCalendarSchedules();
 
 	Workbook exportCalendarScheduleToExcel();
-
-	//XWPFDocument exportCalendarScheduleToWord();
+	XWPFDocument exportCalendarScheduleToWord();
 }

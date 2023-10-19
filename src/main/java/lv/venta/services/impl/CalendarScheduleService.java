@@ -2,6 +2,11 @@ package lv.venta.services.impl;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.poi.ss.usermodel.Row;
@@ -145,5 +150,50 @@ public class CalendarScheduleService implements ICalendarScheduleService{
         }
         return workbook;
     }	
+    
+    @Override
+    public XWPFDocument exportCalendarScheduleToWord() {
+        List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules();
+
+        XWPFDocument document = new XWPFDocument();
+
+        // Create a paragraph with the document title
+        XWPFParagraph titleParagraph = document.createParagraph();
+        XWPFRun titleRun = titleParagraph.createRun();
+        
+        // Assuming the first entry's year is representative for the title
+        int currentYear = calendarSchedule.get(0).getGads();
+        String academicYearTitle = currentYear + "./" + (currentYear+1) + ". akadēmiskajam gadam";
+        titleRun.setText("ITF noslēguma darbu izstrādes aktivitāšu kalendārais grafiks " + academicYearTitle);
+
+        // Create a paragraph for the degree
+        XWPFParagraph degreeParagraph = document.createParagraph();
+        XWPFRun degreeRun = degreeParagraph.createRun();
+        // Assuming the first entry's degree is representative for the degree paragraph
+        degreeRun.setText(calendarSchedule.get(0).getStudioProgrammTitle());
+
+        // Create a table to display the data
+        XWPFTable table = document.createTable(calendarSchedule.size() + 1, 3); 
+
+        // Set column names
+        XWPFTableRow headerRow = table.getRow(0);
+        String[] headers = {"Nr. p.k.", currentYear + "./" + (currentYear+1) + ". ak. gada aktivitāte", "Aktivitātes realizēšanas datums"};
+
+        for (int i = 0; i < headers.length; i++) {
+            headerRow.getCell(i).setText(headers[i]);
+        }
+
+        // Fill the table with data
+        for (int i = 0; i < calendarSchedule.size(); i++) {
+            CalendarScheduleDTO calendarScheduleDTO = calendarSchedule.get(i);
+            XWPFTableRow dataRow = table.getRow(i + 1);
+            dataRow.getCell(0).setText(String.valueOf(i+1));  // Activity number
+            dataRow.getCell(1).setText(calendarScheduleDTO.getActivity());
+            dataRow.getCell(2).setText(calendarScheduleDTO.getActivityImplementation());
+        }
+
+        return document;
+    }
+    
 
 }
