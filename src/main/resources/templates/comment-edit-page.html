@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Komentāra rediģēšana</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+	<header>
+		<img src="/images/logo.png" alt="Logo" class="header-logo">
+	</header>
+	
+	<div class="thesis-block">
+    	<h1>Komentāra rediģēšana</h1>
+    	<div class="btn-right">
+				<a href="/itftable-page/review" ><input  class="btn-bck"
+    			type="button" value="Atpakaļ"/></a><br><br>
+    		</div>
+    
+    	<form action="#" th:action="@{/itftable-page/edit-comment/__${idcom}__}" method="post">
+        	<label for="description">Apraksts:</label>
+        	<textarea name="description" id="description" rows="8" cols="80" th:text="${comment.description}" required></textarea><br><br>
+        	
+        
+        	<button type="submit" class="btn-bck"> Saglabāt </button>
+    	</form>
+    </div>	
+</body>
+</html>

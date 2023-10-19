@@ -71,8 +71,8 @@ public class ThesisController {
 		return "redirect:/itftable-page/review";
 	}
 	
-	//TODO edit-thesis get
-	//TODO add comment section for edit, so edit-comment will be as well here. If it is not possible, add a button to every thesis with "edit comment"
+	//edit-thesis get
+	//add comment section for edit, so edit-comment will be as well here. If it is not possible, add a button to every thesis with "edit comment"
 	@GetMapping("/edit/{idthesis}")
 	public String showEditThesis(@PathVariable("idthesis") long idthesis, Model model) {
 		Thesis thesis = thesisService.getThesisById(idthesis);
@@ -86,7 +86,7 @@ public class ThesisController {
 		return "thesis-edit-page";
 	}
 	
-	//TODO edit-thesis post
+	//edit-thesis post
 	@PostMapping("/edit/{idthesis}")
 	public String editThesis(@PathVariable("idthesis") long idthesis, @ModelAttribute("thesis") Thesis thesis) throws Exception {
 		thesisService.updateThesis(idthesis, thesis.getTitleEn(), thesis.getTitleLv(), thesis.getGoal(), thesis.getTasks(), thesis.getStudent(), thesis.getSupervisor(), thesis.getAccStatus());
@@ -94,7 +94,8 @@ public class ThesisController {
 	}
 	
 	//delete-thesis get
-	//TODO delete thesis-delete-page
+	//delete thesis-delete-page
+	//can try one day to 
 	@GetMapping("/delete/{idthesis}")
 	public String showDeleteThesisById(@PathVariable("idthesis") long idthesis, Model model) {
 		try {
@@ -134,32 +135,41 @@ public class ThesisController {
 			return "redirect:/itftable-page/review";
 		}
 		
-	//TODO edit-comment get
+	//edit-comment get
 		@GetMapping("/edit-comment/{idcom}")
 		public String showEditComment(@PathVariable("idcom") long idcom, Model model) {
 			Comment comment = commentService.getCommentById(idcom);
+			//List<AcademicPersonel> supervisors = personelService.getAllAcademicPersonel();
+	        //List<Thesis> thesises = thesisService.getAllThesises();
 			model.addAttribute("comment", comment);
-			return "thesis-edit-page";
+			//model.addAttribute("thesises", thesises);
+	        //model.addAttribute("supervisors", supervisors);
+			return "comment-edit-page";
 		}
 		
-	//TODO edit-comment post
+	//edit-comment post
 		@PostMapping("/edit-comment/{idcom}")
 		public String editComment(@PathVariable("idcom") long idcom, @ModelAttribute("comment") Comment comment) throws Exception {
 			commentService.updateComment(idcom, comment.getDescription());
 			return "redirect:/itftable-page/review";
 		}
-	//TODO delete-comment get
+	//delete-comment get
 		@GetMapping("/delete-comment/{idcom}")
 		public String showDeleteComment(@PathVariable("idcom") long idcom, Model model) {
-			Comment comment = commentService.getCommentById(idcom);
-			model.addAttribute("comment", comment);
-			return "thesis-edit-page";
+			try {
+				commentService.deleteCommentById(idcom);
+				model.addAttribute("comment", commentService.getAllComments());
+				return "redirect:/itftable-page/review";
+			}
+			catch (Exception e) {
+				return "error-page";
+			}
 		}
 		
-	//TODO delete-comment post
-		@PostMapping("/delete-comment/{idcom}")
+	//delete-comment post
+		/*@PostMapping("/delete-comment/{idcom}")
 		public String deleteComment(@PathVariable("idcom") long idcom) throws Exception {
 			commentService.deleteComment(idcom);
 			return "redirect:/itftable-page/review";
-		}
+		}*/
 }

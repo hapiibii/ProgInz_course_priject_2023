@@ -10,6 +10,8 @@ import lv.venta.services.IAcademicPersonelService;
 import lv.venta.services.IThesisService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,17 +48,24 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void deleteComment(long commentId) throws Exception {
-        Comment comment = commentRepo.findById(commentId).orElse(null);
-        if (comment == null) {
-            throw new Exception("Komentārs ar ID " + commentId + " nav atrasts.");
+    public void deleteCommentById(long idcom) {
+        Optional<Comment> comment = commentRepo.findById(idcom);
+        if (comment.isPresent()) {
+        	commentRepo.delete(comment.get());
         }
-        commentRepo.delete(comment);
+        else {
+        	throw new IllegalArgumentException("Comment with such ID can not be found.");
+        }
     }
 
     @Override
     public Comment getCommentById(long commentId) {
         return commentRepo.findById(commentId).orElse(null);
     }
+
+	@Override
+	public List<Comment> getAllComments() {
+		return (List<Comment>) commentRepo.findAll();
+	}
 }
 

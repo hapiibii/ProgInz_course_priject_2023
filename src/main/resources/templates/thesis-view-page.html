@@ -52,6 +52,10 @@
 						<ul>
 							<li th:each="comment : ${temp.getComments() }">
 								<span th:text="${comment.getDescription() }">Description</span>
+								<a th:href="@{/itftable-page/delete-comment/{idcom}(idcom=${comment.getIdcom()})}">
+    						<input type="button" value="Dzēst"/></a>
+    						<a th:href="@{/itftable-page/edit-comment/{idcom}(idcom=${comment.getIdcom()})}">
+    						<input type="button" value="Rediģēt"/></a>
 							</li>
 						</ul>
 					</td>

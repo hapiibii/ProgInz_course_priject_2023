@@ -21,7 +21,7 @@ import lv.venta.models.users.AcademicPersonel;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Comment {
+public class Comment extends Auditable {
 	
 	@Setter(value = AccessLevel.NONE)
 	@Column(name = "Idcom")
