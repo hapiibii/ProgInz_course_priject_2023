@@ -98,6 +98,7 @@ public class SecurityConfig {
 		.requestMatchers("/itftable-page/delete-comment/**").hasAnyAuthority("USER")
 		.requestMatchers("/h2-console").permitAll()
 	    .requestMatchers("/h2-console/**").permitAll()
+	    ///document/download/**
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()
