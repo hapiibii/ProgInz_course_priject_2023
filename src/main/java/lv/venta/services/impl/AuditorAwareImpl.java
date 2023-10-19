@@ -3,11 +3,8 @@ package lv.venta.services.impl;
 import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import lv.venta.models.users.User;
 
 public class AuditorAwareImpl implements AuditorAware<String> {
 	
