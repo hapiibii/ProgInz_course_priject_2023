@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import lv.venta.models.Submission;
+import lv.venta.repos.ISubmissionRepo;
 import lv.venta.services.ISubmissionService;
 
 @Service
 public class SubmissionServiceImpl implements ISubmissionService{
 	
 	private ArrayList<Submission> allSubmissions = new ArrayList<>();
+	
+	private ISubmissionRepo submissionRepo;
 	
 	// atgriež visus iesniegumus
 	@Override

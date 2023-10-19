@@ -152,10 +152,11 @@ public class DocumentsController {
 	
 	
 	@GetMapping("/download/{iddocument}")
-	public ResponseEntity<byte[]> downloadDocumentById(@PathVariable long iddocument) {
-	    try {
+	public ResponseEntity<byte[]> downloadDocumentById(@PathVariable("iddocument") long iddocument) {
+		System.out.println(iddocument);
+		try {
 	        Documents document = documentsService.retrieveDocumentById(iddocument);
-
+	        System.out.println(document);
 	        if (document == null) {
 	            return ResponseEntity.notFound().build();
 	        }
@@ -163,17 +164,28 @@ public class DocumentsController {
 	        // Iegūst faila nosaukumu un MIME tipu no dokumenta
 	        String fileName = document.getFile().getName();
 	        String mimeType = "application/octet-stream"; // oriģināls MIME tips
-
+	        
 	        byte[] fileData = Files.readAllBytes(document.getFile().toPath());
-
+	        System.out.println(fileName);
+	        System.out.println(mimeType);
+	        System.out.println(fileData);
+	        
 	        return ResponseEntity.ok()
 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
-	                .contentType(MediaType.parseMediaType(mimeType))
+	                .contentType(MediaType.parseMediaType(mimeType))	
 	                .body(fileData);
-	    } catch (Exception e) {
+	    } 
+		catch (Exception e) {
 	        return ResponseEntity.badRequest().build(); 
 	    }
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
