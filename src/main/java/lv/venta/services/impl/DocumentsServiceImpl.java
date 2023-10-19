@@ -1,10 +1,20 @@
 package lv.venta.services.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
+
+
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +53,7 @@ public class DocumentsServiceImpl implements IDocumentsService {
 			ArrayList<Documents> allDocumentsWithDocumentName = new ArrayList<>();
 			for (Documents temp : documentsRepo.findAll()) {
 				if (temp.getDocumentName().equals(documentName)) {
+					allDocumentsWithDocumentName.add(temp);
 				}
 			}
 			return allDocumentsWithDocumentName;
@@ -87,7 +98,22 @@ public class DocumentsServiceImpl implements IDocumentsService {
 		documentsRepo.save(newDocument);
 		return newDocument;
 	}
-
 	
+	@Override
+	public byte[] downloadDocument(long iddocument) {
+	    try {
+	        // Iegūstiet dokumentu no datu bāzes
+	        Documents document = retrieveDocumentById(iddocument);
+	        
+	        if(document.getFile() != null) {
+	            Path path = document.getFile().toPath();
+	            return Files.readAllBytes(path);
+	        }
+	        return null;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 
 }

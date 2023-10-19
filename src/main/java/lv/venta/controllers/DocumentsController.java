@@ -2,12 +2,17 @@ package lv.venta.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -134,7 +139,7 @@ public class DocumentsController {
 				if (!file.isEmpty() && file != null) {
 					//Iegūst faila nosaukumu un saglabāšanas ceļu
 					String fileName = file.getOriginalFilename();
-					String filePath = "/" + fileName;
+					String filePath = fileName;
 					//Saglabā failu vietējā failu sistēmā
 					file.transferTo(new File(filePath));
 					//Iesaista faila objektu ievades parametrā
@@ -150,80 +155,44 @@ public class DocumentsController {
 		
 	}
 	
+	/*
+	@GetMapping("/download/{iddocument}")
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable("iddocument") long iddocument) {
+        System.out.println(iddocument);
+    	byte[] documentData = documentsService.downloadDocument(iddocument);
+
+        if (documentData == null) {
+        	System.out.println("Document data is null!");
+            // Ja dokuments ar šādu ID nav atrasts, atgriež 404 statusa kodu
+            return ResponseEntity.notFound().build();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document" + iddocument + ".odt");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+        return ResponseEntity.ok().headers(headers).body(documentData);
+    }
+    */
 	
 	@GetMapping("/download/{iddocument}")
-	public ResponseEntity<byte[]> downloadDocumentById(@PathVariable("iddocument") long iddocument) {
-		System.out.println(iddocument);
-		try {
-	        Documents document = documentsService.retrieveDocumentById(iddocument);
-	        System.out.println(document);
-	        if (document == null) {
-	            return ResponseEntity.notFound().build();
-	        }
+    public ResponseEntity<byte[]> downloadDocument(@PathVariable("iddocument") Long iddocument) throws Exception {
+        // Atrodam dokumentu no datu bāzes
+        Documents doc = documentsService.retrieveDocumentById(iddocument);
 
-	        // Iegūst faila nosaukumu un MIME tipu no dokumenta
-	        String fileName = document.getFile().getName();
-	        String mimeType = "application/octet-stream"; // oriģināls MIME tips
-	        
-	        byte[] fileData = Files.readAllBytes(document.getFile().toPath());
-	        System.out.println(fileName);
-	        System.out.println(mimeType);
-	        System.out.println(fileData);
-	        
-	        return ResponseEntity.ok()
-	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
-	                .contentType(MediaType.parseMediaType(mimeType))	
-	                .body(fileData);
-	    } 
-		catch (Exception e) {
-	        return ResponseEntity.badRequest().build(); 
-	    }
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	@RequestMapping(value = "/download/{iddocument}", method = RequestMethod.GET)
-    public void downloadDocumentByDocumentsName(@PathVariable("iddocument") long iddocument, HttpServletResponse response) {
-        try {
-            Documents document = documentsService.retrieveDocumentById(iddocument);
-
-            File file = document.getFile();
-
-            // Iegūst faila nosaukumu no dokumenta
-            String fileName = file.getName();
-
-            // Nosūta atbildi 
-            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-            response.setHeader("Content-Type", "application/octet-stream");
-            response.setHeader("Content-Length", String.valueOf(file.length()));
-
-            // Izveido ievades un izvades straumes
-            FileInputStream inputStream = new FileInputStream(file);
-            ServletOutputStream outputStream = response.getOutputStream();
-
-            // Nokopē faila saturu no ievades uz izvades straumi
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-
-            // Attālina straumes
-            inputStream.close();
-            outputStream.close();
-        } catch (Exception e) {
-        	e.printStackTrace();
+        if (doc == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+
+        byte[] fileData = Files.readAllBytes(doc.getFile().toPath());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", doc.getDocumentName() + ".pdf"); // pieņemot, ka tā ir PDF datne
+        headers.setContentLength(fileData.length);
+
+        return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
     }
-	*/
-	
 	
 	
 	

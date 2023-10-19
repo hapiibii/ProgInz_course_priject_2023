@@ -50,6 +50,8 @@ public class Submission {
 	@JoinTable(name = "student_submissions_table", joinColumns = @JoinColumn(name = "Idsubmission"), inverseJoinColumns = @JoinColumn(name = "Idstudent"))
 	private Collection<Student> submissions = new ArrayList<>();
 	
+	@ManyToMany(mappedBy = "thesisSubmission")
+	private Collection<Thesis> submissionThesis = new ArrayList<>();
 	
 	
 	public Submission(LocalDateTime submissionDate, File file) {
