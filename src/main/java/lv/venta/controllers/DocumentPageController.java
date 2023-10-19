@@ -1,8 +1,12 @@
 package lv.venta.controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lv.venta.models.Documents;
+import lv.venta.models.Translate;
 import lv.venta.services.IDocumentsService;
 
 @Controller
@@ -26,9 +32,33 @@ public class DocumentPageController {
 	}
 	
 	@GetMapping
-	public String showDocumentPage (Model model) {
+	public String showDocumentPage (Model model) throws IOException {
 		List<Documents> allDocuments = documentService.retrieveAllDocuments();
         model.addAttribute("myAllDoc", allDocuments);
+        
+        String transText = Translate.translate("lv", "en", "Dokumenti");
+        String transIesniegsana = Translate.translate("lv", "en", "Iesniegšana");
+        String transAizstavesana = Translate.translate("lv", "en", "Aizstāvēšana");
+        String transITFDome = Translate.translate("lv", "en", "ITF Dome");
+        String transDarbuIzstrade = Translate.translate("lv", "en", "Darbu izstrāde");
+        String transKalendaraisGrafiks = Translate.translate("lv", "en", "Kalendārais grafiks");
+        String transArhivs = Translate.translate("lv", "en", "Arhīvs");
+        
+        String res = transText.split("translatedText")[1].trim().split("\"")[2];
+        String res2 = transIesniegsana.split("translatedText")[1].trim().split("\"")[2];
+        String res3 = transAizstavesana.split("translatedText")[1].trim().split("\"")[2];
+        String res4 = transITFDome.split("translatedText")[1].trim().split("\"")[2];
+        String res5 = transDarbuIzstrade.split("translatedText")[1].trim().split("\"")[2];
+        String res6 = transKalendaraisGrafiks.split("translatedText")[1].trim().split("\"")[2];
+        String res7 = transArhivs.split("translatedText")[1].trim().split("\"")[2];
+        
+        model.addAttribute("TranslateDocuments",res);
+        model.addAttribute("TranslateIesnieg",res2);
+        model.addAttribute("TranslateAiztavesana",res3);
+        model.addAttribute("TranslateITFDome", res4);
+        model.addAttribute("TranslateDarbuIzstrade", res5);
+        model.addAttribute("TranslateKalendaraisGrafiks", res6);
+        model.addAttribute("TranslateArhivs", res7);
         
         return "document-page";
 	}

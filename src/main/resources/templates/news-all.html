@@ -4,7 +4,7 @@
     <title>Visi jaunumi</title>
 </head>
 <body>
-    <h1>Visi jaunumi</h1>
+    <h1 data-translation="Visi jaunumi">Visi jaunumi</h1>
 <link rel="stylesheet" type="text/css" href="/style.css">
     <table>
         <tr>
@@ -16,11 +16,73 @@
         <tr th:each="news : ${allNews}">
             <td th:text="${news.title}"></td>
             <td th:text="${news.description}"></td>
-            <td><a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}">Dzēst</a></td>
+            <td><a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a></td>
         </tr>
     </table>
 
     <!-- Pievienot pogu, kas noved atpakaļ uz sākumlapu -->
-    <a href="/home-page">Atpakaļ</a>
+    <a href="/home-page" data-translation="Atpakaļ">Atpakaļ</a>
+    
+    <button id="translateToEnglishButton">Tulkot uz EN</button>
+    <button id="translateToLatvianButton">Tulkot uz LV</button>
+    
+    <div id="translatedContent"></div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var translateButton = document.getElementById("translateToEnglishButton");
+            translateToEnglishButton.addEventListener("click", function() {
+                translatePage("lv", "en");
+            });
+            var translateToLatvianButton = document.getElementById("translateToLatvianButton");
+            translateToLatvianButton.addEventListener("click", function() {
+                translatePage("en", "lv");
+            });
+        });
+
+        function translatePage(langFrom, langTo) {
+            
+            var translatedContent = document.getElementById("translatedContent");
+            
+            // Atrodam visus elementus ar data-translation atribūtu
+            var elementsToTranslate = document.querySelectorAll("[data-translation]");
+
+            elementsToTranslate.forEach(function(element) {
+                var textToTranslate = element.getAttribute("data-translation");
+                translate(langFrom, langTo, textToTranslate)
+                    .then(function (translatedText) {
+                        // Aizstājam esošo tekstu ar tulkojumu
+                        element.innerText = translatedText;
+                    })
+                    .catch(function (error) {
+                        console.error("Kļūda tulkojot: " + error);
+                    });
+            });
+        }
+
+        function translate(langFrom, langTo, text) {
+            return new Promise(function (resolve, reject) {
+                var apiURL = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
+                var data = new FormData();
+                data.append("q", text);
+                data.append("source", langFrom);
+                data.append("target", langTo);
+
+                fetch(apiURL, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resolve(data.data.translations[0].translatedText);
+                })
+                .catch(error => {
+                    reject("HTTP pieprasījuma kļūda");
+                });
+            });
+        }
+    </script>
+    
 </body>
 </html>

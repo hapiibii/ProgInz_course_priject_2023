@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -17,8 +18,9 @@
 	<form action="#"  th:action="@{/submission/insert}"  th:object="${submission}"   method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
-				<td>Submission date:</td>
-				<td><input type="text" th:field="*{submissionDate}"   />  </td>
+				<label for="submissionDate">Submission date:</label>
+        		<input type="date" id="submissionDate" name="submissionDate" required><br>
+				
 				<td th:if="${#fields.hasErrors('submissionDate')}" th:errors="*{submissionDate}"> Invalid date </td>
 			</tr>
 			

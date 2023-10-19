@@ -11,23 +11,23 @@
 		</header>
 		
 		<div class="thesis-block">
-			<h1 class="thesis-title">ITF Domes Tabula</h1>
+			<h1 class="thesis-title" data-translation="ITF Domes Tabula">ITF Domes Tabula</h1>
 			<div class="btn-right">
 				<a href="/itftable-page/create" ><input  class="btn-bck"
     			type="button" value="Pievienot"/></a><br><br>
     		</div>
 			<table class="thesis-table">
 				<tr>
-					<th>ID</th>
-					<th>Students</th>
-					<th>Nosaukums EN</th>
-					<th>Nosaukums LV</th>
-					<th>Darba Vadītājs</th>
-					<th>Recenzents</th>
-					<th>Mērķis</th>
-					<th>Uzdevumi</th>
-					<th>Statuss no DV</th>
-					<th>Statuss</th>
+					<th data-translation="ID">ID</th>
+					<th data-translation="Students">Students</th>
+					<th data-translation="Nosaukums EN">Nosaukums EN</th>
+					<th data-translation="Nosaukums LV">Nosaukums LV</th>
+					<th data-translation="Darba Vadītājs">Darba Vadītājs</th>
+					<th data-translation="Recenzents">Recenzents</th>
+					<th data-translation="Mērķis">Mērķis</th>
+					<th data-translation="Uzdevumi">Uzdevumi</th>
+					<th data-translation="Statuss no DV">Statuss no DV</th>
+					<th data-translation="Statuss">Statuss</th>
 					<th:block th:if="${temp != null}">
 						<ul>
 							<li th:each="comment : ${temp.getComments() }">
@@ -69,7 +69,73 @@
     			type="button" value="Pievienot komentāru"/></a><br><br>
     		</div>
 			<!-- Poga Atpakaļ -->
-			<a href="/home-page" class="btn-bck">Atpakaļ</a>
+			<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
 		</div>
+		
+		
+	<button id="translateToEnglishButton">Tulkot uz EN</button>
+    <button id="translateToLatvianButton">Tulkot uz LV</button>
+    
+    <div id="translatedContent"></div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var translateButton = document.getElementById("translateToEnglishButton");
+            translateToEnglishButton.addEventListener("click", function() {
+                translatePage("lv", "en");
+            });
+            var translateToLatvianButton = document.getElementById("translateToLatvianButton");
+            translateToLatvianButton.addEventListener("click", function() {
+                translatePage("en", "lv");
+            });
+        });
+
+        function translatePage(langFrom, langTo) {
+            
+            var translatedContent = document.getElementById("translatedContent");
+            
+            // Atrodam visus elementus ar data-translation atribūtu
+            var elementsToTranslate = document.querySelectorAll("[data-translation]");
+
+            elementsToTranslate.forEach(function(element) {
+                var textToTranslate = element.getAttribute("data-translation");
+                translate(langFrom, langTo, textToTranslate)
+                    .then(function (translatedText) {
+                        // Aizstājam esošo tekstu ar tulkojumu
+                        element.innerText = translatedText;
+                    })
+                    .catch(function (error) {
+                        console.error("Kļūda tulkojot: " + error);
+                    });
+            });
+        }
+
+        function translate(langFrom, langTo, text) {
+            return new Promise(function (resolve, reject) {
+                var apiURL = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
+                var data = new FormData();
+                data.append("q", text);
+                data.append("source", langFrom);
+                data.append("target", langTo);
+
+                fetch(apiURL, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resolve(data.data.translations[0].translatedText);
+                })
+                .catch(error => {
+                    reject("HTTP pieprasījuma kļūda");
+                });
+            });
+        }
+    </script>
+		
+		
+		
+		
 	</body>
 </html>

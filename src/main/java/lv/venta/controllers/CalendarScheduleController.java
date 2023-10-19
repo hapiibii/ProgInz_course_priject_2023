@@ -1,8 +1,15 @@
 package lv.venta.controllers;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+
+import java.io.IOException;
+import java.time.LocalDate;
+
+
 import java.util.List;
 import java.util.Optional;
 import java.io.FileOutputStream;
@@ -25,8 +32,13 @@ import org.springframework.http.MediaType;
 
 import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
+import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
+
+import lv.venta.models.Translate;
+
 import lv.venta.services.ICalendarScheduleService;
+
 import lv.venta.services.ICalendarService;
 import lv.venta.services.IStudioProgrammService;
 
@@ -45,11 +57,26 @@ public class CalendarScheduleController {
 		 this.calendarScheduleService = calendarScheduleService;
 	 }	 
 	 
+
+	 @GetMapping
+	 public String showAll(Model model) throws IOException {
+		 List<CalendarSchedule> calendarSchedules = calendarService.getCalendarSchedules();   
+		 model.addAttribute("calendarSchedules", calendarSchedules);
+		 
+		 // Calendar-schedule page translation
+		 //String calendarScheduleTranslate = Translate.translate("lv", "en", "Kalendārais grafiks");
+		 //String calTrans1 = calendarScheduleTranslate.split("translatedText")[1].trim().split("\"")[2];
+		 //model.addAttribute("TranslateKalendGrafiks",calTrans1);
+		 
+		 return "calendar-schedule";
+	 }
+
 	 @GetMapping("/studio-programms")
 	 public String showAllProgramms(Model model) {
 	     Iterable<StudioProgramm> programms = studioProgService.findAll();
 	     model.addAttribute("programms", programms);
 	     return "calendar-schedule-programms";
+
 	 }
 
 	 @GetMapping("/studio-programms/{id}")

@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class Submission {
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime submissionDate;
 	
+	@NotNull(message = "Submission file is required.")
 	private File file;
 	
 	@ManyToMany
