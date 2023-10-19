@@ -29,7 +29,7 @@ import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
-
+import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.ICalendarScheduleService;
 
 import lv.venta.services.ICalendarService;
@@ -41,13 +41,15 @@ public class CalendarScheduleController {
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
+	 private final ICalendarRepo calendarRepo;
 	 
 	 @Autowired
 	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,
-			 ICalendarScheduleService calendarScheduleService) {
+			 ICalendarScheduleService calendarScheduleService, ICalendarRepo calendarRepo) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
 		 this.calendarScheduleService = calendarScheduleService;
+		 this.calendarRepo = calendarRepo;
 	 }	 
 	 
 
@@ -106,7 +108,8 @@ public class CalendarScheduleController {
 	
 	 @PostMapping("/delete/{idActivity}")
 	 public String deleteCalendarSchedule(@PathVariable Long idActivity) {
-	     calendarScheduleService.deleteCalendarScheduleById(idActivity);
+		 
+	     calendarService.removeActivity(idActivity);
 	     return "redirect:/Calendar-schedule/studio-programms";
 	 }
 	 
