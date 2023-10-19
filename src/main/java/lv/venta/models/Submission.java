@@ -31,7 +31,7 @@ import lv.venta.models.users.Student;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Submission {
+public class Submission extends Auditable {
 	
 	@Column(name = "Idsubmission")
 	@Id

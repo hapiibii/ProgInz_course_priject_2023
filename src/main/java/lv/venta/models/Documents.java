@@ -21,7 +21,7 @@ import lombok.ToString;
 @Getter
 //@Setter
 @ToString
-public class Documents {
+public class Documents extends Auditable {
 
 	@Column(name = "Iddocument")
 	@Id
