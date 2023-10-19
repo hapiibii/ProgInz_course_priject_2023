@@ -22,7 +22,7 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	// atgriež visus dokumentus
 	@Override
 	public List<Documents> retrieveAllDocuments() {
-		return allDocuments;
+		return (List<Documents>) documentsRepo.findAll();
 	}
 
 	// atgriež dokumentu pēc id
@@ -84,6 +84,7 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	@Override
 	public Documents insertDocument(String documentName, File file) {
 		Documents newDocument = new Documents(documentName, file);
+		documentsRepo.save(newDocument);
 		allDocuments.add(newDocument); // Pievienojiet jauno dokumentu lokālajam sarakstam
 		return newDocument;
 	}
