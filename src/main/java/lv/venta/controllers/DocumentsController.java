@@ -2,10 +2,14 @@ package lv.venta.controllers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -146,7 +150,7 @@ public class DocumentsController {
 		
 	}
 	
-	/*
+	
 	@GetMapping("/download/{iddocument}")
 	public ResponseEntity<byte[]> downloadDocumentById(@PathVariable long iddocument) {
 	    try {
@@ -158,7 +162,7 @@ public class DocumentsController {
 
 	        // Iegūst faila nosaukumu un MIME tipu no dokumenta
 	        String fileName = document.getFile().getName();
-	        String mimeType = "application/octet-stream"; // Jūsu konkrētais MIME tips
+	        String mimeType = "application/octet-stream"; // oriģināls MIME tips
 
 	        byte[] fileData = Files.readAllBytes(document.getFile().toPath());
 
@@ -167,12 +171,12 @@ public class DocumentsController {
 	                .contentType(MediaType.parseMediaType(mimeType))
 	                .body(fileData);
 	    } catch (Exception e) {
-	        return ResponseEntity.badRequest().build(); // Vai jebkura cita piemērota atbilde
+	        return ResponseEntity.badRequest().build(); 
 	    }
 	}
-	*/
 	
 	
+	/*
 	@RequestMapping(value = "/download/{iddocument}", method = RequestMethod.GET)
     public void downloadDocumentByDocumentsName(@PathVariable("iddocument") long iddocument, HttpServletResponse response) {
         try {
@@ -206,7 +210,7 @@ public class DocumentsController {
         	e.printStackTrace();
         }
     }
-	
+	*/
 	
 	
 	
