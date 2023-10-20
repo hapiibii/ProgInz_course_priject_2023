@@ -11,7 +11,6 @@ public interface ICalendarScheduleService {
 	void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO);	
 	void deleteCalendarScheduleById(long idCalendar);
 	List<CalendarScheduleDTO> getAllCalendarSchedules();
-
 	Workbook exportCalendarScheduleToExcel();
 	XWPFDocument exportCalendarScheduleToWord(int year);
 }

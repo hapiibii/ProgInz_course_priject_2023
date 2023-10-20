@@ -41,15 +41,13 @@ public class CalendarScheduleController {
 	 private final ICalendarService calendarService;
 	 private final IStudioProgrammService studioProgService;
 	 private final ICalendarScheduleService calendarScheduleService;
-	 private final ICalendarRepo calendarRepo;
 	 
 	 @Autowired
 	 public CalendarScheduleController(ICalendarService calendarService, IStudioProgrammService studioProgService,
-			 ICalendarScheduleService calendarScheduleService, ICalendarRepo calendarRepo) {
+			 ICalendarScheduleService calendarScheduleService) {
 		 this.calendarService = calendarService;
 		 this.studioProgService = studioProgService;
 		 this.calendarScheduleService = calendarScheduleService;
-		 this.calendarRepo = calendarRepo;
 	 }	 
 	 
 
