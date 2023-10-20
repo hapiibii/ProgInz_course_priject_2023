@@ -10,8 +10,8 @@
 			<img src="/images/logo.png" alt="Logo" class="header-logo">
 		</header>
 		
-		<button id="translateToEnglishButton">Tulkot uz EN</button>
-    <button id="translateToLatvianButton">Tulkot uz LV</button>
+		<button id="translateToEnglishButton" class="btn-bck">Tulkot uz EN</button>
+    <button id="translateToLatvianButton" class="btn-bck">Tulkot uz LV</button>
     
     <div id="translatedContent"></div>
 
@@ -117,17 +117,17 @@
 							<li th:each="comment : ${temp.getComments() }">
 								<span th:text="${comment.getDescription() }">Description</span><br>
 								<a th:href="@{/itftable-page/delete-comment/{idcom}(idcom=${comment.getIdcom()})}">
-    						<input type="button" value="Dzēst"/></a> <br>
+    						<input class="btn-bck" type="button" value="Dzēst"/></a> <br><br>
     						<a th:href="@{/itftable-page/edit-comment/{idcom}(idcom=${comment.getIdcom()})}">
-    						<input type="button" value="Rediģēt"/></a>
+    						<input class="btn-bck" type="button" value="Rediģēt"/></a>
 							</li>
 						</ul>
 					</td>
 					<td class="action-buttons">
 						<a th:href="@{/itftable-page/edit/{idthesis}(idthesis=${temp.getIdthesis()})}" >
-							<input  class="btn-bck" type="button" value="Rediģēt"/></a> <br>
+							<input class="btn-bck" type="button" value="Rediģēt"/></a> <br><br>
     					<a th:href="@{/itftable-page/delete/{idthesis}(idthesis=${temp.getIdthesis()})}">
-    						<input  class="btn-bck" type="button" value="Dzēst"/></a>
+    						<input class="btn-bck" type="button" value="Dzēst"/></a>
     				</td>
     				<td th:text="${temp.getLastModifiedDate()}"> </td>
     				<td th:text="${temp.getLastModifiedBy()}"> </td>
