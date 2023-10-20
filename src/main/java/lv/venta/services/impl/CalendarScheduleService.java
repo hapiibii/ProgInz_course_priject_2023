@@ -29,65 +29,64 @@ import java.util.Optional;
 @Service
 public class CalendarScheduleService implements ICalendarScheduleService{
 
-	private ICalendarScheduleRepo calendarScheduleRepo;
-	private IStudioProgrammRepo studioProgrammRepo;
-	private ICalendarRepo calendarRepo;
-		
-	@Autowired
-	public CalendarScheduleService(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
-	    this.calendarScheduleRepo = calendarScheduleRepo;
-	    this.studioProgrammRepo = studioProgrammRepo;
-	    this.calendarRepo = calendarRepo;
-	}
-	
-	@Transactional
-	@Override
-	public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
-	    // Atrod eksistējošo studiju programmu pēc nosaukuma
-	    StudioProgramm studioProgramm = studioProgrammRepo.findByTitle(calendarScheduleDTO.getStudioProgrammTitle());
+  private ICalendarScheduleRepo calendarScheduleRepo;
+  private IStudioProgrammRepo studioProgrammRepo;
+  private ICalendarRepo calendarRepo;
+    
+  @Autowired
+  public CalendarScheduleService(ICalendarScheduleRepo calendarScheduleRepo,IStudioProgrammRepo studioProgrammRepo, ICalendarRepo calendarRepo) {
+      this.calendarScheduleRepo = calendarScheduleRepo;
+      this.studioProgrammRepo = studioProgrammRepo;
+      this.calendarRepo = calendarRepo;
+  }
+  
+  @Transactional
+  @Override
+  public void addCalendarSchedule(CalendarScheduleDTO calendarScheduleDTO) {
+      // Atrod eksistējošo studiju programmu pēc nosaukuma
+      StudioProgramm studioProgramm = studioProgrammRepo.findByTitle(calendarScheduleDTO.getStudioProgrammTitle());
 
-	    if (studioProgramm == null) {
-	        throw new IllegalArgumentException("Studiju programma nav atrasta: " + calendarScheduleDTO.getStudioProgrammTitle());
-	    } else {
-	        // Meklēt CalendarSchedule, kuram ir tāda pati studiju programma un gads
-	        CalendarSchedule existingSchedule = calendarScheduleRepo.findByStudioProgrammAndGads(studioProgramm, calendarScheduleDTO.getGads());
+      if (studioProgramm == null) {
+          throw new IllegalArgumentException("Studiju programma nav atrasta: " + calendarScheduleDTO.getStudioProgrammTitle());
+      } else {
+          // Meklēt CalendarSchedule, kuram ir tāda pati studiju programma un gads
+          CalendarSchedule existingSchedule = calendarScheduleRepo.findByStudioProgrammAndGads(studioProgramm, calendarScheduleDTO.getGads());
 
-	        // Ja tāds neeksistē, izveido jaunu
-	        if (existingSchedule == null) {
-	            existingSchedule = new CalendarSchedule();
-	            existingSchedule.setGads(calendarScheduleDTO.getGads());
-	            existingSchedule.setStudioProgramm(studioProgramm);
-	            existingSchedule = calendarScheduleRepo.save(existingSchedule); // <- Šeit piešķiram saglabātā objekta atgriezto vērtību existingSchedule
-	        }
+          // Ja tāds neeksistē, izveido jaunu
+          if (existingSchedule == null) {
+              existingSchedule = new CalendarSchedule();
+              existingSchedule.setGads(calendarScheduleDTO.getGads());
+              existingSchedule.setStudioProgramm(studioProgramm);
+              existingSchedule = calendarScheduleRepo.save(existingSchedule); // <- Šeit piešķiram saglabātā objekta atgriezto vērtību existingSchedule
+          }
 
-	        // Izveido CalendarActivity objektu un iestata vērtības
-	        CalendarActivity calendarActivity = new CalendarActivity();
-	        calendarActivity.setActivity(calendarScheduleDTO.getActivity());
-	        calendarActivity.setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
-	        calendarActivity.setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
-	        calendarActivity.setCalendarSchedule(existingSchedule);
-	        
-	        // Saglabājiet CalendarActivity datu bāzē
-	        calendarRepo.save(calendarActivity);
+          // Izveido CalendarActivity objektu un iestata vērtības
+          CalendarActivity calendarActivity = new CalendarActivity();
+          calendarActivity.setActivity(calendarScheduleDTO.getActivity());
+          calendarActivity.setActivityEndDate(calendarScheduleDTO.getActivityEndDate());
+          calendarActivity.setActivityImplementation(calendarScheduleDTO.getActivityImplementation());
+          calendarActivity.setCalendarSchedule(existingSchedule);
+          
+          // Saglabājiet CalendarActivity datu bāzē
+          calendarRepo.save(calendarActivity);
 
-	        // Pievieno CalendarActivity objektu CalendarSchedule sarakstam
-	        existingSchedule.getActivities().add(calendarActivity);
-	        
-	        // Saglabājiet atjaunināto CalendarSchedule
-	        calendarScheduleRepo.save(existingSchedule);
+          // Pievieno CalendarActivity objektu CalendarSchedule sarakstam
+          existingSchedule.getActivities().add(calendarActivity);
+          
+          // Saglabājiet atjaunināto CalendarSchedule
+          calendarScheduleRepo.save(existingSchedule);
 
-	        // Iestatiet ID vērtību calendarScheduleDTO
-	        calendarScheduleDTO.setIdCalendar(existingSchedule.getIdCalendar());
-	    }
-	}
-		
-	@Override
+          // Iestatiet ID vērtību calendarScheduleDTO
+          calendarScheduleDTO.setIdCalendar(existingSchedule.getIdCalendar());
+      }
+  }
+    
+  @Override
     public List<CalendarScheduleDTO> getAllCalendarSchedules() {
         List<CalendarSchedule> calendarSchedules = (List<CalendarSchedule>) calendarScheduleRepo.findAll();
         // Saraksts kur glabāsies DTO objekti
         List<CalendarScheduleDTO> calendarScheduleDTOList = new ArrayList<>();
-
-        // Loops caur  CalendarSchedule un parveidot dto objektos
+     // Loops caur  CalendarSchedule un parveidot dto objektos
         for (CalendarSchedule calendarSchedule : calendarSchedules) {
             CalendarScheduleDTO dto = new CalendarScheduleDTO();
             dto.setIdCalendar(calendarSchedule.getIdCalendar());
@@ -101,18 +100,18 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             calendarScheduleDTOList.add(dto);
         }
         return calendarScheduleDTOList;
-	}
+  }
 
-	@Override
-	public void deleteCalendarScheduleById(long idCalendar) {
-	    Optional<CalendarSchedule> calendarSchedule = calendarScheduleRepo.findById(idCalendar);
-	    if (calendarSchedule.isPresent()) {
-	        calendarScheduleRepo.delete(calendarSchedule.get());
-	    } else {
-	        throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
-	    }
-	}
-	
+  @Override
+  public void deleteCalendarScheduleById(long idCalendar) {
+      Optional<CalendarSchedule> calendarSchedule = calendarScheduleRepo.findById(idCalendar);
+      if (calendarSchedule.isPresent()) {
+          calendarScheduleRepo.delete(calendarSchedule.get());
+      } else {
+          throw new IllegalArgumentException("Kalendāra ieraksts ar ID " + idCalendar + " nav atrasts.");
+      }
+  }
+  
     @Override
     public Workbook exportCalendarScheduleToExcel() {
         List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules ();
@@ -149,7 +148,7 @@ public class CalendarScheduleService implements ICalendarScheduleService{
             sheet.setColumnWidth(i, 8000);
         }
         return workbook;
-    }	
+    }  
     
     @Override
     public XWPFDocument exportCalendarScheduleToWord(int year) {
@@ -176,6 +175,7 @@ public class CalendarScheduleService implements ICalendarScheduleService{
         XWPFTable table = document.createTable(1, 3);
 
         // Set column names for the header row
+
         XWPFTableRow headerRow = table.getRow(0);
         String[] headers = {"Nr. p.k.", currentYear + "./" + (currentYear+1) + ". ak. gada aktivitāte", "Aktivitātes realizēšanas datums"};
         for (int i = 0; i < headers.length; i++) {

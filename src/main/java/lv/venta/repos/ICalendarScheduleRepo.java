@@ -5,15 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 
 public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule, Long> {
-	
-	//CalendarSchedule findByGadsAndStudioProgramm(int year, StudioProgramm studioProgramm);
 
-	List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
+
+  List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
 
 	CalendarSchedule findByStudioProgrammAndGads(StudioProgramm studioProgramm, int gads);
 	
@@ -22,4 +20,5 @@ public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule,
 
 	List<CalendarSchedule> findByGads(int year);
 	
+
 }
