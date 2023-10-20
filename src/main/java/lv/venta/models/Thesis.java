@@ -95,6 +95,10 @@ public class Thesis extends Auditable {
 
 	@OneToMany(mappedBy = "thesis")
 	private Collection<Comment> comments;
+	
+	@ManyToMany
+	@JoinTable(name = "thesis_submissions_table", joinColumns = @JoinColumn(name = "idthesis"), inverseJoinColumns = @JoinColumn(name = "idsubmission"))
+	private Collection<Submission> thesisSubmission = new ArrayList<>();
 
 	public void addReviewer(AcademicPersonel reviewer) {
 		if (!reviewers.contains(reviewer)) {

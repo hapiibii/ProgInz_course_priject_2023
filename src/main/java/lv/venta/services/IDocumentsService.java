@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import lv.venta.models.Documents;
 
 public interface IDocumentsService {
@@ -19,5 +21,12 @@ public interface IDocumentsService {
 	void deleteDocumentByDocumetId(long iddocument) throws Exception;
 
 	Documents updateDocument(long iddocument, String documentName, File file) throws Exception;
+
+
+	byte[] downloadDocument(long iddocument);
+
+	
+
+	
 
 }

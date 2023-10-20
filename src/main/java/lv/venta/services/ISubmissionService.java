@@ -3,12 +3,13 @@ package lv.venta.services;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import lv.venta.models.Submission;
 
 public interface ISubmissionService {
 
-	ArrayList<Submission> retrieveAllSubmisions();
+	List<Submission> retrieveAllSubmisions();
 
 	Submission retrieveSubmissionById(long idsubmission) throws Exception;
 
