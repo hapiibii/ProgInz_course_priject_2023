@@ -17,15 +17,18 @@
         <a href="http://localhost:8080/Calendar-schedule/studio-programms" class="button">Atpakaļ</a>
     </div><br>
     
-    <a href="/Calendar-schedule/export">Exporēt Grafiku uz Excel</a><br>
-    <a href="/Calendar-schedule/export/word">Exporēt Grafiku uz Word</a>
+    <a href="/Calendar-schedule/export">Exporēt visus šīs studijas Grafikus uz Excel</a><br>
+    
+
 
     <div class="wrapper">
         <div class="sidebar">
             <ul>
-                <li th:each="year : ${years}">
-                    <button th:text="${year}" th:onclick="'window.location.href=\'/Calendar-schedule/studio-programms/' + ${programm.idstprog} + '?year=' + ${year} + '\''"></button>
-                </li>
+               <li th:each="year : ${years}">
+		            <button th:text="${year}" th:onclick="'window.location.href=\'/Calendar-schedule/studio-programms/' + ${programm.idstprog} + '?year=' + ${year} + '\''"></button>
+		            <a th:href="@{/Calendar-schedule/export/word/{year}(year=${year})}">Exporēt Grafiku uz Word</a>
+		            <br><br><br> 
+		       </li>
             </ul>
         </div>
         <div class="content">
