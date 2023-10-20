@@ -17,45 +17,48 @@
         <a href="http://localhost:8080/Calendar-schedule/studio-programms" class="button">Atpakaļ</a>
     </div><br>
     
-    <a href="/Calendar-schedule/export">Exporēt Grafiku uz Excel</a><br>
-    <a href="/Calendar-schedule/export/word">Exporēt Grafiku uz Word</a>
+    <a href="/Calendar-schedule/export">Exporēt visus šīs studijas Grafikus uz Excel</a><br>
+    
+
 
     <div class="wrapper">
         <div class="sidebar">
             <ul>
-                <li th:each="year : ${years}">
-                    <button th:text="${year}" th:onclick="'window.location.href=\'/Calendar-schedule/studio-programms/' + ${programm.idstprog} + '?year=' + ${year} + '\''"></button>
-                </li>
+               <li th:each="year : ${years}">
+                <button th:text="${year}" th:onclick="'window.location.href=\'/Calendar-schedule/studio-programms/' + ${programm.idstprog} + '?year=' + ${year} + '\''"></button>
+                <a th:href="@{/Calendar-schedule/export/word/{year}(year=${year})}">Exporēt Grafiku uz Word</a>
+                <br><br><br> 
+           </li>
             </ul>
         </div>
         <div class="content">
             <h1>Aktivitātes studiju programmā: <span th:text="${programm.title}"></span></h1>
             <table>
                 <thead>
-				    <tr>
-				        <th>Nr. p.k.</th> <!-- Pievienoju jaunu galvenes kolonu -->
-				        <th>Aktivitāte</th>
-				        <th>Aktivitātes īstenošana</th>
-				        <th>Darbības</th>
-				    </tr>
-				</thead>
-				<tbody>
-				    <th:block th:each="schedule, status : ${schedules}">
-				        <tr>
-				            <td th:text="${status.count}"></td> <!-- Pievienoju kolonu Nr. p.k. ar pašreizējo aktivitātes numuru -->
-				            <td th:text="${schedule.activity}"></td>
-				            <td th:text="${schedule.activityImplementation}"></td>
-				            <td>
-				                <form method="post" th:action="@{'/Calendar-schedule/delete/' + ${schedule.idActivity}}">
-								    <button type="submit">Dzēst</button>
-								</form>
-				                <form method="get" th:action="@{'/Calendar-schedule/edit/' + ${schedule.idActivity}}">
-				                    <button type="submit">Labot</button>
-				                </form>
-				            </td>
-				        </tr>
-				    </th:block>
-				</tbody>
+            <tr>
+                <th>Nr. p.k.</th> <!-- Pievienoju jaunu galvenes kolonu -->
+                <th>Aktivitāte</th>
+                <th>Aktivitātes īstenošana</th>
+                <th>Darbības</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="schedule, status : ${schedules}">
+                <tr>
+                    <td th:text="${status.count}"></td> <!-- Pievienoju kolonu Nr. p.k. ar pašreizējo aktivitātes numuru -->
+                    <td th:text="${schedule.activity}"></td>
+                    <td th:text="${schedule.activityImplementation}"></td>
+                    <td>
+                        <form method="post" th:action="@{'/Calendar-schedule/delete/' + ${schedule.idActivity}}">
+                    <button type="submit">Dzēst</button>
+                </form>
+                        <form method="get" th:action="@{'/Calendar-schedule/edit/' + ${schedule.idActivity}}">
+                            <button type="submit">Labot</button>
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
             </table>
         </div>
     </div>
