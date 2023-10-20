@@ -155,25 +155,6 @@ public class DocumentsController {
 		
 	}
 	
-	/*
-	@GetMapping("/download/{iddocument}")
-    public ResponseEntity<byte[]> downloadDocument(@PathVariable("iddocument") long iddocument) {
-        System.out.println(iddocument);
-    	byte[] documentData = documentsService.downloadDocument(iddocument);
-
-        if (documentData == null) {
-        	System.out.println("Document data is null!");
-            // Ja dokuments ar šādu ID nav atrasts, atgriež 404 statusa kodu
-            return ResponseEntity.notFound().build();
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document" + iddocument + ".odt");
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-
-        return ResponseEntity.ok().headers(headers).body(documentData);
-    }
-    */
 	
 	@GetMapping("/download/{iddocument}")
     public ResponseEntity<byte[]> downloadDocument(@PathVariable("iddocument") Long iddocument) throws Exception {
