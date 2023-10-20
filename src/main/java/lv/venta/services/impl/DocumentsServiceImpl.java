@@ -1,9 +1,20 @@
 package lv.venta.services.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Optional;
+
+
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +25,7 @@ import lv.venta.services.IDocumentsService;
 @Service
 public class DocumentsServiceImpl implements IDocumentsService {
 
-	private ArrayList<Documents> allDocuments = new ArrayList<>();
+	
 
 	@Autowired
 	private IDocumentsRepo documentsRepo;
@@ -22,18 +33,17 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	// atgriež visus dokumentus
 	@Override
 	public List<Documents> retrieveAllDocuments() {
-		return allDocuments;
+		return (List<Documents>) documentsRepo.findAll();
 	}
 
 	// atgriež dokumentu pēc id
 	@Override
 	public Documents retrieveDocumentById(long iddocument) throws Exception {
-		for (Documents temp : allDocuments) {
-			if (temp.getIddocument() == iddocument) {
-				return temp;
-			}
+		Optional<Documents> optionalDoc = documentsRepo.findById(iddocument);
+		if (!optionalDoc.isPresent()) {
+		    throw new Exception("Wrong id!");
 		}
-		throw new Exception("Wrong id!");
+		return optionalDoc.get();
 	}
 
 	// atgriež dokumentu pēc nosaukuma
@@ -41,8 +51,9 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	public ArrayList<Documents> retrieveDocumentByDocumentName(String documentName) throws Exception {
 		if (documentName != null) {
 			ArrayList<Documents> allDocumentsWithDocumentName = new ArrayList<>();
-			for (Documents temp : allDocuments) {
+			for (Documents temp : documentsRepo.findAll()) {
 				if (temp.getDocumentName().equals(documentName)) {
+					allDocumentsWithDocumentName.add(temp);
 				}
 			}
 			return allDocumentsWithDocumentName;
@@ -55,9 +66,9 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	@Override
 	public void deleteDocumentByDocumetId(long iddocument) throws Exception {
 		boolean isFound = false;
-		for (Documents temp : allDocuments) {
+		for (Documents temp : documentsRepo.findAll()) {
 			if (temp.getIddocument() == iddocument) {
-				allDocuments.remove(temp);
+				documentsRepo.delete(temp);
 				isFound = true;
 				break;
 			}
@@ -70,7 +81,7 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	// atjauno dokumentu
 	@Override
 	public Documents updateDocument(long iddocument, String documentName, File file) throws Exception {
-		for (Documents temp : allDocuments) {
+		for (Documents temp : documentsRepo.findAll()) {
 			if (temp.getIddocument() == iddocument) {
 				temp.setDocumentName(documentName);
 				temp.setFile(file);
@@ -84,16 +95,25 @@ public class DocumentsServiceImpl implements IDocumentsService {
 	@Override
 	public Documents insertDocument(String documentName, File file) {
 		Documents newDocument = new Documents(documentName, file);
-		allDocuments.add(newDocument); // Pievienojiet jauno dokumentu lokālajam sarakstam
+		documentsRepo.save(newDocument);
 		return newDocument;
 	}
-
-	/*
-	 * @Override public Documents insertDocument (String documentName, File file) {
-	 * for (Documents temp : allDocuments) { if
-	 * (temp.getDocumentName().equals(documentName)) { temp.setFile(file); return
-	 * temp; } } Documents newDocument = new Documents(documentName, file);
-	 * allDocuments.add(newDocument); return newDocument; }
-	 */
+	
+	@Override
+	public byte[] downloadDocument(long iddocument) {
+	    try {
+	        // Iegūstiet dokumentu no datu bāzes
+	        Documents document = retrieveDocumentById(iddocument);
+	        
+	        if(document.getFile() != null) {
+	            Path path = document.getFile().toPath();
+	            return Files.readAllBytes(path);
+	        }
+	        return null;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
 
 }
