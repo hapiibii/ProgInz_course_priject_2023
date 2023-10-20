@@ -152,8 +152,8 @@ public class CalendarScheduleService implements ICalendarScheduleService{
     }	
     
     @Override
-    public XWPFDocument exportCalendarScheduleToWord() {
-        List<CalendarScheduleDTO> calendarSchedule = getAllCalendarSchedules();
+    public XWPFDocument exportCalendarScheduleToWord(int year) {
+        List<CalendarSchedule> calendarSchedule = calendarScheduleRepo.findByGads(year);
 
         XWPFDocument document = new XWPFDocument();
 
@@ -170,30 +170,37 @@ public class CalendarScheduleService implements ICalendarScheduleService{
         XWPFParagraph degreeParagraph = document.createParagraph();
         XWPFRun degreeRun = degreeParagraph.createRun();
         // Assuming the first entry's degree is representative for the degree paragraph
-        degreeRun.setText(calendarSchedule.get(0).getStudioProgrammTitle());
+        degreeRun.setText(calendarSchedule.get(0).getStudioProgramm().getTitle());
 
-        // Create a table to display the data
-        XWPFTable table = document.createTable(calendarSchedule.size() + 1, 3); 
+        // Create a table with only the header row
+        XWPFTable table = document.createTable(1, 3);
 
-        // Set column names
+        // Set column names for the header row
         XWPFTableRow headerRow = table.getRow(0);
         String[] headers = {"Nr. p.k.", currentYear + "./" + (currentYear+1) + ". ak. gada aktivitāte", "Aktivitātes realizēšanas datums"};
-
         for (int i = 0; i < headers.length; i++) {
             headerRow.getCell(i).setText(headers[i]);
         }
 
-        // Fill the table with data
+        // Populate the table with data
+        int rowNumber = 1;
         for (int i = 0; i < calendarSchedule.size(); i++) {
-            CalendarScheduleDTO calendarScheduleDTO = calendarSchedule.get(i);
-            XWPFTableRow dataRow = table.getRow(i + 1);
-            dataRow.getCell(0).setText(String.valueOf(i+1));  // Activity number
-            dataRow.getCell(1).setText(calendarScheduleDTO.getActivity());
-            dataRow.getCell(2).setText(calendarScheduleDTO.getActivityImplementation());
+            CalendarSchedule currentSchedule = calendarSchedule.get(i);
+            
+            for (int j = 0; j < currentSchedule.getActivities().size(); j++) {
+                CalendarActivity activity = currentSchedule.getActivities().get(j);
+                
+                XWPFTableRow dataRow = table.createRow(); // Creates a new row for each activity
+                
+                dataRow.getCell(0).setText(String.valueOf(rowNumber)); // Nr. p.k.
+                dataRow.getCell(1).setText(activity.getActivity()); 
+                dataRow.getCell(2).setText(activity.getActivityImplementation().toString());
+
+                rowNumber++;
+            }
         }
 
         return document;
     }
-    
 
 }

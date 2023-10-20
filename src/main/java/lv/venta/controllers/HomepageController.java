@@ -10,7 +10,6 @@ import lv.venta.models.Documents;
 import lv.venta.services.IActivitiesService;
 import lv.venta.services.IDocumentsService;
 
-
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

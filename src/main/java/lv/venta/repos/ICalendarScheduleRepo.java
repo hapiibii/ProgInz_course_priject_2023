@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
 
 public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule, Long> {
 	
-	CalendarSchedule findByGadsAndStudioProgramm(int year, StudioProgramm studioProgramm);
+	//CalendarSchedule findByGadsAndStudioProgramm(int year, StudioProgramm studioProgramm);
 
 	List<CalendarSchedule> findByStudioProgramm(StudioProgramm studioProgramm);
 
@@ -18,5 +19,7 @@ public interface ICalendarScheduleRepo  extends CrudRepository<CalendarSchedule,
 	
 	@Query("SELECT DISTINCT cs.gads FROM CalendarSchedule cs ORDER BY cs.gads DESC")
 	List<Integer> findAllUniqueYears();
+
+	List<CalendarSchedule> findByGads(int year);
 	
 }

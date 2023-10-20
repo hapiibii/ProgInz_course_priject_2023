@@ -158,9 +158,9 @@ public class CalendarScheduleController {
 	                .body(new InputStreamResource(new FileInputStream(tempFile)));
 	    }
 	    
-	    @GetMapping("/export/word")
-	    public ResponseEntity<InputStreamResource> exportCalendarScheduleToWord() throws IOException {
-	        XWPFDocument document = calendarScheduleService.exportCalendarScheduleToWord();
+	    @GetMapping("/export/word/{year}")
+	    public ResponseEntity<InputStreamResource> exportCalendarScheduleToWord(@PathVariable int year) throws IOException {
+	        XWPFDocument document = calendarScheduleService.exportCalendarScheduleToWord(year);
 
 	        File tempFile = File.createTempFile("kalendaraisGrafiks", ".docx");
 
