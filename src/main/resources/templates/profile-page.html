@@ -26,11 +26,38 @@
         </div>
     </div>
 
+		<div class="saites-block">
+            <!-- /*janorada buspectam saites kur pogas aizved*/ -->
 
+            <a href="/document-page" class="menu-button"><h3 data-translation="Dokumenti">Dokumenti</h3></a>
+            <br>
+            <a href="/submission-page" class="menu-button"><h3 data-translation="Iesniegumi">Iesniegumi</h3></a>
+            <br>
+            <button class="menu-button"><h3 data-translation="Aizstāvēšana">Aizstāvēšana</h3></button>
+            <br>
+            <a href="/itftable-page/review" class="menu-button"><h3 data-translation="ITF Dome">ITF Dome</h3></a>
+            <br>
 
+            <button class="menu-button"><h3 data-translation="Darbu Izstrade">Darbu Izstrade</h3></button>
+            <br>
 
+            <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule'">
+                <h3 data-translation="Kalendarais Grafiks">Kalendarais Grafiks</h3>
+            </button>
 
+            <br>
+            <button class="menu-button"><h3 data-translation="Arhivs">Arhivs</h3></button>
+        </div>
 
+		<div class="news-block">
+            <p>Vārds: ${person.name}</p>
+            <p>Uzvārds: ${person.surname}</p>
+            <p>Personas kods: ${person.personcode}</p>
+            <p>Loma: ${person.role}</p>
+            
+        </div>
+
+		
 
 
 
@@ -101,6 +128,11 @@
                 });
             });
         }
+        
+        
+        
+        
+        
     </script>
 </body>
 
