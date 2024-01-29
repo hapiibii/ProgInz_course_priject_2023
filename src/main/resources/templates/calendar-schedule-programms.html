@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <title>Kalendārais grafiks</title>
@@ -7,43 +7,33 @@
 </head>
 <body>
 
-    <!-- Galvenās lapas virsraksts un logo -->
-	<!-- hederis ar trīs daļām -->
     <div class="header-container">
-        <!-- Kreisā mala -->
         <div class="header-left">
     		<h1>Kalendārais grafiks</h1>
         </div>
-
-        <!-- Vidus sadaļa -->
         <div class="header-middle">
             <img src="/images/logo.png" alt="Logo" class="header-logo">
         </div>
-
-        <!-- Labā mala -->
         <div class="header-right">
         </div>
     </div>
+    
+    <a href="/home-page" class="btn-bck">Atpakaļ</a>
+
     <h1 data-translation="Izvēlieties studija programmu">Izvēlieties studija programmu</h1>
 
-    <!-- Atpakaļ poga -->
-    <div class="back-button">
-        <a href="http://localhost:8080/home-page" class="button" data-translation="Atpakaļ">Atpakaļ</a>
-    </div>
 
-    <!-- Studiju programmu saraksts -->
-    <ul>
+    <ul class="program-list">
         <!-- Šis cikls ģenerēs saraksta elementus no 'programms' saraksta -->
         <li th:each="programm : ${programms}">
             <a th:href="@{'/Calendar-schedule/studio-programms/' + ${programm.idstprog}}" th:text="${programm.title}"></a>
         </li>
     </ul>
 
-    <!-- Poga, lai pievienotu jaunu aktivitāti -->
     <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
         <h3 data-translation="Pievienot aktivitāti">Pievienot aktivitāti</h3>
     </button>
-
+    <br>
 
 	<button id="translateToEnglishButton">Tulkot uz EN</button>
     <button id="translateToLatvianButton">Tulkot uz LV</button>
@@ -51,7 +41,6 @@
     <div id="translatedContent"></div>
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function() {
             var translateButton = document.getElementById("translateToEnglishButton");
             translateToEnglishButton.addEventListener("click", function() {
@@ -64,17 +53,13 @@
         });
 
         function translatePage(langFrom, langTo) {
-            
             var translatedContent = document.getElementById("translatedContent");
-            
-            // Atrodam visus elementus ar data-translation atribūtu
             var elementsToTranslate = document.querySelectorAll("[data-translation]");
 
             elementsToTranslate.forEach(function(element) {
                 var textToTranslate = element.getAttribute("data-translation");
                 translate(langFrom, langTo, textToTranslate)
                     .then(function (translatedText) {
-                        // Aizstājam esošo tekstu ar tulkojumu
                         element.innerText = translatedText;
                     })
                     .catch(function (error) {
@@ -105,9 +90,6 @@
             });
         }
     </script>
-
-
-
 
 </body>
 </html>
