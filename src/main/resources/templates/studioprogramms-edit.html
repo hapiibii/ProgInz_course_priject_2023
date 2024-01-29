@@ -2,38 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Rediģēt Studiju Programmu</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-<h3>Rediģēt Studiju Programmu</h3>
+	<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		<h1>Izdēst jaunumu</h1>
+        </div>
 
-<form th:action="@{/studioprogramms/save}" th:object="${programm}" method="post">
+        <!-- Vidus sadaļa -->
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
 
-<input type="hidden" name="idstprog" th:value="${programm.idstprog}" />
-
-    <label for="title">Programmas nosaukums:</label>
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
     
-    <input type="text" id="title" name="title" th:value="${programm.title}" />
-     <br/>
+     <a href="/studioprogramms" class="btn-bck">Atpakaļ uz sarakstu</a>
+    
+    <div class="form-container">
+        <form th:action="@{/studioprogramms/save}" th:object="${programm}" method="post">
+            <input type="hidden" name="idstprog" th:value="${programm.idstprog}" />
 
-    <label for="faculty">Fakultāte:</label>
-    <select id="faculty" th:field="*{faculty}">
-        <option th:each="faculty : ${T(lv.venta.models.Faculty).values()}" 
-                th:value="${faculty}" 
-                th:text="${faculty}"></option>
-    </select>
-    <br/>
+            <div class="form-group">
+                <label for="title">Programmas nosaukums:</label>
+                <input type="text" id="title" name="title" th:value="${programm.title}" />
+            </div>
 
-    <label for="degree">Grāds:</label>
-    <select id="degree" th:field="*{degree}">
-        <option th:each="degree : ${T(lv.venta.models.Degree).values()}" 
-                th:value="${degree}" 
-                th:text="${degree}"></option>
-    </select>
-    <br/>
+            <div class="form-group">
+                <label for="faculty">Fakultāte:</label>
+                <select id="faculty" th:field="*{faculty}">
+                    <option th:each="faculty : ${T(lv.venta.models.Faculty).values()}" 
+                            th:value="${faculty}" 
+                            th:text="${faculty}"></option>
+                </select>
+            </div>
 
-    <button type="submit">Saglabāt</button>
-</form>
+            <div class="form-group">
+                <label for="degree">Grāds:</label>
+                <select id="degree" th:field="*{degree}">
+                    <option th:each="degree : ${T(lv.venta.models.Degree).values()}" 
+                            th:value="${degree}" 
+                            th:text="${degree}"></option>
+                </select>
+            </div>
 
-<a href="/studioprogramms">Atpakaļ uz sarakstu</a>
+            <button type="submit" class="btn-bck">Saglabāt</button>
+        </form>
+
+    </div>
 </body>
 </html>
