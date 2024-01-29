@@ -103,7 +103,7 @@ public class SecurityConfig {
 		.requestMatchers("/h2-console").permitAll()
 	    .requestMatchers("/h2-console/**").permitAll()
 	    .requestMatchers("/document/download/**").permitAll()
-	    ///document/download/**
+	    .requestMatchers("profile/view").permitAll()
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()
