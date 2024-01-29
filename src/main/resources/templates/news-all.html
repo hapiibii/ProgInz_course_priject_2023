@@ -8,14 +8,16 @@
 <link rel="stylesheet" type="text/css" href="/style.css">
     <table>
         <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Delete</th>
+            <th>Tēma</th>
+            <th>Apraksts</th>
+            <th>Datums</th>
+            <th>Dzēst</th>
         </tr>
         <!-- Iterēt caur allNews un attēlot jaunumus -->
         <tr th:each="news : ${allNews}">
             <td th:text="${news.title}"></td>
             <td th:text="${news.description}"></td>
+            <td th:text="${#temporals.format(news.startDate, 'dd.MM.yy') + ' - ' + #temporals.format(news.endDate, 'dd.MM.yy')}"></td>
             <td><a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a></td>
         </tr>
     </table>

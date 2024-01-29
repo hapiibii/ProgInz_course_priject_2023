@@ -49,10 +49,10 @@
                     </th>
                     <td colspan="2">
                         <p class="news-description" th:text="${news.description}"></p>
-                    </td>
+                    </td>            
                     <td class="action-buttons">
                         <a th:href="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}" data-translation="Labot">Labot</a>
-                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a>
+                        <a th:href="@{/home-page/delete-news/{newsId}(newsId=${news.idNews})}" data-translation="Dzēst">Dzēst</a>               
                     </td>
                 </tr>
             </table>
