@@ -5,11 +5,11 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-	<!-- hederis ar trīs daļām -->
+    <!-- Hederis ar trīs daļām -->
     <div class="header-container">
         <!-- Kreisā mala -->
         <div class="header-left">
-    		<h1>Izdēst jaunumu</h1>
+            <h1>Studiju programma</h1>
         </div>
 
         <!-- Vidus sadaļa -->
@@ -22,7 +22,7 @@
         </div>
     </div>
     
-     <a href="/studioprogramms" class="btn-bck">Atpakaļ uz sarakstu</a>
+    <a href="/studioprogramms" class="btn-bck">Atpakaļ uz sarakstu</a>
     
     <div class="form-container">
         <form th:action="@{/studioprogramms/save}" th:object="${programm}" method="post">
@@ -53,7 +53,6 @@
 
             <button type="submit" class="btn-bck">Saglabāt</button>
         </form>
-
     </div>
 </body>
 </html>
