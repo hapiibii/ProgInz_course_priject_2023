@@ -173,7 +173,7 @@ a {
   margin-top: 20px;
 }
 
-/* Kalendarārā acrivas dienas bloka stili */
+/* Kalendarārā activas dienas bloka stili */
 .calendar-block {
   background-color: #ffffff;
   padding: 30px;
@@ -209,6 +209,34 @@ a {
   margin-right: 20px;
 }
 
+/* News add page*/
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
 
 /*KALENDARAIS GRAFIKS*/
 table {
