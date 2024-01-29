@@ -5,16 +5,35 @@ body {
   background-color: #ccdcd6;
 }
 
-/* Hederis */
-header {
-  position: relative;
-  background: linear-gradient(to right, #155741, #278964);
-  color: #3b986d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin-bottom: 20px; /* Pievienojiet atstarpi starp header un nākamo bloku */
+/* Kopejais hederis */
+.header-container {
+    display: flex;
+    background: linear-gradient(to right, #155741, #278964); /* Lineārā pāreja no tumšās uz gaišo krāsu */
+    color: #3b986d;
+    margin-bottom: 20px; /* Pievienojiet atstarpi starp header un nākamo bloku */
+    align-items: center; /* Horizontālā centra izvietojums */
+}
+
+/* Stils hedera kreisajai malai */
+.header-left {
+	flex: 1; /* Nodrošina elastību, lai aizņemtu visu pieejamo vietu */
+    padding: 10px;
+    text-align: left;         
+}
+
+/* Stils hedera vidus sadaļai */
+.header-middle {
+	flex: 2; /* Nodrošina elastību, lai aizņemtu divreiz vairāk vietu nekā .header-left un .header-right */
+    padding: 10px;
+    text-align: center;
+}
+
+/* Stils hedera labajai malai */
+.header-right {
+	color: #ffffff;
+	flex: 1; /* Nodrošina elastību, lai aizņemtu visu pieejamo vietu */
+    padding: 10px;
+    text-align: right;
 }
 
 .header-logo {
@@ -23,6 +42,10 @@ header {
   margin: 0;
   width: 100px;
   height: auto;
+}
+
+.button{
+	color: #ffffff;
 }
 
 /* Bloku krāsa */
