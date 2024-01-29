@@ -1,5 +1,8 @@
 package lv.venta.services.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,24 @@ public class UserService implements IUserService {
 		this.userRepo = userRepo;
 	}
 	
+	// atgriež visus lietotājus
+	@Override
+	public List<User> retrieveAllUsers () {
+		return (List<User>) userRepo.findAll();
+	}
+	
+	//atgriež lietotāju pēc id
+	@Override
+	public User retrieveUserById (long iduser) throws Exception {
+		Optional<User> optionalUser = userRepo.findById(iduser);
+		if (!optionalUser.isPresent()) {
+			throw new Exception("Wrong id!");
+		}
+		return optionalUser.get();
+	}
+	
+	
+	
 	@Override
 	public void createUser(User user) {
 		userRepo.save(user);
@@ -24,21 +45,19 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void updateUser(long iduser, String password, String email) throws Exception {
+	public User updateUser(long iduser, String password, String username) throws Exception {
 		User existingUser = userRepo.findById(iduser).orElse(null);
 		
 		if(existingUser != null) {
 			if(password != null) {
 				existingUser.setPassword(password);
 			}
-		//	if(email != null) {
-		//		existingUser.setEmail(email);
-		//	}
 			userRepo.save(existingUser);
 		}
 		else {
 			throw new Exception("Can not find user to edit.");
 		}
+		return existingUser;
 		
 	}
 
@@ -50,6 +69,14 @@ public class UserService implements IUserService {
 		catch (Exception e) {
 			throw new Exception("Can not delete user with this ID! ", e);
 		}
+		
+	}
+	
+	@Override
+	public User insertUser (String username, String password) {
+		User newUser = new User(username, username, password);
+		userRepo.save(newUser);
+		return newUser;
 		
 	}
 

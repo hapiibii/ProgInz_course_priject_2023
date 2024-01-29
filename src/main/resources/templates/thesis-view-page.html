@@ -6,6 +6,7 @@
 	</head>
 	
 	<body>
+
 	<!-- hederis ar trīs daļām -->
     <div class="header-container">
         <!-- Kreisā mala -->
@@ -21,9 +22,11 @@
         <div class="header-right">
         </div>
     </div>
-		<button id="translateToEnglishButton" class="btn-bck">Tulkot uz EN</button>
-    <button id="translateToLatvianButton" class="btn-bck">Tulkot uz LV</button>
+		
+
     
+    <button id="translateToEnglishButton" class="btn-bck">Tulkot uz EN</button>
+    <button id="translateToLatvianButton" class="btn-bck">Tulkot uz LV</button>
     <div id="translatedContent"></div>
 
     <script>
@@ -145,6 +148,14 @@
 			<!-- Poga Atpakaļ -->
 			<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
 		</div>
+		
+		
+		<!-- /*LOGO kā poga*/ -->
+		<script>
+		    function goToHomePage() {
+		        window.location.href = "http://localhost:8080/home-page";
+		    }
+		</script>
 		
 	</body>
 </html>
