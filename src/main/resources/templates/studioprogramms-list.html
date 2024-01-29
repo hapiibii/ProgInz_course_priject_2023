@@ -2,31 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Studiju Programmas</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <h2>Studiju Programmas</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Faculty</th>
-            <th>Degree</th>
-            <th>Title</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="programm : ${programms}">
-            <td th:text="${programm.getFaculty()}"></td>
-            <td th:text="${programm.getDegree()}"></td>
-            <td th:text="${programm.getTitle()}"></td>
-            <td><a th:href="@{'/studioprogramms/edit/' + ${programm.getIdstprog()}}">Labot</a></td>
-            <td><a th:href="@{'/studioprogramms/delete/' + ${programm.getIdstprog()}}">Dzēst</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <a href="/studioprogramms/add">Pievienot Jaunu Programmu</a>
-    <br><br>
-    <a href="http://localhost:8080/home-page" class="button">Atpakaļ</a>
+
+	<!-- hederis ar trīs daļām -->
+	<div class="header-container">
+	        <!-- Kreisā mala -->
+	        <div class="header-left">
+	        <h2>Studiju Programmas</h2>
+	        </div>
+	
+	        <!-- Vidus sadaļa -->
+	        <div class="header-middle">
+	            <img src="/images/logo.png" alt="Logo" class="header-logo">
+	        </div>
+	
+	        <!-- Labā mala -->
+	        <div class="header-right">
+	        </div>
+   	 </div>
+
+    <div class="program-list">
+        <!-- Poga Atpakaļ -->
+		<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
+	
+    <div style="margin-top: 20px;"></div> <!-- Tukša rinda ar stilu -->
+
+        <table class="program-table">
+            <thead>
+                <tr>
+                    <th>Faculty</th>
+                    <th>Degree</th>
+                    <th>Title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="programm : ${programms}">
+                    <td th:text="${programm.getFaculty()}"></td>
+                    <td th:text="${programm.getDegree()}"></td>
+                    <td th:text="${programm.getTitle()}"></td>
+                    <td>
+                        <a th:href="@{'/studioprogramms/edit/' + ${programm.getIdstprog()}}" class="edit-link">Labot</a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/studioprogramms/delete/' + ${programm.getIdstprog()}}" class="delete-link">Dzēst</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/studioprogramms/add" class="add-link">Pievienot Jaunu Programmu</a>
+        <br><br>
+        
+    </div>
+
 </body>
 </html>
