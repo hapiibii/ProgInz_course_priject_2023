@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="lv" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dzēst Studiju Programmu</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-<h3>Apstiprināt dzēšanu</h3>
-<p>Vai tiešām vēlaties dzēst šo programmu?</p>
-<p th:text="${programm.title}"></p>
+    <div class="header-container">
+        <div class="header-left">
+            <h1>Dzēst Studiju Programmu</h1>
+        </div>
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
+        <div class="header-right"></div>
+    </div>
 
-<!-- Izmantojiet formu, lai dzēstu studiju programmu -->
-<form th:action="@{'/studioprogramms/deleteConfirmed/' + ${programm.idstprog}}" method="post">
-    <input type="submit" value="Jā, dzēst">
-</form>
+    <div class="content">
+        <p>Vai tiešām vēlaties dzēst šo programmu?</p>
+        <h2>Nosaukums: <span th:text="${programm.title}"></span></h2>
 
-&nbsp;&nbsp;&nbsp;
-<a href="/studioprogramms">Nē, atcelt</a>
+        <form th:action="@{'/studioprogramms/deleteConfirmed/' + ${programm.idstprog}}" method="post">
+            <div class="button-container">
+                <button type="submit" class="btn-bck">Jā, dzēst</button>
+                <a href="/studioprogramms" class="btn-bck">Nē, atcelt</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

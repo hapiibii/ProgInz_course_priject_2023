@@ -4,92 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pievienot kalendāra grafiku</title>
-
-    <style>
-        /* Kopējais stils lapai */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ccdcd6;
-            margin: 0;
-        }
-
-        h1 {
-            text-align: center;
-            background-color: #155741;
-            color: #3b986d;
-            padding: 20px;
-            margin: 0;
-        }
-
-        /* Pārējais stils */
-        label {
-            display: block;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        input[type="date"] {
-            width: 50%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 25%;
-        }
-
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 25%; 
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <h1>Pievienot kalendāra grafiku</h1>
-    
-    <form action="/Calendar-schedule/calendar-add" th:object="${calendarScheduleDTO}" method="post"> 
-    <form method="post" th:action="@{'/Calendar-schedule/edit/' + ${calendarScheduleDTO.idCalendar}}">
-		    <br><br>   
-		        <!-- Gads -->
-		        <label for="gads">Gads:</label>
-		        <input type="number" id="gads" name="gads" required><br>
-		        
-		        <br>
-		        
-		        <!-- Studiju programmas nosaukums -->
-		<label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
-		<select id="studioProgrammTitle" name="studioProgrammTitle" required style="width: 50%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; margin-left: 25%;">
-		    <option value="">Izvēlieties studiju programmas nosaukumu</option>
-		    <!-- Šeit ievietojiet dinamiski iegūtos studiju programmu nosaukumus no servera -->
-		</select><br>
-		        
-		        <br>
-		        
-		        <!-- Aktivitātes dati -->
-		        <label for="activity">Aktivitāte:</label>
-		        <input type="text" id="activity" name="activity" required><br>
-		        
-		        <br>
-		        
-		        <label for="activityEndDate">Aktivitātes beigu datums:</label>
-		        <input type="date" id="activityEndDate" name="activityEndDate" required><br>
-		        
-		        <br>
-		        
-		        <label for="activityImplementation">Aktivitātes īstenošana:</label>
-		        <input type="text" id="activityImplementation" name="activityImplementation" required><br>
-		        
-		        <button type="submit">Pievienot</button>
-		    </form>
-		</form>    
-		    <br>
+<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		<h1>Pievienot Jaunumu</h1>
+        </div>
+
+        <!-- Vidus sadaļa -->
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
+
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
     <a href="/Calendar-schedule/studio-programms" class="btn-bck">Atpakaļ</a>
+    <form action="/Calendar-schedule/calendar-add" th:object="${calendarScheduleDTO}" method="post" class="form-container"> 
+        <form method="post" th:action="@{'/Calendar-schedule/edit/' + ${calendarScheduleDTO.idCalendar}}" class="form-container">
+            <div class="form-group">
+                <label for="gads">Gads:</label>
+                <input type="number" id="gads" name="gads" required>
+            </div>
+
+            <div class="form-group">
+                <label for="studioProgrammTitle">Studiju programmas nosaukums:</label>
+                <select id="studioProgrammTitle" name="studioProgrammTitle" required>
+                    <option value="">Izvēlieties studiju programmas nosaukumu</option>
+                    <!-- Šeit ievietojiet dinamiski iegūtos studiju programmu nosaukumus no servera -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="activity">Aktivitāte:</label>
+                <input type="text" id="activity" name="activity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="activityEndDate">Aktivitātes beigu datums:</label>
+                <input type="date" id="activityEndDate" name="activityEndDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="activityImplementation">Aktivitātes īstenošana:</label>
+                <input type="text" id="activityImplementation" name="activityImplementation" required>
+            </div>
+
+            <button type="submit" class="btn-bck">Pievienot</button>
+        </form>
+    </form>    
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
