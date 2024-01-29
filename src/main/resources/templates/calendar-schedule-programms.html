@@ -9,7 +9,13 @@
 
     <!-- Galvenās lapas virsraksts un logo -->
     <header>
-        <img src="/images/logo.png" alt="Logo" class="header-logo">
+        <div class="language-buttons">
+        	<button id="translateToEnglishButton">EN</button>
+        	<button id="translateToLatvianButton">LV</button>
+    	</div>
+    	<div class="header-content">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
     </header>
     <h1 data-translation="Izvēlieties studija programmu">Izvēlieties studija programmu</h1>
 
@@ -32,9 +38,6 @@
     </button>
 
 
-	<button id="translateToEnglishButton">Tulkot uz EN</button>
-    <button id="translateToLatvianButton">Tulkot uz LV</button>
-    
     <div id="translatedContent"></div>
 
     <script>
