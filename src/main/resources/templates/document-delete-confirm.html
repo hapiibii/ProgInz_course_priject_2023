@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Izdēst dokumentu</title>
 </head>
+	<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		<h1>Izdēst dokumentu</h1>
+        </div>
+
+        <!-- Vidus sadaļa -->
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
+
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
 <body>
-    <h1>Izdēst dokumentu</h1>
 
     <p>Vai tiešām vēlies dzēst šo dokumentu?</p>
     <h2>Nsakums: <span th:text="${document.documentName}"></span></h2>

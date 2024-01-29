@@ -12,13 +12,26 @@
 	</head>
 	
 	<body>
-		<header>
-			<img src="/images/logo.png" alt="Logo" class="header-logo">
-		</header>
+	<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		<h1>Dokumenta pievienošana</h1>
+        </div>
+
+        <!-- Vidus sadaļa -->
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
+
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
 		<div class="back-button">
     	<a href="/document-page" class="button">Atpakaļ</a>
 		</div>
-		<h1>Dokumenta pievienošana</h1>
+		
 
 	<form action="/document-page/create-documents"  th:action="@{/document/insert}"  th:object="${document}"   method="post" enctype="multipart/form-data">
 
