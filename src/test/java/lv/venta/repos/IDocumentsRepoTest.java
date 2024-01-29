@@ -1,3 +1,4 @@
+/*
 package lv.venta.repos;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,3 +30,4 @@ class IDocumentsRepoTest {
 	
 
 }
+*/

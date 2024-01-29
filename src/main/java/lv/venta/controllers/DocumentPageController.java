@@ -31,7 +31,7 @@ public class DocumentPageController {
 	public String showDocumentPage (Model model) throws IOException {
 		List<Documents> allDocuments = documentService.retrieveAllDocuments();
         model.addAttribute("myAllDoc", allDocuments);
-        
+        /*
         String transText = Translate.translate("lv", "en", "Dokumenti");
         String transIesniegsana = Translate.translate("lv", "en", "Iesniegšana");
         String transAizstavesana = Translate.translate("lv", "en", "Aizstāvēšana");
@@ -55,7 +55,7 @@ public class DocumentPageController {
         model.addAttribute("TranslateDarbuIzstrade", res5);
         model.addAttribute("TranslateKalendaraisGrafiks", res6);
         model.addAttribute("TranslateArhivs", res7);
-        
+        */
         return "document-page";
 	}
 	

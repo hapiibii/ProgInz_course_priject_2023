@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 
 public class Translate {
 	
-	
+	/*
 	public static String translate(String langFrom, String langTo, String text) throws IOException {
         
 		String apiKey = "AIzaSyBlYOjlzJujaFAi0mnIMbjKWzzK3Yo9dnQ";
@@ -29,4 +29,6 @@ public class Translate {
         in.close();
         return response.toString();
     }
+    */
+    
 }

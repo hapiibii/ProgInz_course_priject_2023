@@ -171,7 +171,7 @@ public class ProgInzCourseProjectApplication {
 				//documentRepo.save(doc2);
 				
 				
-				
+				/*
 				
 				String langFrom = "lv"; 
 		        String langTo = "en";  
@@ -183,7 +183,8 @@ public class ProgInzCourseProjectApplication {
 		        } catch (IOException e) {
 		            System.err.println("Kļūda veicot tulkojumu: " + e.getMessage());
 		        }
-
+		        
+				*/
 
 				//documentRepo.save(doc2);
 			
