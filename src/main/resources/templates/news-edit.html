@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="lv">
 <head>
+ 	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jaunuma rediģēšana</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
-    <h1>Jaunuma rediģēšana</h1>
-<link rel="stylesheet" type="text/css" href="/style.css">
-    <form method="post" th:action="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">
-        <input type="hidden" id="newsId" name="newsId" th:value="${news.idNews}">
-        
-        <label for="title">Virsraksts:</label><br>
-        <input type="text" id="title" name="title" th:value="${news.title}" required><br><br>
-
-        <label for="description">Apraksts:</label><br>
-         <textarea id="description" name="description" required th:text="${news.description}"></textarea><br><br>
-
-        <label for="startDate">Sākuma datums:</label><br>
-        <input type="date" id="startDate" name="startDate" th:value="${news.startDate}" required><br><br>
-
-        <label for="endDate">Beigu datums:</label><br>
-        <input type="date" id="endDate" name="endDate" th:value="${news.endDate}" required><br><br>
-
-        <input type="submit" value="Saglabāt">
-    </form>
+	<header>
+    	<h1>Jaunuma rediģēšana</h1>
+	</header>
+	
+	<!-- Poga Atpakaļ -->
+	<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
+	
+    <div style="margin-top: 20px;"></div> <!-- Tukša rinda ar stilu -->
+    
+    <div class="content">
+	    <form method="post" th:action="@{/home-page/edit-news/{newsId}(newsId=${news.idNews})}">
+	        <input type="hidden" id="newsId" name="newsId" th:value="${news.idNews}">
+	        
+	        <label for="title">Virsraksts:</label><br>
+	        <input type="text" id="title" name="title" th:value="${news.title}" required><br><br>
+	
+	        <label for="description">Apraksts:</label><br>
+	         <textarea id="description" name="description" required th:text="${news.description}"></textarea><br><br>
+	
+	        <label for="startDate">Sākuma datums:</label><br>
+	        <input type="date" id="startDate" name="startDate" th:value="${news.startDate}" required><br><br>
+	
+	        <label for="endDate">Beigu datums:</label><br>
+	        <input type="date" id="endDate" name="endDate" th:value="${news.endDate}" required><br><br>
+	
+	        <input type="submit" value="Saglabāt" class="btn-bck">
+	    </form>
+	</div>
 </body>
 </html>
