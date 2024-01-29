@@ -1,65 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalendārais grafiks</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 
     <!-- Galvenās lapas virsraksts un logo -->
-
-  <!-- hederis ar trīs daļām -->
     <div class="header-container">
-        <!-- Kreisā mala -->
         <div class="header-left">
-        <h1>Kalendārais grafiks</h1>
+            <h1>Kalendārais grafiks</h1>
         </div>
-
-        <!-- Vidus sadaļa -->
         <div class="header-middle">
             <img src="/images/logo.png" alt="Logo" class="header-logo">
         </div>
-
-        <!-- Labā mala -->
         <div class="header-right">
+            <!-- Ja nepieciešams pievienot labās puses saturs -->
         </div>
     </div>
 
+    <!-- Poga Atpakaļ -->
+	<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
+	
+    <div style="margin-top: 20px;"></div> <!-- Tukša rinda ar stilu -->
+    
 
-    <h1 data-translation="Izvēlieties studija programmu">Izvēlieties studija programmu</h1>
+	<div class="form-container">
+		 <h1 data-translation="Izvēlieties studija programmu">Izvēlieties studija programmu</h1>
+		
+	    <!-- Studiju programmu saraksts -->
+	    <ul>
+	        <!-- Šis cikls ģenerēs saraksta elementus no 'programms' saraksta -->
+	        <li th:each="programm : ${programms}">
+	            <a th:href="@{'/Calendar-schedule/studio-programms/' + ${programm.idstprog}}" th:text="${programm.title}"></a>
+	        </li>
+	    </ul>
+	
+	    <!-- Poga, lai pievienotu jaunu aktivitāti -->
+	    <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
+	        <h3 data-translation="Pievienot aktivitāti">Pievienot aktivitāti</h3>
+	    </button>
+	</div>
 
-    <!-- Atpakaļ poga -->
-    <div class="back-button">
-        <a href="http://localhost:8080/home-page" class="button" data-translation="Atpakaļ">Atpakaļ</a>
+    <!-- Pogas tulkošanas funkcionalitāte -->
+    <div>
+        <button id="translateToEnglishButton">Tulkot uz EN</button>
+        <button id="translateToLatvianButton">Tulkot uz LV</button>
     </div>
-
-    <!-- Studiju programmu saraksts -->
-    <ul>
-        <!-- Šis cikls ģenerēs saraksta elementus no 'programms' saraksta -->
-        <li th:each="programm : ${programms}">
-            <a th:href="@{'/Calendar-schedule/studio-programms/' + ${programm.idstprog}}" th:text="${programm.title}"></a>
-        </li>
-    </ul>
-
-    <!-- Poga, lai pievienotu jaunu aktivitāti -->
-    <button class="menu-button" onclick="window.location.href='/Calendar-schedule/calendar-add'">
-        <h3 data-translation="Pievienot aktivitāti">Pievienot aktivitāti</h3>
-    </button>
-
-
-  <button id="translateToEnglishButton">Tulkot uz EN</button>
-    <button id="translateToLatvianButton">Tulkot uz LV</button>
     
     <div id="translatedContent"></div>
 
+    <!-- LOGO kā poga -->
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var logoButton = document.querySelector(".header-middle img");
+            logoButton.addEventListener("click", function() {
+                goToHomePage();
+            });
+        });
 
+        function goToHomePage() {
+            window.location.href = "http://localhost:8080/home-page";
+        }
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             var translateButton = document.getElementById("translateToEnglishButton");
-            translateToEnglishButton.addEventListener("click", function() {
+            translateButton.addEventListener("click", function() {
                 translatePage("lv", "en");
             });
+
             var translateToLatvianButton = document.getElementById("translateToLatvianButton");
             translateToLatvianButton.addEventListener("click", function() {
                 translatePage("en", "lv");
@@ -67,17 +80,13 @@
         });
 
         function translatePage(langFrom, langTo) {
-            
             var translatedContent = document.getElementById("translatedContent");
-            
-            // Atrodam visus elementus ar data-translation atribūtu
             var elementsToTranslate = document.querySelectorAll("[data-translation]");
 
             elementsToTranslate.forEach(function(element) {
                 var textToTranslate = element.getAttribute("data-translation");
                 translate(langFrom, langTo, textToTranslate)
                     .then(function (translatedText) {
-                        // Aizstājam esošo tekstu ar tulkojumu
                         element.innerText = translatedText;
                     })
                     .catch(function (error) {
@@ -108,13 +117,6 @@
             });
         }
     </script>
-    <!-- /*LOGO kā poga*/ -->
-    <script>
-      function goToHomePage() {
-          window.location.href = "http://localhost:8080/home-page";
-      }
-  </script>
-
 
 </body>
 </html>
