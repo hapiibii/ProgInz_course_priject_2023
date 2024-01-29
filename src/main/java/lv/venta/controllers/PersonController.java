@@ -1,6 +1,7 @@
 package lv.venta.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lv.venta.models.users.Person;
+import lv.venta.repos.IPersonRepo;
 import lv.venta.services.impl.PersonService;
 
 @Controller
@@ -22,6 +24,8 @@ public class PersonController {
 	
 	@Autowired
 	private PersonService personService;
+	private IPersonRepo personRepo;
+	
 	
 	@GetMapping("/showAll")
 	public String showAllPersons (Model model) {
@@ -98,6 +102,20 @@ public class PersonController {
 		return "redirect:/person-page";
 	}
 	
-	
+	@GetMapping("/getByUser/{userId}")
+    public String getPersonByUser(@PathVariable("userId") long userId, Model model) {
+        try {
+            Person person = personService.getPersonByUserId(userId);
+
+            if (person != null) {
+                model.addAttribute("myPerson", person);
+                return "person-page";
+            } else {
+                return "person-not-found-page";
+            }
+        } catch (Exception e) {
+            return "error-page";
+        }
+    }
 	
 }

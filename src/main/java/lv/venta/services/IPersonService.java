@@ -12,4 +12,5 @@ public interface IPersonService {
 	void updatePersonWithoutPersoncode(long idperson, String name, String surname, Role role, User user) throws Exception;
 	void deletePerson(long idperson) throws Exception;
 	List<Person> retrieveAllPersons();
+	Person getPersonByUserId(long iduser);
 }
