@@ -73,7 +73,7 @@
                 </tr>
                 <!-- Iterēt caur activeDates un attēlot aktivitātes -->
                 <tr th:each="activities : ${activeDatesList}">
-                    <td th:text="${activities.activityDate}"></td>
+                    <td th:text="${#temporals.format(activities.activityDate, 'dd.MM.yy')}"></td>
                     <td th:text="${activities.activiti}"></td>
                 </tr>
             </table>
