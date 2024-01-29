@@ -51,6 +51,7 @@ public class HomepageController {
           List<Documents> allDocuments = documentService.retrieveAllDocuments();
           model.addAttribute("documentsList", allDocuments);
           
+          /*
           // home-page translation
           String transText = Translate.translate("lv", "en", "Dokumenti");
           String transIesniegsana = Translate.translate("lv", "en", "Iesniegšana");
@@ -81,7 +82,7 @@ public class HomepageController {
           model.addAttribute("TranslateArhivs", res7);
           model.addAttribute("TranslateJaunumi", res8);
           model.addAttribute("TranslateKalendaraisGrafiksBlock", res9);
-         
+         */
           return "homepage";
     }
    
