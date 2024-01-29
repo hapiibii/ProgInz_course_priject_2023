@@ -18,11 +18,29 @@ header {
 }
 
 .header-logo {
-  background: none;
-  padding: 0;
-  margin: 0;
-  width: 100px;
-  height: auto;
+    width: 100px;
+    height: auto;
+    margin-right: auto; /* LOGO paliek pa vidu */
+}
+
+/* Tulkošanas pogas */
+.language-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.language-buttons button {
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
 }
 
 /* Bloku krāsa */
