@@ -5,6 +5,11 @@
 </head>
 <body>
     <h1>Pievienot Jaunumu</h1>
+    
+    <!-- Atpakaļpoga -->
+    <a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
+    <div style="margin-top: 20px;"></div> <!-- Tukša rinda ar stilu -->
+    
     <link rel="stylesheet" type="text/css" href="/style.css">
     <form method="post" th:action="@{/home-page/create-news}">
         <label for="title">Nosaukums:</label>
@@ -17,5 +22,6 @@
         <input type="date" id="endDate" name="endDate" required><br>
         <input type="submit" value="Pievienot">
     </form>
+
 </body>
 </html>
