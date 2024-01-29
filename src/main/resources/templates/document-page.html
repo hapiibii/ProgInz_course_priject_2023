@@ -14,7 +14,7 @@
         	<button id="translateToLatvianButton">LV</button>
     	</div>
     	<div class="header-content">
-            <img src="/images/logo.png" alt="Logo" class="header-logo">
+            <img src="/images/logo.png" alt="Logo" class="header-logo" onclick="goToHomePage()">
         </div>
     </header>
     
@@ -122,8 +122,12 @@
         }
     </script>
     
-    
-    
+    <!-- /*LOGO kā poga*/ -->
+    <script>
+	    function goToHomePage() {
+	        window.location.href = "http://localhost:8080/home-page";
+	    }
+	</script>
     
     
     
