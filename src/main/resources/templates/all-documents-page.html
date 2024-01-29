@@ -24,9 +24,8 @@
 
 <body>
 	
-	<div class="back-button">
-    	<a href="http://localhost:8080/document-page" class="button">Atpakaļ</a>
-		</div>
+	<!-- Poga Atpakaļ -->
+	<a href="/home-page" class="btn-bck" data-translation="Atpakaļ">Atpakaļ</a>
 	<table>
 	<tr th:each="document : ${myAllDocuments}">
 		<td th:text="${document.getIddocument()}"></td>
