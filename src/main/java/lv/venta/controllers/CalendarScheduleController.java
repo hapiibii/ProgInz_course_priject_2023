@@ -29,7 +29,6 @@ import lv.venta.dto.CalendarScheduleDTO;
 import lv.venta.models.CalendarActivity;
 import lv.venta.models.CalendarSchedule;
 import lv.venta.models.StudioProgramm;
-import lv.venta.repos.ICalendarRepo;
 import lv.venta.services.ICalendarScheduleService;
 
 import lv.venta.services.ICalendarService;
