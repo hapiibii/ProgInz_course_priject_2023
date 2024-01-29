@@ -5,16 +5,28 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 
-<header>
-        <img src="/images/logo.png" alt="Logo" class="header-logo">
-    </header>
+	<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		    <h1>Visi dokmenti</h1>
+        </div>
+
+        <!-- Vidus sadaļa -->
+        <div class="header-middle">
+            <img src="/images/logo.png" alt="Logo" class="header-logo">
+        </div>
+
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
 
 <body>
 	
 	<div class="back-button">
     	<a href="http://localhost:8080/document-page" class="button">Atpakaļ</a>
 		</div>
-    <h1>All documents</h1>
 	<table>
 	<tr th:each="document : ${myAllDocuments}">
 		<td th:text="${document.getIddocument()}"></td>
