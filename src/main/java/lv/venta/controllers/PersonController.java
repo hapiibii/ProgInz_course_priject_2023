@@ -64,14 +64,14 @@ public class PersonController {
 
 	
 	@GetMapping("/delete/{idperson}")
-	public String deletePersonById(@PathVariable("idperson") long idperson, Model model) {
-		try {
-			personService.deletePerson(idperson);
-			model.addAttribute("myAllPersons", personService.retrieveAllPersons());
-			return "all-users-page";
-		} catch (Exception e) {
-			return "error-page";
-		}
+	public String deletePersonById(@PathVariable("idperson") long idperson, RedirectAttributes redirectAttributes) {
+	    try {
+	        personService.deletePerson(idperson);
+	        redirectAttributes.addFlashAttribute("message", "Persona veiksmīgi dzēsta.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Kļūda dzēšot personu.");
+	    }
+	    return "redirect:/person/showAll";
 	}
 	
 	@GetMapping("/updateById/{idperson}")
