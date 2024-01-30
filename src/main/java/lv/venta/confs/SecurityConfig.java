@@ -105,6 +105,7 @@ public class SecurityConfig {
 	    .requestMatchers("/document/download/**").permitAll()
 	    .requestMatchers("profile/view").permitAll()
 	    .requestMatchers("/person/showAll").permitAll()
+	    .requestMatchers("/person/updateById/**").permitAll()
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()

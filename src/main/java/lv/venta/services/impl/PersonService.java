@@ -107,6 +107,10 @@ public class PersonService implements IPersonService {
 	    return optionalPerson.orElse(null);
 	}
 
-	
+	@Override
+	public Person retrievePersonById(long idperson) {
+        Optional<Person> optionalPerson = personRepo.findById(idperson);
+        return optionalPerson.orElse(null);
+    }
 	
 }

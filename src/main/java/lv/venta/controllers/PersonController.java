@@ -73,6 +73,23 @@ public class PersonController {
 		}
 	}
 	
+	@GetMapping("/updateById/{idperson}")
+	public String updatePersonGetFunction(@PathVariable("idperson") long idperson, Model model) {
+	    try {
+	        Person personToUpdate = personService.retrievePersonById(idperson);
+
+	        if (personToUpdate != null) {
+	            model.addAttribute("person", personToUpdate);
+	            return "person-update-page";
+	        } else {
+	            throw new Exception("Persona ar id " + idperson + " nav atrasta.");
+	        }
+	    } catch (Exception e) {
+	        return "error-page";
+	    }
+	}
+
+	
 	@GetMapping("/update/{personcode}")
 	public String updatePersonGetFunction(@PathVariable("personcode") String personcode, Model model) {
 	    try {

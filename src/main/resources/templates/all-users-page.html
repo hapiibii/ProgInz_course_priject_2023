@@ -68,7 +68,8 @@
 					<td th:text="${person.getPersoncode()}"></td>
 					<td th:text="${person.getRole()}"></td>
 					<td>
-		                <a th:href="@{'/person/edit/' + ${person.getIdperson()}}" class="edit-button">Labot</a><p> / </p>
+		                <a th:href="@{'/person/updateById/' + ${person.idperson}}" class="edit-button">Labot</a>
+						<p> / </p>
 		                <a th:href="@{'/person/delete/' + ${person.getIdperson()}}" class="delete-button">Dzēst</a>
 		            </td>
 				</tr>
