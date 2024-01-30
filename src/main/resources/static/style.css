@@ -222,7 +222,7 @@ a {
     background-color: #ffffff;
     padding: 30px;
     margin: 0 0 50px;
-    width: calc(16.66% - 10px);
+    width: calc(20% - 10px);
     text-align: left;
     border-radius: 20px;
     display: inline-block;
@@ -301,7 +301,7 @@ tr:nth-child(even) {
 }
 
 .sidebar {
-    width: 12%;
+    width: 20%;
     padding: 20px;
     background-color: #3b986d;
     color: #ffffff;
