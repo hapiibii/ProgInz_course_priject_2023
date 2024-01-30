@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.models.AcceptanceStatus;
 import lv.venta.models.Comment;
@@ -86,8 +87,13 @@ public class ThesisController {
 	
 	//edit-thesis post
 	@PostMapping("/edit/{idthesis}")
-	public String editThesis(@PathVariable("idthesis") long idthesis, @ModelAttribute("thesis") Thesis thesis) throws Exception {
-		thesisService.updateThesis(idthesis, thesis.getTitleEn(), thesis.getTitleLv(), thesis.getGoal(), thesis.getTasks(), thesis.getStudent(), thesis.getSupervisor(), thesis.getAccStatus());
+	public String editThesis(@PathVariable("idthesis") long idthesis, @ModelAttribute("thesis") Thesis thesis, @RequestParam(name = "Idperson", required = false) Long idReviewer) throws Exception {
+		AcademicPersonel reviewer = null;
+		
+		if(idReviewer != null && idReviewer > 0) {
+			reviewer = personelService.getAcademicPersonelById(idReviewer);
+		}
+		thesisService.updateThesis(idthesis, thesis.getTitleEn(), thesis.getTitleLv(), thesis.getGoal(), thesis.getTasks(), thesis.getStudent(), thesis.getSupervisor(), thesis.getAccStatus(), reviewer);
 		return "redirect:/itftable-page/review";
 	}
 	

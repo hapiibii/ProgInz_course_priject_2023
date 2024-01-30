@@ -107,7 +107,7 @@ public class Thesis extends Auditable {
 	}
 
 	public Thesis(String titleEn, String titleLv, String goal, String tasks, Student student,
-			AcademicPersonel supervisor) {
+			AcademicPersonel supervisor, AcademicPersonel reviewer) {
 		super();
 		this.titleEn = titleEn;
 		this.titleLv = titleLv;
@@ -118,6 +118,11 @@ public class Thesis extends Auditable {
 		this.submitDateTime = LocalDateTime.now();
 		this.accStatus = AcceptanceStatus.submited;
 		this.statusFromSupervisor = true;
+		this.reviewers = new ArrayList<>();
+		
+		if(reviewer != null) {
+			this.addReviewer(reviewer);
+		}
 	}
 	
 }

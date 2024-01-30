@@ -21,5 +21,7 @@ public interface IThesisService {
 	List<Thesis> getThesisesBySupervisorStatus(boolean statusFromSupervisor);
 	
 	Thesis getThesisById(long thesisId);
+	void updateThesis(long idthesis, String titleEn, String titleLv, String goal, String tasks, Student student,
+			AcademicPersonel supervisor, AcceptanceStatus status, AcademicPersonel reviewer) throws Exception;
 	
 }

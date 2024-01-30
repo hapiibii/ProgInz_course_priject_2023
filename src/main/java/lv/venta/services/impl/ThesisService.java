@@ -41,7 +41,7 @@ public class ThesisService implements IThesisService {
 
 	@Override
 	public void updateThesis(long idthesis, String titleEn, String titleLv, String goal, String tasks, Student student,
-			AcademicPersonel supervisor, AcceptanceStatus status) throws Exception {
+			AcademicPersonel supervisor, AcceptanceStatus status, AcademicPersonel reviewer) throws Exception {
 		Thesis existingThesis = thesisRepo.findById(idthesis).orElse(null);
 		
 		if(existingThesis != null) {
@@ -72,6 +72,9 @@ public class ThesisService implements IThesisService {
 			if(status != null) {
 				existingThesis.setAccStatus(status);
 			}
+			if(reviewer != null) {
+				existingThesis.addReviewer(reviewer);
+			}
 			thesisRepo.save(existingThesis);
 		}
 		else {
@@ -99,6 +102,13 @@ public class ThesisService implements IThesisService {
 	@Override
 	public Thesis getThesisById(long thesisId) {
 		 return thesisRepo.findById(thesisId).orElse(null);
+	}
+
+	@Override
+	public void updateThesis(long idthesis, String titleEn, String titleLv, String goal, String tasks, Student student,
+			AcademicPersonel supervisor, AcceptanceStatus accStatus) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
