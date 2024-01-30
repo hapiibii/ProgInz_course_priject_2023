@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lv.venta.models.Documents;
-import lv.venta.models.Translate;
 import lv.venta.services.IDocumentsService;
 
 @Controller
