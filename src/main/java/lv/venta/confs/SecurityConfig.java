@@ -106,6 +106,7 @@ public class SecurityConfig {
 	    .requestMatchers("profile/view").permitAll()
 	    .requestMatchers("/person/showAll").permitAll()
 	    .requestMatchers("/person/updateById/**").permitAll()
+	    .requestMatchers("/person/delete/**").permitAll()
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()

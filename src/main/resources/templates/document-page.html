@@ -16,9 +16,9 @@
         </div>
 
         <!-- Vidus sadaļa -->
-        <div class="header-middle">
-            <img src="/images/logo.png" alt="Logo" class="header-logo">
-        </div>
+        <div class="header-middle" onclick="goToHomePage()" style="cursor: pointer;">
+		    <img src="/images/logo.png" alt="Logo" class="header-logo">
+		</div>
 
         <!-- Labā mala -->
         <div class="header-right">
@@ -133,6 +133,12 @@
         }
     </script>
     
+    <!-- /*LOGO kā poga*/ -->
+    <script>
+	    function goToHomePage() {
+	        window.location.href = "http://localhost:8080/home-page";
+	    }
+	</script>
     
     
     

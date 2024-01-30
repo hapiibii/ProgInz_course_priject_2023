@@ -16,9 +16,9 @@
         </div>
 
         <!-- Vidus sadaļa -->
-        <div class="header-middle">
-            <img src="/images/logo.png" alt="Logo" class="header-logo">
-        </div>
+        <div class="header-middle" onclick="goToHomePage()" style="cursor: pointer;">
+		    <img src="/images/logo.png" alt="Logo" class="header-logo">
+		</div>
 
         <!-- Labā mala -->
         <div class="header-right">
@@ -50,13 +50,25 @@
         </div>
 
 		<div class="news-block">
-            <p>Vārds: ${person.name}</p>
-            <p>Uzvārds: ${person.surname}</p>
-            <p>Personas kods: ${person.personcode}</p>
-            <p>Loma: ${person.role}</p>
-            
-        </div>
-
+		    <table>
+		        <tr>
+		            <td>Vārds:</td>
+		            <td>${person.getName}</td>
+		        </tr>
+		        <tr>
+		            <td>Uzvārds:</td>
+		            <td>${person.surname}</td>
+		        </tr>
+		        <tr>
+		            <td>Personas kods:</td>
+		            <td>${person.personcode}</td>
+		        </tr>
+		        <tr>
+		            <td>Loma:</td>
+		            <td>${person.role}</td>
+		        </tr>
+		    </table>
+		</div>
 		<a href="/person/showAll" data-translation="Visi lietotāji">Visi lietotāji</a>
 		
 

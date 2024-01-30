@@ -68,7 +68,7 @@ public class PersonController {
 		try {
 			personService.deletePerson(idperson);
 			model.addAttribute("myAllPersons", personService.retrieveAllPersons());
-			return "all-person-page";
+			return "all-users-page";
 		} catch (Exception e) {
 			return "error-page";
 		}
