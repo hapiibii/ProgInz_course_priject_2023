@@ -28,9 +28,15 @@ public class PersonController {
 	
 	
 	@GetMapping("/showAll")
-	public String showAllPersons (Model model) {
-		model.addAttribute("myAllPersons", personService.retrieveAllPersons());
-		return "all-users-page";
+	public String showAllPersons(Model model) {
+	    try {
+	        List<Person> allPersons = personService.retrieveAllPersons();
+	        model.addAttribute("myAllPersons", allPersons);
+	        return "all-users-page";
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        return "error-page";
+	    }
 	}
 	
 	@GetMapping("/person-page")

@@ -104,6 +104,7 @@ public class SecurityConfig {
 	    .requestMatchers("/h2-console/**").permitAll()
 	    .requestMatchers("/document/download/**").permitAll()
 	    .requestMatchers("profile/view").permitAll()
+	    .requestMatchers("/person/showAll").permitAll()
 	    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()
