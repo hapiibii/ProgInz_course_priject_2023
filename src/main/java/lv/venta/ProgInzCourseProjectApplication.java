@@ -132,8 +132,8 @@ public class ProgInzCourseProjectApplication {
 				//courseRepo.save(c2);
 				
 				
-				Thesis thesis1 = new Thesis("Title 1 EN", "Title 1 LV", "Goal 1", "Tasks 1", s1, ac1);
-				Thesis thesis2 = new Thesis("Title 2 EN", "Title 2 LV", "Goal 2", "Tasks 2", s2, ac2);
+				Thesis thesis1 = new Thesis("Title 1 EN", "Title 1 LV", "Goal 1", "Tasks 1", s1, ac1, null);
+				Thesis thesis2 = new Thesis("Title 2 EN", "Title 2 LV", "Goal 2", "Tasks 2", s2, ac2, null);
 				thesis1.addReviewer(ac2);
 				thesis2.addReviewer(ac1);
 				//thesisRepo.save(thesis1);
