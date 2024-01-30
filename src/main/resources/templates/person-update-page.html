@@ -36,8 +36,13 @@
 		    <br/>
 		    <label>Personas kods: </label><input type="text" th:field="*{personcode}" />
 		    <br/>
-		    <label>Loma: </label><input type="text" th:field="*{role}" />
-		    <br/>
+		    <label>Loma: </label>
+			<select th:field="*{role}">
+			    <option th:each="role : ${T(lv.venta.models.users.Role).values()}" 
+			            th:value="${role}" 
+			            th:text="${role}"></option>
+			</select>
+			<br/>
 		</form>
 		<form action="/person/showAll">
             <input type="submit" value="Saglabāt izmaiņas">

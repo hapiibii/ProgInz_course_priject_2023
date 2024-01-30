@@ -113,4 +113,22 @@ public class PersonService implements IPersonService {
         return optionalPerson.orElse(null);
     }
 	
+	@Override
+    public void updatePersonById(long id, Person updatedPerson) throws Exception {
+        Optional<Person> optionalPerson = personRepo.findById(id);
+
+        if (optionalPerson.isPresent()) {
+            Person existingPerson = optionalPerson.get();
+            existingPerson.setName(updatedPerson.getName());
+            existingPerson.setSurname(updatedPerson.getSurname());
+            existingPerson.setPersoncode(updatedPerson.getPersoncode());
+            existingPerson.setRole(updatedPerson.getRole());
+
+            personRepo.save(existingPerson);
+        } else {
+            throw new Exception("Persona ar id " + id + " nav atrasta.");
+        }
+    }
+	
+	
 }

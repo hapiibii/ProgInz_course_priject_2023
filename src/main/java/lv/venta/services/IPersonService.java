@@ -14,4 +14,5 @@ public interface IPersonService {
 	List<Person> retrieveAllPersons();
 	Person getPersonByUserId(long iduser);
 	Person retrievePersonById(long idperson);
+	void updatePersonById(long id, Person updatedPerson) throws Exception;
 }

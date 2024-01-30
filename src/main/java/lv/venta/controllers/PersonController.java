@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lv.venta.models.users.Person;
 import lv.venta.repos.IPersonRepo;
@@ -86,6 +87,23 @@ public class PersonController {
 	        }
 	    } catch (Exception e) {
 	        return "error-page";
+	    }
+	}
+	@PostMapping("/updateById/{idperson}")
+	public String updatePersonPostFunction(@PathVariable("idperson") long idperson, @ModelAttribute Person updatedPerson, RedirectAttributes redirectAttributes) {
+	    try {
+	        // Izmantojiet jauno metodi updatePersonById
+	        personService.updatePersonById(idperson, updatedPerson);
+
+	        // Pielāgot redirekcijas ziņojumu
+	        redirectAttributes.addFlashAttribute("message", "Izmaiņas saglabātas veiksmīgi.");
+
+	        // Pāradresēt uz /person/showAll
+	        return "redirect:/person/showAll";
+	    } catch (Exception e) {
+	        // Apstrādāt kļūdas gadījumā
+	        redirectAttributes.addFlashAttribute("error", "Kļūda saglabājot izmaiņas.");
+	        return "redirect:/person/showAll";
 	    }
 	}
 
