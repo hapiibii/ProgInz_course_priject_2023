@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import lv.venta.models.users.Person;
 import lv.venta.models.users.User;
 import lv.venta.services.impl.PersonService;
@@ -24,6 +25,23 @@ public class ProfileController {
 	
 	@Autowired
 	private PersonService personService;
+	
+	@GetMapping("/view")
+    public String viewUserProfile(Model model, HttpSession session) throws Exception {
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId != null) {
+            User user = userService.retrieveUserById(userId);
+            Person person = personService.getPersonByUserId(userId);
+
+            model.addAttribute("user", user);
+            model.addAttribute("person", person);
+            return "redirect:/login";
+            
+        } else {
+             return "profile-page";
+        }
+    }
 	
 	@GetMapping("/{iduser}")
 	public String viewUserProfile(@PathVariable("iduser") long iduser, Model model) throws Exception {

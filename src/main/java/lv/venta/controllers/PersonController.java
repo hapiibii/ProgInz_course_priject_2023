@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lv.venta.models.users.Person;
 import lv.venta.repos.IPersonRepo;
@@ -28,9 +29,15 @@ public class PersonController {
 	
 	
 	@GetMapping("/showAll")
-	public String showAllPersons (Model model) {
-		model.addAttribute("myAllPersons", personService.retrieveAllPersons());
-		return "all-users-page";
+	public String showAllPersons(Model model) {
+	    try {
+	        List<Person> allPersons = personService.retrieveAllPersons();
+	        model.addAttribute("myAllPersons", allPersons);
+	        return "all-users-page";
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        return "error-page";
+	    }
 	}
 	
 	@GetMapping("/person-page")
@@ -57,15 +64,49 @@ public class PersonController {
 
 	
 	@GetMapping("/delete/{idperson}")
-	public String deletePersonById(@PathVariable("idperson") long idperson, Model model) {
-		try {
-			personService.deletePerson(idperson);
-			model.addAttribute("myAllPersons", personService.retrieveAllPersons());
-			return "all-person-page";
-		} catch (Exception e) {
-			return "error-page";
-		}
+	public String deletePersonById(@PathVariable("idperson") long idperson, RedirectAttributes redirectAttributes) {
+	    try {
+	        personService.deletePerson(idperson);
+	        redirectAttributes.addFlashAttribute("message", "Persona veiksmīgi dzēsta.");
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("error", "Kļūda dzēšot personu.");
+	    }
+	    return "redirect:/person/showAll";
 	}
+	
+	@GetMapping("/updateById/{idperson}")
+	public String updatePersonGetFunction(@PathVariable("idperson") long idperson, Model model) {
+	    try {
+	        Person personToUpdate = personService.retrievePersonById(idperson);
+
+	        if (personToUpdate != null) {
+	            model.addAttribute("person", personToUpdate);
+	            return "person-update-page";
+	        } else {
+	            throw new Exception("Persona ar id " + idperson + " nav atrasta.");
+	        }
+	    } catch (Exception e) {
+	        return "error-page";
+	    }
+	}
+	@PostMapping("/updateById/{idperson}")
+	public String updatePersonPostFunction(@PathVariable("idperson") long idperson, @ModelAttribute Person updatedPerson, RedirectAttributes redirectAttributes) {
+	    try {
+	        // Izmantojiet jauno metodi updatePersonById
+	        personService.updatePersonById(idperson, updatedPerson);
+
+	        // Pielāgot redirekcijas ziņojumu
+	        redirectAttributes.addFlashAttribute("message", "Izmaiņas saglabātas veiksmīgi.");
+
+	        // Pāradresēt uz /person/showAll
+	        return "redirect:/person/showAll";
+	    } catch (Exception e) {
+	        // Apstrādāt kļūdas gadījumā
+	        redirectAttributes.addFlashAttribute("error", "Kļūda saglabājot izmaiņas.");
+	        return "redirect:/person/showAll";
+	    }
+	}
+
 	
 	@GetMapping("/update/{personcode}")
 	public String updatePersonGetFunction(@PathVariable("personcode") String personcode, Model model) {

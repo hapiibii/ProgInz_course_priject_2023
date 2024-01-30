@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lietotāju saraksts</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+
+	<!-- hederis ar trīs daļām -->
+    <div class="header-container">
+        <!-- Kreisā mala -->
+        <div class="header-left">
+    		 <h1></h1>
+        </div>
+
+        <!-- Vidus sadaļa -->
+        <div class="header-middle" onclick="goToHomePage()" style="cursor: pointer;">
+		    <img src="/images/logo.png" alt="Logo" class="header-logo">
+		</div>
+        <!-- Labā mala -->
+        <div class="header-right">
+        </div>
+    </div>
+    
+    <div class="saites-block">
+            <!-- /*janorada buspectam saites kur pogas aizved*/ -->
+
+            <a href="/document-page" class="menu-button"><h3 data-translation="Dokumenti">Dokumenti</h3></a>
+            <br>
+            <a href="/submission-page" class="menu-button"><h3 data-translation="Iesniegumi">Iesniegumi</h3></a>
+            <br>
+            <button class="menu-button"><h3 data-translation="Aizstāvēšana">Aizstāvēšana</h3></button>
+            <br>
+            <a href="/itftable-page/review" class="menu-button"><h3 data-translation="ITF Dome">ITF Dome</h3></a>
+            <br>
+
+            <button class="menu-button"><h3 data-translation="Darbu Izstrade">Darbu Izstrade</h3></button>
+            <br>
+
+            <button class="menu-button" onclick="window.location.href='http://localhost:8080/Calendar-schedule'">
+                <h3 data-translation="Kalendarais Grafiks">Kalendarais Grafiks</h3>
+            </button>
+
+            <br>
+            <button class="menu-button"><h3 data-translation="Arhivs">Arhivs</h3></button>
+        </div>
+    
+    <div class="news-block">
+            <h1>Lietotāji</h1>
+            <table>
+            
+            	<tr>
+            		<th>Nr.p.k.</th>
+	                <th>Vārds</th>
+	                <th>Uzvārds</th>
+	                <th>Personas kods</th>
+	                <th>Loma</th>
+	                <th>Labot/Dzēst</th>
+            	</tr>
+            
+				<tr th:each="person : ${myAllPersons}">
+					<td th:text="${person.getIdperson()}"></td>
+					<td th:text="${person.getName()}"></td>
+					<td th:text="${person.getSurname()}"></td>
+					<td th:text="${person.getPersoncode()}"></td>
+					<td th:text="${person.getRole()}"></td>
+					<td>
+		                <a th:href="@{'/person/updateById/' + ${person.idperson}}" class="edit-button">Labot</a>
+						<p> / </p>
+		                <a th:href="@{'/person/delete/' + ${person.getIdperson()}}" class="delete-button">Dzēst</a>
+		            </td>
+				</tr>
+	
+	
+			</table>
+        </div>
+    
+    
+    <!-- /*LOGO kā poga*/ -->
+    <script>
+	    function goToHomePage() {
+	        window.location.href = "http://localhost:8080/home-page";
+	    }
+	</script>
+    
+    
+    
+    
+    
+
+</body>
+</html>
